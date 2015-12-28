@@ -1,3 +1,5 @@
+'use strict';
+
 const koa = require('koa');
 const send = require('koa-send');
 const webpackMiddleware = require('./webpack-middleware');

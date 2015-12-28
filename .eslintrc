@@ -4,10 +4,6 @@
     "es6": true
   },
 
-  "ecmaFeatures": {
-    "modules": true
-  },
-
   "rules": {
     "comma-dangle": 0,
     "no-cond-assign": 2,
@@ -93,7 +89,7 @@
     "wrap-iife": 1,
     "yoda": [1, "never"],
 
-    "strict": 0,
+    "strict": 2,
 
     "init-declarations": 0,
     "no-catch-shadow": 2,

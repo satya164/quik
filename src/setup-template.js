@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const ncp = require('ncp');
 const setupDeps = require('./setup-deps');
