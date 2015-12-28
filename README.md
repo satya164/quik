@@ -12,6 +12,34 @@ First, install the npm package globally.
 npm install -g quik
 ```
 
-Now open the Terminal in any directory and run `quik`. It'll start a simple server which will serve the files in the directory. The awesome thing here is that you can include any ES2015 file in a script tag in an HTML file. The script will be transpiled to ES2015 on the fly. You can use ES2015 modules too!
+Now open the Terminal in any directory and run the following,
 
-You can run `quik init AwesomeProject` to generate a sample project with an HTML file and a script for your convenience. This is completely optional.
+```sh
+quik
+```
+
+It'll start a simple server which will serve the files in the current directory.
+
+You can provide a port as an argument if you want to use a different port. For example, to run the server in the port `8008`, run,
+
+```sh
+quik 8008
+```
+
+You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES2015 on the fly. You can use ES2015 modules to require other scripts as well.
+
+You can also `import` the following packages by default without any `npm install`,
+
+* radium
+* react
+* react-dom
+* react-redux
+* redux
+
+To generate a sample project with an HTML file and a script, run the following in a Terminal,
+
+```sh
+quik init AwesomeProject
+```
+
+This is just for your convenience and is completely optional.
