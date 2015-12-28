@@ -1,0 +1,35 @@
+{
+  "name": "quik",
+  "version": "0.1.0",
+  "description": "A simple server that compiles files with Babel on the fly",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "quik" : "bin/quik.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:satya164/quik.git"
+  },
+  "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
+  "license": "MIT",
+  "dependencies": {
+    "babel-loader": "^6.2.0",
+    "babel-polyfill": "^6.3.14",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-1": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "json-loader": "^0.5.4",
+    "koa": "^1.1.2",
+    "koa-send": "^3.1.0",
+    "memory-fs": "^0.3.0",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "source-map-support": "^0.4.0",
+    "webpack": "^1.12.9"
+  }
+}
