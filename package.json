@@ -1,6 +1,6 @@
 {
   "name": "quik",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple server that compiles files with Babel on the fly",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
     "babel-register": "^6.3.13",
+    "babel-runtime": "^6.3.19",
     "json-loader": "^0.5.4",
     "koa": "^1.1.2",
     "koa-send": "^3.1.0",
