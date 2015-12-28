@@ -1,10 +1,8 @@
 import webpack from 'webpack';
 import path from 'path';
 import MemoryFS from 'memory-fs';
-import setupDeps from './setup-deps';
 
 const WORKINGDIR = process.cwd();
-const BABEL_PRESETS = [ 'react', 'es2015', 'stage-1' ]
 
 const config = {
     context: WORKINGDIR,
@@ -17,7 +15,7 @@ const config = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: BABEL_PRESETS
+                    presets: [ 'react', 'es2015', 'stage-1' ]
                 }
             },
             {
@@ -34,15 +32,8 @@ const config = {
     }
 };
 
-let babelSetUp = false;
-
 export default function *(next) {
     if (/(\.js)$/.test(this.path)) {
-        if (!babelSetUp) {
-            setupDeps(BABEL_PRESETS.map(preset => 'babel-preset-' + preset));
-            babelSetUp = true;
-        }
-
         this.body = yield new Promise((resolve, reject) => {
             const fs = new MemoryFS();
             const filePath = this.path;

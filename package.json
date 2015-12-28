@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "quik" : "bin/quik.js"
+    "quik": "bin/quik.js"
   },
   "repository": {
     "type": "git",
@@ -27,8 +27,13 @@
     "koa": "^1.1.2",
     "koa-send": "^3.1.0",
     "memory-fs": "^0.3.0",
+    "ncp": "^2.0.0",
+    "opn": "^3.0.3",
+    "radium": "^0.15.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-redux": "^4.0.5",
+    "redux": "^3.0.5",
     "source-map-support": "^0.4.0",
     "webpack": "^1.12.9"
   }

@@ -4,7 +4,7 @@ import webpackMiddleware from './webpack-middleware';
 
 const WORKINGDIR = process.cwd();
 
-export function start(port) {
+export default function(port) {
     const app = koa();
 
     app.use(webpackMiddleware);
