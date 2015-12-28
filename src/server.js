@@ -2,6 +2,7 @@
 
 const koa = require('koa');
 const send = require('koa-send');
+const logger = require('koa-logger');
 const webpackMiddleware = require('./webpack-middleware');
 
 const WORKINGDIR = process.cwd();
@@ -9,6 +10,7 @@ const WORKINGDIR = process.cwd();
 module.exports = function(port) {
     const app = koa();
 
+    app.use(logger())
     app.use(webpackMiddleware());
     app.use(function *() {
         if (this.method === 'GET') {
