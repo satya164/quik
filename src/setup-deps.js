@@ -1,14 +1,12 @@
-import path from 'path';
-import fs from 'fs';
-import child_process from 'child_process';
+const path = require('path');
+const fs = require('fs');
+const child_process = require('child_process');
 
-function setup(dir, packages) {
+module.exports = function(dir, packages) {
     for (const pak of packages) {
         if (!fs.existsSync(path.join(dir, 'node_modules', pak))) {
             console.log(`Installing package '${pak}'`);
             child_process.execSync('npm install ' + pak, { cwd: dir });
         }
     }
-}
-
-export default setup;
+};

@@ -1,10 +1,10 @@
-import koa from 'koa';
-import send from 'koa-send';
-import webpackMiddleware from './webpack-middleware';
+const koa = require('koa');
+const send = require('koa-send');
+const webpackMiddleware = require('./webpack-middleware');
 
 const WORKINGDIR = process.cwd();
 
-export default function(port) {
+module.exports = function(port) {
     const app = koa();
 
     app.use(webpackMiddleware);
@@ -23,4 +23,4 @@ export default function(port) {
     app.listen(port);
 
     console.log(`Server listening on ${port}`);
-}
+};

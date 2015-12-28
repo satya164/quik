@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     devtool: 'eval',
     module: {
         loaders: [

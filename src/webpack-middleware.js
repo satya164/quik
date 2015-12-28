@@ -1,6 +1,6 @@
-import webpack from 'webpack';
-import path from 'path';
-import MemoryFS from 'memory-fs';
+const webpack = require('webpack');
+const path = require('path');
+const MemoryFS = require('memory-fs');
 
 const WORKINGDIR = process.cwd();
 
@@ -32,7 +32,7 @@ const config = {
     }
 };
 
-export default function *(next) {
+module.exports = function *(next) {
     if (/(\.js)$/.test(this.path)) {
         this.body = yield new Promise((resolve, reject) => {
             const fs = new MemoryFS();
@@ -72,4 +72,4 @@ export default function *(next) {
     }
 
     yield next;
-}
+};
