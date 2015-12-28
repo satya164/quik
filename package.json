@@ -1,6 +1,6 @@
 {
   "name": "quik",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple server that compiles files with Babel on the fly",
   "main": "index.js",
   "scripts": {
