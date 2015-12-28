@@ -14,7 +14,7 @@ module.exports = function(name) {
             return console.error(err);
         }
 
-        setupDeps(projectDir, BABEL_PRESETS.map(preset => 'babel-preset-' + preset));
+        // setupDeps(projectDir, BABEL_PRESETS.map(preset => 'babel-preset-' + preset));
 
         console.log('Project initialized successfully!');
     });

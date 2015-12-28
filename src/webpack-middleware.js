@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const MemoryFS = require('memory-fs');
 
+const CURRENTDIR = path.join(__dirname, '..');
 const WORKINGDIR = process.cwd();
 
 const config = {
@@ -17,7 +18,11 @@ const config = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: [ 'react', 'es2015', 'stage-1' ]
+                    presets: [
+                        require.resolve('babel-preset-es2015'),
+                        require.resolve('babel-preset-react'),
+                        require.resolve('babel-preset-stage-1')
+                    ]
                 }
             },
             {
@@ -26,11 +31,16 @@ const config = {
             }
         ]
     },
-    resolve: {
-        fallback: [ path.join(__dirname, '../node_modules') ]
-    },
     resolveLoader: {
-        root: path.join(__dirname, '../node_modules')
+        root: [
+            path.join(CURRENTDIR, 'node_modules')
+        ]
+    },
+    resolve: {
+        root: [
+            path.join(CURRENTDIR, 'node_modules'),
+            path.join(WORKINGDIR, 'node_modules')
+        ]
     }
 };
 
