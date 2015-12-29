@@ -4,9 +4,9 @@ const webpack = require('webpack');
 const MemoryFS = require('memory-fs');
 const config = require('./webpack-config');
 
-const WORKINGDIR = process.cwd();
+module.exports = function(options) {
+    const WORKINGDIR = options.root;
 
-module.exports = function() {
     return function *(next) {
         if (typeof this.body === 'undefined' && /(\.js)$/.test(this.path)) {
             this.body = yield new Promise((resolve, reject) => {

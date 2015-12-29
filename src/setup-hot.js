@@ -5,9 +5,7 @@ const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 const webpackConfig = require('./webpack-config');
 
-const WORKINGDIR = process.cwd();
-
-module.exports = function(app, entries) {
+module.exports = function(options) {
     const loaders = webpackConfig.module.loaders.slice();
 
     loaders.unshift({
@@ -18,14 +16,14 @@ module.exports = function(app, entries) {
 
     const entry = {};
 
-    for (let e of entries) {
+    for (let e of options.entries) {
         entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
     }
 
     const compiler = webpack(Object.assign({}, webpackConfig, {
         entry,
         output: {
-            path: WORKINGDIR,
+            path: options.root,
             publicPath: '/',
             filename: '[name]'
         },
@@ -33,10 +31,10 @@ module.exports = function(app, entries) {
         module: { loaders }
     }));
 
-    app.use(webpackDevMiddleware(compiler, {
+    options.app.use(webpackDevMiddleware(compiler, {
         publicPath: '/',
         noInfo: true
     }));
 
-    app.use(webpackHotMiddleware(compiler));
+    options.app.use(webpackHotMiddleware(compiler));
 };

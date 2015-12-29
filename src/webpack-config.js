@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const path = require('path');
 
 const CURRENTDIR = path.join(__dirname, '..');
-const WORKINGDIR = process.cwd();
 
 module.exports = {
     devtool: 'eval',
@@ -39,9 +38,8 @@ module.exports = {
         ]
     },
     resolve: {
-        root: [
-            path.join(CURRENTDIR, 'node_modules'),
-            path.join(WORKINGDIR, 'node_modules')
+        fallback: [
+            path.join(CURRENTDIR, 'node_modules')
         ]
     }
 };

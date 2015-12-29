@@ -2,8 +2,10 @@
 
 'use strict';
 
-const opn = require('opn');
 const yargs = require('yargs');
+const path = require('path');
+const ncp = require('ncp');
+const opn = require('opn');
 const quik = require('../index');
 
 const argv = yargs.array('watch').argv;
@@ -16,10 +18,17 @@ if (argv.init) {
         process.exit(1);
     }
 
-    quik.init(name);
-} else {
-    const port = argv.port || 3000;
+    ncp.ncp(path.join(__dirname, '../template/'), path.join(process.cwd(), name), err => {
+        if (err) {
+            return console.error(err);
+        }
 
-    quik.server(port, argv.watch);
-    opn('http://localhost:' + port);
+        console.log('Project initialized successfully!');
+    });
+} else {
+    quik.server({
+        root: process.cwd(),
+        port: argv.port,
+        watch: argv.watch
+    }).then(opn);
 }
