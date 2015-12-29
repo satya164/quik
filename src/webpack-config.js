@@ -8,7 +8,11 @@ const WORKINGDIR = process.cwd();
 
 module.exports = {
     devtool: 'eval',
-    plugins: [ new webpack.NoErrorsPlugin() ],
+    plugins: [
+        new webpack.EnvironmentPlugin('NODE_ENV'),
+        new webpack.NoErrorsPlugin(),
+        new webpack.optimize.OccurenceOrderPlugin()
+    ],
     module: {
         loaders: [
             {
