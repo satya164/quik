@@ -6,19 +6,24 @@ Setting up the tooling required to work on a modern day web app is hard, and mak
 
 Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly.
 
-## Requirements
+## Features
+
+* One-time installation, no additional setup required
+* React, Redux and Radium are already included
+* Hot-module replacement
+* Quick prototyping with an optional starter template
+
+## Installation
 
 You need at least Node 5.0 to run `quik`.
 
-## Installation and usage
-
-First, install the npm package globally.
-
 ```sh
-npm install -g quik
+npm install --global quik
 ```
 
-Now open the Terminal in any directory and run the following,
+## Usage
+
+Open the Terminal in any directory and run the following,
 
 ```sh
 quik
@@ -32,7 +37,7 @@ If you want to use a different port. For example, to run the server in the port 
 quik --port 8008
 ```
 
-You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES2015 on the fly. You can use ES2015 modules to import other scripts as well.
+You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES2015 on the fly. You can use JSX and Flow syntax as well as use ES2015 modules to import other scripts. It just works.
 
 You can also `import` the following packages by default without any `npm install`,
 
@@ -42,7 +47,7 @@ You can also `import` the following packages by default without any `npm install
 * [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
 * [`redux`](http://redux.js.org/)
 
-## Hot reload
+## Enabling Hot reload
 
 To enable hot reload for React Components, you need to specify the filenames you want to watch,
 
@@ -54,10 +59,11 @@ You only need to specify the entry points, not all scripts. Most of the time, it
 
 ## Sample project
 
-To generate a sample project with an HTML file and a script, run the following in a Terminal,
+To get started with a sample project, run the following in a Terminal,
 
 ```sh
 quik --init AwesomeProject
+cd AwesomeProject && quik
 ```
 
 This is just for your convenience and is completely optional.
@@ -85,3 +91,27 @@ app.use(quikMiddleware({
     root: process.cwd()
 }));
 ```
+
+## How it works
+
+The idea behind `quik` is very simple. Whenever a request for a JavaScript file is received, a `webpack` config is generated for the file on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script. The hot module replacement is also powered by `webpack`.
+
+## Motivation
+
+Tooling is the hardest part in JavaScript development, and it's time we do something about it.
+
+The following posts inspired me to work on `quik`,
+
+* [Challenge: Best JavaScript Setup for Quick Prototyping](http://blog.vjeux.com/2015/javascript/challenge-best-javascript-setup-for-quick-prototyping.html) by [@vjeux](https://github.com/vjeux)
+* [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [@ericclemmons](https://github.com/ericclemmons)
+
+One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, nor do we plan to in near future.
+
+## Plans for improvements
+
+* Automatically parse HTML files to enable hot reloading without having to specify files with `--watch`
+* Cache bundles instead of re-building on every request
+* Better error handling
+* Build a bundle and inject it to the HTML file for sharing
+* Atom plugin to make it easier to use without CLI
+* Build bundles for production use
