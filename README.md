@@ -4,6 +4,8 @@ A quick way to prototype apps with React and Babel.
 
 Setting up the tooling required to work on a modern day web app is hard, and makes quick prototyping much more difficult than it should be. Quik is a quick way to prototype a React application without any kind of setup.
 
+Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly.
+
 ## Requirements
 
 You need at least Node 5.0 to run `quik`.

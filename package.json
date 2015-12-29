@@ -1,7 +1,7 @@
 {
   "name": "quik",
-  "version": "0.1.5",
-  "description": "A simple server that compiles files with Babel on the fly",
+  "version": "0.1.6",
+  "description": "A quick way to prototype apps with React and Babel.",
   "main": "index.js",
   "scripts": {
     "start": "node index",
