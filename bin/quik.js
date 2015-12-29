@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+'use strict';
+
 const opn = require('opn');
 const argv = require('yargs').argv;
 const quik = require('../index');
@@ -16,6 +18,6 @@ if (argv.init) {
 } else {
     const port = argv.port || 3000;
 
-    quik.server(port);
+    quik.server(port, argv.entry);
     opn('http://localhost:' + port);
 }
