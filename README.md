@@ -30,11 +30,11 @@ You can include any ES2015 file in a script tag in an HTML file and the script w
 
 You can also `import` the following packages by default without any `npm install`,
 
-* `radium`
-* `react`
-* `react-dom`
-* `react-redux`
-* `redux`
+* [`radium`](http://stack.formidable.com/radium/)
+* [`react`](https://facebook.github.io/react/)
+* [`react-dom`](https://facebook.github.io/react/docs/top-level-api.html#reactdom)
+* [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
+* [`redux`](http://redux.js.org/)
 
 To generate a sample project with an HTML file and a script, run the following in a Terminal,
 
