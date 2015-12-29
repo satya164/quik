@@ -1,12 +1,11 @@
 #! /usr/bin/env node
 
-var opn = require('opn'),
-    quik = require('../index');
+const opn = require('opn');
+const argv = require('yargs').argv;
+const quik = require('../index');
 
-var arg = process.argv[2];
-
-if (arg === 'init') {
-    var name = process.argv[3];
+if (argv.init) {
+    const name = argv.init;
 
     if (!name) {
         console.log('Please specify a name for the project');
@@ -15,7 +14,7 @@ if (arg === 'init') {
 
     quik.init(name);
 } else {
-    var port = arg ? parseInt(arg, 10) : 3000;
+    const port = argv.port || 3000;
 
     quik.server(port);
     opn('http://localhost:' + port);

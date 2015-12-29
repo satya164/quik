@@ -20,26 +20,26 @@ quik
 
 It'll start a simple server which will serve the files in the current directory.
 
-You can provide a port as an argument if you want to use a different port. For example, to run the server in the port `8008`, run,
+If you want to use a different port. For example, to run the server in the port `8008`, run,
 
 ```sh
-quik 8008
+quik --port 8008
 ```
 
 You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES2015 on the fly. You can use ES2015 modules to require other scripts as well.
 
 You can also `import` the following packages by default without any `npm install`,
 
-* radium
-* react
-* react-dom
-* react-redux
-* redux
+* `radium`
+* `react`
+* `react-dom`
+* `react-redux`
+* `redux`
 
 To generate a sample project with an HTML file and a script, run the following in a Terminal,
 
 ```sh
-quik init AwesomeProject
+quik --init AwesomeProject
 ```
 
 This is just for your convenience and is completely optional.
