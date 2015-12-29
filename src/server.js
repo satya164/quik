@@ -8,13 +8,13 @@ const setupHot = require('./setup-hot');
 
 const WORKINGDIR = process.cwd();
 
-module.exports = function(port, entry) {
+module.exports = function(port, entries) {
     const app = koa();
 
     app.use(logger());
 
-    if (entry) {
-        setupHot(app, entry);
+    if (entries && entries.length) {
+        setupHot(app, entries);
     }
 
     app.use(quikMiddleWare());

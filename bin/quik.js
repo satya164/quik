@@ -3,8 +3,10 @@
 'use strict';
 
 const opn = require('opn');
-const argv = require('yargs').argv;
+const yargs = require('yargs');
 const quik = require('../index');
+
+const argv = yargs.array('watch').argv;
 
 if (argv.init) {
     const name = argv.init;
@@ -18,6 +20,6 @@ if (argv.init) {
 } else {
     const port = argv.port || 3000;
 
-    quik.server(port, argv.entry);
+    quik.server(port, argv.watch);
     opn('http://localhost:' + port);
 }

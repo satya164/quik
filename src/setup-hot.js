@@ -7,7 +7,7 @@ const webpackConfig = require('./webpack-config');
 
 const WORKINGDIR = process.cwd();
 
-module.exports = function(app, entry) {
+module.exports = function(app, entries) {
     const loaders = webpackConfig.module.loaders.slice();
 
     loaders.unshift({
@@ -16,15 +16,18 @@ module.exports = function(app, entry) {
         loader: 'react-hot-loader'
     });
 
+    const entry = {};
+
+    for (let e of entries) {
+        entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
+    }
+
     const compiler = webpack(Object.assign({}, webpackConfig, {
-        entry: [
-            './' + entry,
-            'webpack-hot-middleware/client'
-        ],
+        entry,
         output: {
             path: WORKINGDIR,
             publicPath: '/',
-            filename: entry
+            filename: '[name]'
         },
         plugins: [].concat(webpackConfig.plugins, [ new webpack.HotModuleReplacementPlugin() ]),
         module: { loaders }
