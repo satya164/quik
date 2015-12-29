@@ -10,7 +10,7 @@ const WORKINGDIR = process.cwd();
 module.exports = function(port) {
     const app = koa();
 
-    app.use(logger())
+    app.use(logger());
     app.use(webpackMiddleware());
     app.use(function *() {
         if (this.method === 'GET') {
