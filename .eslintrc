@@ -89,7 +89,7 @@
     "wrap-iife": 1,
     "yoda": [1, "never"],
 
-    "strict": 2,
+    "strict": [2, "global"],
 
     "init-declarations": 0,
     "no-catch-shadow": 2,
