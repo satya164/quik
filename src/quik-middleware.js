@@ -8,13 +8,15 @@ const WORKINGDIR = process.cwd();
 
 module.exports = function() {
     return function *(next) {
-        if (/(\.js)$/.test(this.path)) {
+        if (typeof this.body === 'undefined' && /(\.js)$/.test(this.path)) {
             this.body = yield new Promise((resolve, reject) => {
                 const fs = new MemoryFS();
                 const filePath = this.path;
 
                 const compiler = webpack(Object.assign({}, config, {
-                    entry: [ '.' + filePath ],
+                    entry: [
+                        '.' + filePath
+                    ],
                     output: {
                         path: WORKINGDIR,
                         filename: 'output.js'
