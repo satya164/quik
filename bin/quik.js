@@ -10,7 +10,7 @@ const opn = require('opn');
 const chalk = require('chalk');
 const quik = require('../index');
 
-const argv = yargs.array('watch').argv;
+const argv = yargs.array('watch').array('bundle').argv;
 
 if (argv.init) {
     const name = argv.init;
@@ -32,6 +32,15 @@ if (argv.init) {
         }
 
         console.log('Project initialized successfully!');
+    });
+} else if (argv.bundle) {
+    quik.bundle({
+        root: process.cwd(),
+        entry: argv.bundle.map(it => './' + it),
+        output: argv.output,
+        production: argv.production
+    }).then(output => {
+        console.log(`Bundle generated at ${chalk.green(output)}`);
     });
 } else {
     quik.server({

@@ -9,8 +9,7 @@ module.exports = {
     devtool: 'eval',
     plugins: [
         new webpack.EnvironmentPlugin('NODE_ENV'),
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.NoErrorsPlugin()
     ],
     module: {
         loaders: [

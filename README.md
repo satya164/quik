@@ -57,6 +57,16 @@ quik --watch file1.js file2.js
 
 You only need to specify the entry points, not all scripts. Most of the time, it'll be just one script. Note that hot reload won't work for any components in the entry points.
 
+## Generating JavaScript Bundle
+
+To generate a bundle for use in your web application, run the following in a Terminal,
+
+```sh
+quik --bundle entry.js --output bundle.js --production
+```
+
+The `--production` option performs minification on the resulting bundle. You can omit it if you're not going to use the file in production.
+
 ## Sample project
 
 To get started with a sample project, run the following in a Terminal,
@@ -79,6 +89,19 @@ quik.server({
     root: process.cwd(),
     port: 8008,
     watch: [ 'file1.js', 'file2.js' ]
+});
+```
+
+To generate a bundle programmatically,
+
+```js
+const quik = require('quik');
+
+quik.bundle({
+    root: process.cwd(),
+    entry: [ 'index.js' ],
+    output: 'bundle.min.js',
+    production: true
 });
 ```
 
@@ -114,4 +137,3 @@ One good thing about `quik` is that it is highly opinionated, which means we don
 * Better error handling
 * Build a bundle and inject it to the HTML file for sharing
 * Atom plugin to make it easier to use without CLI
-* Build bundles for production use
