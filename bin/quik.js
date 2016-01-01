@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const ncp = require('ncp');
 const opn = require('opn');
+const chalk = require('chalk');
 const quik = require('../index');
 
 const argv = yargs.array('watch').argv;
@@ -37,5 +38,9 @@ if (argv.init) {
         root: process.cwd(),
         port: argv.port,
         watch: argv.watch
+    }).then(url => {
+        console.log(`Quik is serving files at ${chalk.blue(url)}`);
+
+        return url;
     }).then(opn);
 }
