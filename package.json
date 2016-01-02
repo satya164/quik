@@ -39,7 +39,6 @@
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.5",
     "redux": "^3.0.5",
-    "source-map-support": "^0.4.0",
     "webpack": "^1.12.9",
     "yargs": "^3.31.0"
   }
