@@ -51,7 +51,7 @@ module.exports = function(options) {
                 return;
             }
 
-            resolve(result.assetsByChunkName);
+            resolve(result);
         });
     });
 };

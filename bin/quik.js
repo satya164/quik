@@ -43,11 +43,12 @@ if (argv.version) {
         output: argv.output,
         production: argv.production
     })
-    .then(output => {
+    .then(result => {
+        const assets = result.assetsByChunkName;
         const bundles = [];
 
-        for (const b in output) {
-            bundles.push(path.resolve(process.cwd(), output[b][0]));
+        for (const b in assets) {
+            bundles.push(path.resolve(process.cwd(), assets[b][0]));
         }
 
         console.log(`Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.green(b)).join(', ')}`);
