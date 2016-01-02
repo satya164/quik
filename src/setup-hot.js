@@ -5,14 +5,23 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
-const webpackConfig = require('./webpack-config');
+const config = require('./webpack-config');
 
 module.exports = function(options) {
-    const loaders = webpackConfig.module.loaders.slice();
+    const loaders = config.module.loaders.slice();
 
-    for (let loader of loaders) {
+    for (let i = 0, l = loaders.length; i < l; i++) {
+        const loader = loaders[i];
+
         if (loader.loader === 'babel-loader' || loader.loader === 'babel') {
-            loader.query.presets.push(require.resolve('babel-preset-react-hmre'));
+            loaders[i] = Object.assign({}, loader, {
+                query: Object.assign({}, loader.query, {
+                    presets: [
+                        ...loader.query.presets,
+                        require.resolve('babel-preset-react-hmre')
+                    ]
+                })
+            });
         }
     }
 
@@ -28,14 +37,14 @@ module.exports = function(options) {
         }
     }
 
-    const compiler = webpack(Object.assign({}, webpackConfig, {
+    const compiler = webpack(Object.assign({}, config, {
         entry,
         output: {
             path: options.root,
             publicPath: '/',
             filename: '[name]'
         },
-        plugins: [].concat(webpackConfig.plugins, [ new webpack.HotModuleReplacementPlugin() ]),
+        plugins: [].concat(config.plugins, [ new webpack.HotModuleReplacementPlugin() ]),
         module: { loaders }
     }));
 
