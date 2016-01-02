@@ -5,9 +5,12 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
-const config = require('./webpack-config');
+const loadWebpackConfig = require('./load-webpack-config');
 
 module.exports = function(options) {
+    const config = loadWebpackConfig({
+        root: options.root
+    });
     const loaders = config.module.loaders.slice();
 
     for (let i = 0, l = loaders.length; i < l; i++) {

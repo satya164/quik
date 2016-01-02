@@ -3,11 +3,15 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const config = require('./webpack-config');
+const loadWebpackConfig = require('./load-webpack-config');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
     const OUTPUTFILE = options.output || '[name].bundle.js';
+
+    const config = loadWebpackConfig({
+        root: WORKINGDIR
+    });
 
     return Promise.all(options.entry.map(f => {
         const file = path.join(WORKINGDIR, f);
