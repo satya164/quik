@@ -39,7 +39,8 @@ if (argv.init) {
         entry: argv.bundle.map(it => './' + it),
         output: argv.output,
         production: argv.production
-    }).then(output => {
+    })
+    .then(output => {
         const bundles = [];
 
         for (const b in output) {
@@ -47,15 +48,19 @@ if (argv.init) {
         }
 
         console.log(`Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.green(b)).join(', ')}`);
-    });
+    })
+    .catch(() => process.exit(1));
 } else {
     quik.server({
         root: process.cwd(),
         port: argv.port,
         watch: argv.watch
-    }).then(url => {
+    })
+    .then(url => {
         console.log(`Quik is serving files at ${chalk.blue(url)}`);
 
         return url;
-    }).then(opn);
+    })
+    .then(opn)
+    .catch(() => process.exit(1));
 }
