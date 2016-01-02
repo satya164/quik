@@ -9,10 +9,13 @@ const ncp = require('ncp');
 const opn = require('opn');
 const chalk = require('chalk');
 const quik = require('../index');
+const pak = require('../package.json');
 
 const argv = yargs.array('watch').array('bundle').argv;
 
-if (argv.init) {
+if (argv.version) {
+    console.log(pak.version);
+} else if (argv.init) {
     const name = argv.init;
 
     if (typeof name !== 'string') {
