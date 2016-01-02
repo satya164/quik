@@ -136,8 +136,8 @@ Tooling is the hardest part in JavaScript development, and it's time we do somet
 
 The following posts inspired me to work on `quik`,
 
-* [Challenge: Best JavaScript Setup for Quick Prototyping](http://blog.vjeux.com/2015/javascript/challenge-best-javascript-setup-for-quick-prototyping.html) by [@vjeux](https://github.com/vjeux)
-* [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [@ericclemmons](https://github.com/ericclemmons)
+* [Challenge: Best JavaScript Setup for Quick Prototyping](http://blog.vjeux.com/2015/javascript/challenge-best-javascript-setup-for-quick-prototyping.html) by [**@vjeux**](https://github.com/vjeux)
+* [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [**@ericclemmons**](https://github.com/ericclemmons)
 
 One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, nor do we plan to in near future.
 
@@ -150,3 +150,12 @@ The goal of `quik` is to improve the tooling around React and Babel projects. Wh
 * Better error handling
 * Build a bundle and inject it to the HTML file for sharing
 * Atom plugin to make it easier to use without CLI
+
+## Similar tools
+
+Of course, `quik` is not the only tool trying to solve this problem. There are few other tools which are also doing a good job at it.
+
+Below are 2 tools that I know of. Both of these use browserify (`prot` is based on [`budo`](https://github.com/mattdesl/budo), which uses browserify under the hood), and have live reload, which is different than Hot-module replacement.
+
+* [run-js](https://github.com/remixz/run-js)
+* [prot](https://github.com/mattdesl/prot)
