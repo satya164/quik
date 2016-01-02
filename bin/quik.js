@@ -52,7 +52,10 @@ if (argv.version) {
 
         console.log(`Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.green(b)).join(', ')}`);
     })
-    .catch(() => process.exit(1));
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
 } else {
     quik.server({
         root: process.cwd(),
@@ -65,5 +68,8 @@ if (argv.version) {
         return url;
     })
     .then(opn)
-    .catch(() => process.exit(1));
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
 }
