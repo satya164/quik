@@ -128,7 +128,7 @@ app.use(quikMiddleware({
 
 ## How it works
 
-The idea behind `quik` is very simple. Whenever a request for a JavaScript file is received, a `webpack` config is generated for the file on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script. The hot module replacement is also powered by `webpack`.
+`quik` is just an abstraction on top of `webpack`. It includes a base `webpack` config and generates appropriate config files when needed. For example, when the `quik` server receives a request for a JavaScript file, it generates a `webpack` config on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script. The hot module replacement is also powered by `webpack`.
 
 ## Motivation
 
@@ -140,6 +140,8 @@ The following posts inspired me to work on `quik`,
 * [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [@ericclemmons](https://github.com/ericclemmons)
 
 One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, nor do we plan to in near future.
+
+The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, for example a different base config for `webpack`, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly.
 
 ## Plans for improvements
 
