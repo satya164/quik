@@ -48,7 +48,9 @@ if (argv.version) {
         const bundles = [];
 
         for (const b in assets) {
-            bundles.push(path.resolve(process.cwd(), assets[b][0]));
+            const entry = assets[b];
+
+            bundles.push(path.resolve(process.cwd(), Array.isArray(entry) ? entry[0] : entry));
         }
 
         console.log(`Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.green(b)).join(', ')}`);
