@@ -12,6 +12,7 @@ Quik runs a simple server that compiles JavaScript files with Babel on the fly, 
 * React, Redux and Radium are already included
 * Hot-module replacement
 * Quick prototyping with an optional starter template
+* Generating bundles for use in production
 
 ## Installation
 
@@ -59,7 +60,9 @@ You only need to specify the entry points, not all scripts. Most of the time, it
 
 ## Generating JavaScript Bundle
 
-To generate a bundle for use in your web application, run the following in a Terminal,
+The bundler provides an abstraction on top of webpack with sensible defaults for a React project. If you need additional customization, use `webpack` directly for bundling.
+
+To generate a bundle wth `quik` for use in your web application, run the following in a Terminal,
 
 ```sh
 quik --bundle entry.js --output bundle.js --production
@@ -67,13 +70,13 @@ quik --bundle entry.js --output bundle.js --production
 
 The `--production` option performs minification on the resulting bundle. You can omit it if you're not going to use the file in production.
 
-You can provide multiple entry points as arguments. In that case, you can use `[name]` to get the name of the entry point while specifying an output file.
+You can provide multiple entry points as arguments. In that case, you can use `[name]` to get the name of the entry point while specifying an output file,
 
 ```sh
 quik --bundle file1.js file2.js --output [name].bundle.js
 ```
 
-A sourcemap file is automatically generated when generating a bundle.
+Sourcemap files are automatically generated when generating bundles.
 
 ## Sample project
 
