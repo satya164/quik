@@ -127,6 +127,19 @@ quik.bundle({
 });
 ```
 
+To generate a sharable HTML file programmatically,
+
+```js
+const quik = require('quik');
+
+quik.html({
+    root: process.cwd(),
+    entry: 'index.html',
+    output: 'index.quik.html',
+    production: true
+});
+```
+
 The `middleware` is responsible for transpiling scripts on request. You can use the middleware directly in a `koa` server,
 
 ```js
