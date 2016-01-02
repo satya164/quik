@@ -6,7 +6,7 @@ const path = require('path');
 const CURRENTDIR = path.join(__dirname, '..');
 
 module.exports = {
-    devtool: 'eval',
+    devtool: 'inline-source-map',
     plugins: [
         new webpack.EnvironmentPlugin('NODE_ENV'),
         new webpack.NoErrorsPlugin()

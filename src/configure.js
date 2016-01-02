@@ -31,7 +31,7 @@ module.exports = function(options) {
 
         return webpack(Object.assign({}, config, {
             entry,
-            devtool: options.production ? 'source-map' : 'eval',
+            devtool: 'source-map',
             plugins: options.production ? [
                 ...config.plugins,
                 new webpack.optimize.UglifyJsPlugin(),
