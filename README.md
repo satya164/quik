@@ -49,6 +49,8 @@ You can also `import` the following packages by default without any `npm install
 * [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
 * [`redux`](http://redux.js.org/)
 
+In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
+
 ## Enabling Hot reload
 
 To enable hot reload for React Components, you need to specify the filenames you want to watch,

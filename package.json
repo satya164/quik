@@ -33,6 +33,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "memory-fs": "^0.3.0",
     "ncp": "^2.0.0",
+    "npm-install-loader": "^1.0.1",
     "opn": "^3.0.3",
     "radium": "^0.15.3",
     "react": "^0.14.3",

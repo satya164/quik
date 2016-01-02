@@ -29,6 +29,13 @@ module.exports = {
                 test: /\.json$/,
                 loader: 'json-loader'
             }
+        ],
+        postLoaders: [
+            {
+                exclude: /node_modules/,
+                loader: 'npm-install-loader',
+                test: /\.js$/,
+            },
         ]
     },
     resolveLoader: {
