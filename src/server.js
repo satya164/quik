@@ -6,8 +6,6 @@ const logger = require('koa-logger');
 const quikMiddleWare = require('./quik-middleware');
 const setupHot = require('./setup-hot');
 
-const DEFAULT_PORT = 3030;
-
 module.exports = function(options) {
     const app = koa();
 
@@ -39,9 +37,7 @@ module.exports = function(options) {
         yield next;
     });
 
-    const port = options.port || DEFAULT_PORT;
+    app.listen(options.port);
 
-    app.listen(port);
-
-    return Promise.resolve(`http://localhost:${port}`);
+    return Promise.resolve(`http://localhost:${options.port}`);
 };
