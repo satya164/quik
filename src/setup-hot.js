@@ -10,11 +10,11 @@ const webpackConfig = require('./webpack-config');
 module.exports = function(options) {
     const loaders = webpackConfig.module.loaders.slice();
 
-    loaders.unshift({
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'react-hot-loader'
-    });
+    for (let loader of loaders) {
+        if (loader.loader === 'babel-loader' || loader.loader === 'babel') {
+            loader.query.presets.push(require.resolve('babel-preset-react-hmre'));
+        }
+    }
 
     const entry = {};
 
