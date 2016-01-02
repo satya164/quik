@@ -1,10 +1,9 @@
 'use strict';
 
-const generateConfig = require('./generate-config');
+const configure = require('./configure');
 
 module.exports = function(options) {
-    return generateConfig(options)
-    .then(compiler => {
+    return configure(options).then(compiler => {
         return new Promise((resolve, reject) => {
             compiler.run((err, status) => {
                 if (err) {

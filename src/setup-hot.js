@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
@@ -18,10 +19,12 @@ module.exports = function(options) {
     const entry = {};
 
     for (let e of options.entries) {
-        if (fs.existsSync(options.root + '/' + e)) {
+        const file = path.join(options.root, e);
+
+        if (fs.existsSync(file)) {
             entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
         } else {
-            throw new Error('File not found: ' + options.root + '/' + e);
+            throw new Error('File not found: ' + file);
         }
     }
 

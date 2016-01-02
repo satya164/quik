@@ -1,48 +1,48 @@
 'use strict';
 
-const webpack = require('webpack');
+const path = require('path');
 const MemoryFS = require('memory-fs');
-const config = require('./webpack-config');
+const configure = require('./configure');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
     return function *(next) {
         if (typeof this.body === 'undefined' && /(\.js)$/.test(this.path)) {
-            this.body = yield new Promise((resolve, reject) => {
-                const fs = new MemoryFS();
-                const filePath = this.path;
+            const OUTPUTFILE = 'output.js';
 
-                const compiler = webpack(Object.assign({}, config, {
-                    entry: [
-                        '.' + filePath
-                    ],
-                    output: {
-                        path: WORKINGDIR,
-                        filename: 'output.js'
-                    }
-                }));
+            this.body = yield configure({
+                root: options.root,
+                entry: [ path.join('.', this.path) ],
+                output: OUTPUTFILE,
+                production: false
+            }).then(compiler => {
+                return new Promise((resolve, reject) => {
+                    const memeoryFs = new MemoryFS();
 
-                compiler.outputFileSystem = fs;
+                    compiler.outputFileSystem = memeoryFs;
 
-                compiler.run((err, status) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-
-                    if (status.compilation.errors.length) {
-                        reject(status.compilation.errors[0]);
-                        return;
-                    }
-
-                    fs.readFile(WORKINGDIR + '/output.js', (error, content) => {
-                        if (error) {
-                            reject(error);
+                    compiler.run((err, status) => {
+                        if (err) {
+                            reject(err);
                             return;
                         }
 
-                        resolve(content.toString());
+                        const result = status.toJson();
+
+                        if (result.errors.length) {
+                            reject(result.errors);
+                            return;
+                        }
+
+                        memeoryFs.readFile(path.join(WORKINGDIR, OUTPUTFILE), (error, content) => {
+                            if (error) {
+                                reject(error);
+                                return;
+                            }
+
+                            resolve(content.toString());
+                        });
                     });
                 });
             });
