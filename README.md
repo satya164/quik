@@ -1,19 +1,19 @@
 Quik
 ====
-A quick way to prototype apps with React and Babel.
+A quick way to prototype apps with React and Babel with zero-setup.
 
 Setting up the tooling required to work on a modern day web app is hard, and makes quick prototyping much more difficult than it should be. Quik is a quick way to prototype a React application without any kind of setup.
 
-Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly.
+Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly. It can also generate a JavaScript bundle to use in your app. No setup required.
 
 ## Features
 
 * One-time installation, no additional setup required
+* Hot Module Replacement
+* Generates bundles for use in production
+* Generates single standalone HTML file for sharing
 * React, Redux and Radium are already included
-* Hot-module replacement
 * Quick prototyping with an optional starter template
-* Generating bundles for use in production
-* Generating single shrable HTML file
 
 ## Installation
 
@@ -51,15 +51,15 @@ You can also `import` the following packages by default without any `npm install
 
 In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
 
-## Enabling Hot reload
+## Enabling Hot Module Replacement
 
-To enable hot reload for React Components, you need to specify the filenames you want to watch,
+To enable Hot Module Replacement for React Components, you need to specify the filenames you want to watch,
 
 ```sh
 quik --watch file1.js file2.js
 ```
 
-You only need to specify the entry points, not all scripts. Most of the time, it'll be just one script. Note that hot reload won't work for any components in the entry points.
+You only need to specify the entry points, not all scripts. Most of the time it'll be just one script. Note that Hot Module Replacement won't work for any components in the entry points.
 
 ## Generating JavaScript Bundle
 
@@ -86,10 +86,10 @@ Sourcemap files are automatically generated when generating bundles.
 Sometimes you might want compile and inject bundles into an HTML file for easier sharing through dropbox, email etc. To do so, run the following in a Terminal,
 
 ```sh
-quik --bundle index.html --output output.js --production
+quik --bundle index.html --output output.html --production
 ```
 
-`quik` will parse your HTML for any local scripts, then it will build them and inject into the bundle.
+`quik` will parse your HTML for any local scripts, then it will build them and inject into the bundle. Just open the generated HTML file in any browser to preview.
 
 ## Sample project
 
@@ -108,7 +108,11 @@ You can also use `quik` by requiring it as a node module.
 
 ```js
 const quik = require('quik');
+```
 
+To start the `quik` server,
+
+```js
 quik.server({
     root: process.cwd(),
     port: 8008,
@@ -116,11 +120,9 @@ quik.server({
 });
 ```
 
-To generate a bundle programmatically,
+To generate a bundle,
 
 ```js
-const quik = require('quik');
-
 quik.bundle({
     root: process.cwd(),
     entry: [ 'index.js' ],
@@ -129,11 +131,9 @@ quik.bundle({
 });
 ```
 
-To generate a sharable HTML file programmatically,
+To generate a sharable HTML file,
 
 ```js
-const quik = require('quik');
-
 quik.html({
     root: process.cwd(),
     entry: 'index.html',
@@ -142,7 +142,7 @@ quik.html({
 });
 ```
 
-The `middleware` is responsible for transpiling scripts on request. You can use the middleware directly in a `koa` server,
+The middleware is responsible for transpiling scripts on request. You can use the middleware directly in a `koa` server,
 
 ```js
 const quikMiddleware = require('quik/middleware');
@@ -154,7 +154,7 @@ app.use(quikMiddleware({
 
 ## How it works
 
-`quik` is just an abstraction on top of `webpack`. It includes a base `webpack` config and generates appropriate config files when needed. For example, when the `quik` server receives a request for a JavaScript file, it generates a `webpack` config on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script. The hot module replacement is also powered by `webpack`.
+`quik` is just an abstraction on top of `webpack`. It includes a base `webpack` config and generates appropriate config files when needed. For example, when the `quik` server receives a request for a JavaScript file, it generates a `webpack` config on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script.
 
 ## Motivation
 
@@ -165,11 +165,15 @@ The following posts inspired me to work on `quik`,
 * [Challenge: Best JavaScript Setup for Quick Prototyping](http://blog.vjeux.com/2015/javascript/challenge-best-javascript-setup-for-quick-prototyping.html) by [**@vjeux**](https://github.com/vjeux)
 * [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [**@ericclemmons**](https://github.com/ericclemmons)
 
-One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, as of now.
+One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack` as of now.
+
+Inline styles are recommended for styling. When combined with a library like `radium`, they provide much more flexibility than CSS. This also means that we don't have to configure yet another build step for your preferred CSS pre-processor.
 
 The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, for example a different base config for `webpack`, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly. If you think something should be included by default, send a pull request or file a bug report.
 
 ## Plans for improvements
+
+Below are some ideas on how to improve `quik`. It would be awesome to recieve pull requests for these.
 
 * Write some tests
 * Automatically parse HTML files to enable hot reloading without having to specify files with `--watch`
