@@ -163,9 +163,9 @@ The following posts inspired me to work on `quik`,
 * [Challenge: Best JavaScript Setup for Quick Prototyping](http://blog.vjeux.com/2015/javascript/challenge-best-javascript-setup-for-quick-prototyping.html) by [**@vjeux**](https://github.com/vjeux)
 * [Javascript Fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) by [**@ericclemmons**](https://github.com/ericclemmons)
 
-One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, nor do we plan to in near future.
+One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack`, as of now.
 
-The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, for example a different base config for `webpack`, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly.
+The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, for example a different base config for `webpack`, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly. If you think something should be included by default, send a pull request or file a bug report.
 
 ## Plans for improvements
 
@@ -179,7 +179,5 @@ The goal of `quik` is to improve the tooling around React and Babel projects. Wh
 
 Of course, `quik` is not the only tool trying to solve this problem. There are few other tools which are also doing a good job at it.
 
-Below are 2 tools that I know of. Both of these use browserify (`prot` is based on [`budo`](https://github.com/mattdesl/budo), which uses browserify under the hood), and have live reload, which is different than Hot-module replacement.
-
-* [run-js](https://github.com/remixz/run-js)
-* [prot](https://github.com/mattdesl/prot)
+* [run-js](https://github.com/remixz/run-js) - works on top of [`browserify`](http://browserify.org/), zero-setup, has live-reload functionality
+* [prot](https://github.com/mattdesl/prot) - works on top of [`budo`](https://github.com/mattdesl/budo), not actively maintained
