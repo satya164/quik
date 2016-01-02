@@ -11,11 +11,43 @@ const chalk = require('chalk');
 const quik = require('../index');
 const pak = require('../package.json');
 
-const argv = yargs.array('watch').array('bundle').argv;
+const argv = yargs
+    .usage('Usage: $0 --watch [file] --port [num]')
+    .options({
+        init: {
+            type: 'string',
+            description: 'Initialize a sample project'
+        },
+        port: {
+            default: 3030,
+            description: 'Port to listen on'
+        },
+        watch: {
+            alias: 'w',
+            type: 'array',
+            description: 'Files to watch for changes'
+        },
+        bundle: {
+            alias: 'b',
+            type: 'array',
+            description: 'Files to bundle'
+        },
+        output: {
+            alias: 'o',
+            type: 'array',
+            description: 'Name of the output bundle (use with --bundle)'
+        },
+        production: {
+            type: 'boolean',
+            default: false,
+            description: 'Optimize bundle (use with --bundle)'
+        }
+    })
+    .help('help')
+    .version(pak.version)
+    .argv;
 
-if (argv.version) {
-    console.log(pak.version);
-} else if (argv.init) {
+if (argv.init) {
     const name = argv.init;
 
     if (typeof name !== 'string') {
