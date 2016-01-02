@@ -1,33 +1,37 @@
 'use strict';
 
+const fs = require('fs');
 const webpack = require('webpack');
 const config = require('./webpack-config');
 
 module.exports = function(options) {
     return new Promise((resolve, reject) => {
         const WORKINGDIR = options.root;
-        const ENTRYFILES = options.entry;
-        const OUTPUTFILE = options.output;
-        const PRODUCTION = options.production;
+        const OUTPUTFILE = options.output || '[name].bundle.js';
 
-        const output = {
-            path: WORKINGDIR,
-            filename: OUTPUTFILE
-        };
+        const entry = {};
 
-        if (OUTPUTFILE) {
-            output.sourceMapFilename = OUTPUTFILE + '.map';
+        for (let e of options.entry) {
+            if (fs.existsSync(WORKINGDIR + '/' + e)) {
+                entry[e.replace(/\.js$/, '')] = './' + e;
+            } else {
+                throw new Error('File not found: ' + WORKINGDIR + '/' + e);
+            }
         }
 
         const compiler = webpack(Object.assign({}, config, {
+            entry,
             devtool: 'source-map',
-            entry: ENTRYFILES,
-            plugins: PRODUCTION ? [
+            plugins: options.production ? [
                 ...config.plugins,
                 new webpack.optimize.UglifyJsPlugin(),
                 new webpack.optimize.OccurenceOrderPlugin()
             ] : config.plugins,
-            output
+            output: {
+                path: WORKINGDIR,
+                filename: OUTPUTFILE,
+                sourceMapFilename: OUTPUTFILE + '.map'
+            }
         }));
 
         compiler.run((err, status) => {
@@ -43,11 +47,11 @@ module.exports = function(options) {
             const result = status.toJson();
 
             if (result.errors.length) {
-                reject(result.errors[0]);
+                reject(result.errors);
                 return;
             }
 
-            resolve(WORKINGDIR + '/' + result.assetsByChunkName.main[0]);
+            resolve(result.assetsByChunkName);
         });
     });
 };

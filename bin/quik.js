@@ -40,7 +40,13 @@ if (argv.init) {
         output: argv.output,
         production: argv.production
     }).then(output => {
-        console.log(`Bundle generated at ${chalk.green(output)}`);
+        const bundles = [];
+
+        for (const b in output) {
+            bundles.push(path.resolve(process.cwd(), output[b][0]));
+        }
+
+        console.log(`Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.green(b)).join(', ')}`);
     });
 } else {
     quik.server({

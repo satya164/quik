@@ -67,6 +67,14 @@ quik --bundle entry.js --output bundle.js --production
 
 The `--production` option performs minification on the resulting bundle. You can omit it if you're not going to use the file in production.
 
+You can provide multiple entry points as arguments. In that case, you can use `[name]` to get the name of the entry point while specifying an output file.
+
+```sh
+quik --bundle file1.js file2.js --output [name].bundle.js
+```
+
+A sourcemap file is automatically generated when generating a bundle.
+
 ## Sample project
 
 To get started with a sample project, run the following in a Terminal,
@@ -100,7 +108,7 @@ const quik = require('quik');
 quik.bundle({
     root: process.cwd(),
     entry: [ 'index.js' ],
-    output: 'bundle.min.js',
+    output: '[name].bundle.min.js',
     production: true
 });
 ```
