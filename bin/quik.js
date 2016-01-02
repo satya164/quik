@@ -12,7 +12,7 @@ const quik = require('../index');
 const pak = require('../package.json');
 
 const argv = yargs
-    .usage('Usage: $0 --watch [file] --port [num]')
+    .usage('Usage: $0 [...options]')
     .options({
         init: {
             type: 'string',
@@ -32,19 +32,27 @@ const argv = yargs
             type: 'array',
             description: 'Files to bundle'
         },
+        html: {
+            type: 'string',
+            description: 'Name of the output sharable HTML file'
+        },
         output: {
             alias: 'o',
-            type: 'array',
-            description: 'Name of the output bundle (use with --bundle)'
+            type: 'string',
+            description: 'Name of the output file'
         },
         production: {
             type: 'boolean',
             default: false,
-            description: 'Optimize bundle (use with --bundle)'
+            description: 'Optimize bundle for production'
         }
     })
+    .example('$0 --port 8008 --watch index.js', 'Start the server in the port \'8008\' and watch \'index.js\' for changes')
+    .example('$0 --bundle entry.js --output bundle.js --production', 'Generate a bundle named \'bundle.js\' from \'entry.js\' for production')
+    .example('$0 --html index.html --output bundle.html', 'Generate a sharable HTML file named \'bundle.html\' from \'index.html\'')
     .help('help')
     .version(pak.version)
+    .strict()
     .argv;
 
 if (argv.init) {
@@ -91,6 +99,20 @@ if (argv.init) {
         console.error(err);
         process.exit(1);
     });
+} else if (argv.html) {
+    quik.html({
+        root: process.cwd(),
+        entry: './' + argv.html,
+        output: argv.output,
+        production: argv.production
+    })
+    .then(file => {
+        console.log(`Sharable HTML generated at ${chalk.green(file)}`);
+    })
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
 } else {
     quik.server({
         root: process.cwd(),
@@ -99,10 +121,8 @@ if (argv.init) {
     })
     .then(url => {
         console.log(`Quik is serving files at ${chalk.blue(url)}`);
-
-        return url;
+        opn(url);
     })
-    .then(opn)
     .catch(err => {
         console.error(err);
         process.exit(1);

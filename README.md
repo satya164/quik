@@ -13,6 +13,7 @@ Quik runs a simple server that compiles JavaScript files with Babel on the fly, 
 * Hot-module replacement
 * Quick prototyping with an optional starter template
 * Generating bundles for use in production
+* Generating single shrable HTML file
 
 ## Installation
 
@@ -77,6 +78,16 @@ quik --bundle file1.js file2.js --output [name].bundle.js
 ```
 
 Sourcemap files are automatically generated when generating bundles.
+
+## Generating a sharable single HTML file
+
+Sometimes you might want compile and inject bundles into an HTML file for easier sharing through dropbox, email etc. To do so, run the following in a Terminal,
+
+```sh
+quik --bundle index.html --output output.js --production
+```
+
+`quik` will parse your HTML for any local scripts, then it will build them and inject into the bundle.
 
 ## Sample project
 
@@ -145,10 +156,10 @@ The goal of `quik` is to improve the tooling around React and Babel projects. Wh
 
 ## Plans for improvements
 
+* Write some tests
 * Automatically parse HTML files to enable hot reloading without having to specify files with `--watch`
 * Cache bundles instead of re-building on every request
 * Better error handling
-* Build a bundle and inject it to the HTML file for sharing
 * Atom plugin to make it easier to use without CLI
 
 ## Similar tools
