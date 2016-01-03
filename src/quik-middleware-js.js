@@ -3,6 +3,7 @@
 const path = require('path');
 const MemoryFS = require('memory-fs');
 const readFileAsync = require('./read-file-async');
+const formatError = require('./format-error');
 const configure = require('./configure');
 
 const CONTENT_TYPE = 'application/javascript';
@@ -45,7 +46,8 @@ module.exports = function(options) {
                         resolve(readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE)));
                     });
                 });
-            });
+            })
+            .catch(formatError);
         }
 
         yield next;
