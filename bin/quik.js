@@ -119,7 +119,9 @@ if (argv.init) {
         port: argv.port,
         watch: argv.watch
     })
-    .then(url => {
+    .then(() => {
+        const url = `http://localhost:${argv.port}`;
+
         console.log(`Quik is serving files at ${chalk.blue(url)}`);
         opn(url);
     })
