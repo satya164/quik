@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "./node_modules/blue-tape/bin/blue-tape.js __tests__/**/*.js | ./node_modules/tap-spec/bin/cmd.js "
+    "test": "./node_modules/blue-tape/bin/blue-tape.js test/**/*.js | ./node_modules/tap-spec/bin/cmd.js "
   },
   "bin": {
     "quik": "bin/quik.js"
