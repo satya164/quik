@@ -8,8 +8,10 @@ const configure = require('./configure');
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
+    const test = file => /(\.js)$/.test(file);
+
     return function *(next) {
-        if (typeof this.body === 'undefined' && /(\.js)$/.test(this.path)) {
+        if (test(this.path)) {
             const OUTPUTFILE = 'output.js';
 
             this.body = yield configure({
