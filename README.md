@@ -2,6 +2,10 @@ Quik
 ====
 A quick way to prototype apps with React and Babel with zero-setup.
 
+[![Build status](https://travis-ci.org/satya164/quik.svg?branch=master)](https://travis-ci.org/satya164/quik)
+[![Dependencies](https://david-dm.org/satya164/quik.svg)](https://david-dm.org/satya164/quik)
+[![License](https://img.shields.io/npm/l/quik.svg)](http://opensource.org/licenses/mit-license.php)
+
 Setting up the tooling required to work on a modern day web app is hard, and makes quick prototyping much more difficult than it should be. Quik is a quick way to prototype a React application without any kind of setup.
 
 Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly. It can also generate a JavaScript bundle to use in your app. No setup required.
