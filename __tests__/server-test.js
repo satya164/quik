@@ -11,9 +11,26 @@ test('should start server', t => {
         port: 8000
     })
     .then(s => {
+        http.get('http://localhost:8000/', res => {
+            s.close();
+            t.equal(res.statusCode, 200);
+            t.equal(res.headers['content-type'], 'text/html; charset=utf-8');
+            t.end();
+        });
+    })
+    .catch(t.end);
+});
+
+test('should respond with script', t => {
+    server({
+        root: path.join(__dirname, '../template'),
+        port: 8000
+    })
+    .then(s => {
         http.get('http://localhost:8000/index.js', res => {
             s.close();
-            t.equal(200, res.statusCode);
+            t.equal(res.statusCode, 200);
+            t.equal(res.headers['content-type'], 'application/javascript; charset=utf-8');
             t.end();
         });
     })
@@ -32,7 +49,7 @@ test('should respond with formatted error', t => {
             res.on('data', chunk => data += chunk);
             res.on('end', () => {
                 s.close();
-                t.ok(data.indexOf('/* show error response on build fail */') > -1, 'response with error');
+                t.ok(data.indexOf('/* show error response on build fail */') > -1, 'should contain error');
                 t.end();
             });
         });
