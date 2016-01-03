@@ -5,15 +5,18 @@ const MemoryFS = require('memory-fs');
 const readFileAsync = require('./read-file-async');
 const configure = require('./configure');
 
+const CONTENT_TYPE = 'application/javascript';
+
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
     const test = file => /(\.js)$/.test(file);
 
     return function *(next) {
-        if (test(this.path)) {
+        if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path)) {
             const OUTPUTFILE = 'output.js';
 
+            this.type = CONTENT_TYPE;
             this.body = yield configure({
                 root: options.root,
                 entry: [ path.join('.', this.path) ],
