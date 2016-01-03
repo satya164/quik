@@ -20,14 +20,16 @@ module.exports = function(options) {
                     return;
                 }
 
-                if (status.compilation.errors.length) {
-                    reject(status.compilation.errors[0]);
-                    return;
-                }
-
                 console.log(status.toString({
                     colors: true
                 }));
+
+                const result = status.toJson();
+
+                if (result.errors.length) {
+                    reject(result.errors);
+                    return;
+                }
 
                 resolve(path.join(options.root, 'output.js'));
             });
