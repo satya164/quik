@@ -12,7 +12,5 @@ module.exports = function(options) {
     app.use(quik(options));
     app.use(serve(options.root, { defer: true }));
 
-    app.listen(options.port);
-
-    return Promise.resolve(`http://localhost:${options.port}`);
+    return Promise.resolve(app.listen(options.port));
 };
