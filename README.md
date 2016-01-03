@@ -146,13 +146,14 @@ quik.html({
 });
 ```
 
-The middleware is responsible for transpiling scripts on request. You can use the middleware directly in a `koa` server,
+The middleware is at the heart of `quik` and is responsible for handling requests, transpiling scripts on the fly and setting up HMR. You can use the middleware directly in any `koa` server,
 
 ```js
-const quikMiddleware = require('quik/middleware');
+const quik = require('quik/middleware');
 
-app.use(quikMiddleware({
-    root: process.cwd()
+app.use(quik({
+    root: process.cwd(),
+    watch: [ 'file1.js', 'file2.js' ]
 }));
 ```
 
