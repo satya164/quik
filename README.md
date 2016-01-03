@@ -12,7 +12,7 @@ Quik runs a simple server that compiles JavaScript files with Babel on the fly, 
 * Hot Module Replacement
 * Generates bundles for use in production
 * Generates single standalone HTML file for sharing
-* React, Redux and Radium are already included
+* React, Redux, React Router and Radium are already included
 * Quick prototyping with an optional starter template
 
 ## Installation
@@ -52,6 +52,8 @@ You can also `import` the following packages by default without any `npm install
 * [`redux-simple-router`](https://github.com/rackt/redux-simple-router)
 
 In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
+
+Note that the versions of libraries included by default might be updated to a newer version with breaking changes. It's okay while prototyping. But if you wan to bundle for production, then it's recommended to add a `package.json` for your project and specify your dependencies there.
 
 ## Enabling Hot Module Replacement
 
