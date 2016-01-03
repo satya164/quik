@@ -16,7 +16,8 @@ test('should start server', t => {
             t.equal(200, res.statusCode);
             t.end();
         });
-    });
+    })
+    .catch(t.end);
 });
 
 test('should respond with formatted error', t => {
@@ -35,5 +36,6 @@ test('should respond with formatted error', t => {
                 t.end();
             });
         });
-    });
+    })
+    .catch(t.end);
 });
