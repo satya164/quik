@@ -2,6 +2,7 @@
 
 const path = require('path');
 const MemoryFS = require('memory-fs');
+const readFileAsync = require('./read-file-async');
 const configure = require('./configure');
 
 module.exports = function(options) {
@@ -16,11 +17,12 @@ module.exports = function(options) {
                 entry: [ path.join('.', this.path) ],
                 output: OUTPUTFILE,
                 production: false
-            }).then(compiler => {
+            })
+            .then(compiler => {
                 return new Promise((resolve, reject) => {
-                    const memeoryFs = new MemoryFS();
+                    const memoryFs = new MemoryFS();
 
-                    compiler.outputFileSystem = memeoryFs;
+                    compiler.outputFileSystem = memoryFs;
 
                     compiler.run((err, status) => {
                         if (err) {
@@ -35,14 +37,7 @@ module.exports = function(options) {
                             return;
                         }
 
-                        memeoryFs.readFile(path.join(WORKINGDIR, OUTPUTFILE), (error, content) => {
-                            if (error) {
-                                reject(error);
-                                return;
-                            }
-
-                            resolve(content.toString());
-                        });
+                        resolve(readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE)));
                     });
                 });
             });

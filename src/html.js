@@ -4,19 +4,10 @@ const path = require('path');
 const fs = require('fs');
 const cheerio = require('cheerio');
 const MemoryFS = require('memory-fs');
+const readFileAsync = require('./read-file-async');
 const configure = require('./configure');
 
 module.exports = function(options) {
-    const readFile = (fsImpl, file) => new Promise((resolve, reject) => {
-        fsImpl.readFile(file, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result.toString());
-            }
-        });
-    });
-
     const compile = compiler => {
         const memoryFs = new MemoryFS();
 
@@ -40,10 +31,11 @@ module.exports = function(options) {
 
                 resolve(path.join(options.root, 'output.js'));
             });
-        }).then(file => readFile(memoryFs, file));
+        })
+        .then(file => readFileAsync(memoryFs, file));
     };
 
-    return readFile(fs, path.join(options.root, options.entry))
+    return readFileAsync(fs, path.join(options.root, options.entry))
     .then(result => {
         const $ = cheerio.load(result);
 
@@ -66,17 +58,17 @@ module.exports = function(options) {
                 }
             })
             .get()
-        ).then(() => {
+        )
+        .then(() => {
             return new Promise((resolve, reject) => {
                 const file = path.join(options.root, options.output || path.basename(options.entry, '.html') + '.quik.html');
 
-                fs.writeFile(file, $.html(), 'utf-8', (err) => {
+                fs.writeFile(file, $.html(), 'utf-8', err => {
                     if (err) {
                         reject(err);
-                        return;
+                    } else {
+                        resolve(file);
                     }
-
-                    resolve(file);
                 });
             });
         });

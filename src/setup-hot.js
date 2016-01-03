@@ -12,6 +12,7 @@ module.exports = function(options) {
         root: options.root
     });
     const loaders = config.module.loaders.slice();
+    const app = options.app;
 
     for (let i = 0, l = loaders.length; i < l; i++) {
         const loader = loaders[i];
@@ -51,10 +52,10 @@ module.exports = function(options) {
         module: { loaders }
     }));
 
-    options.app.use(webpackDevMiddleware(compiler, {
+    app.use(webpackDevMiddleware(compiler, {
         publicPath: '/',
         noInfo: true
     }));
 
-    options.app.use(webpackHotMiddleware(compiler));
+    app.use(webpackHotMiddleware(compiler));
 };
