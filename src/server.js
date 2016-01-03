@@ -3,7 +3,7 @@
 const koa = require('koa');
 const send = require('koa-send');
 const logger = require('koa-logger');
-const quikMiddleWare = require('./quik-middleware');
+const jsMiddleWare = require('./js-middleware');
 const setupHot = require('./setup-hot');
 
 module.exports = function(options) {
@@ -19,7 +19,7 @@ module.exports = function(options) {
         });
     }
 
-    app.use(quikMiddleWare({
+    app.use(jsMiddleWare({
         root: options.root
     }));
 

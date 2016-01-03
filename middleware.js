@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./src/quik-middleware.js');
+module.exports = require('./src/js-middleware.js');
