@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const compose = require('koa-compose');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
@@ -12,7 +13,6 @@ module.exports = function(options) {
         root: options.root
     });
     const loaders = config.module.loaders.slice();
-    const app = options.app;
 
     for (let i = 0, l = loaders.length; i < l; i++) {
         const loader = loaders[i];
@@ -52,10 +52,11 @@ module.exports = function(options) {
         module: { loaders }
     }));
 
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: '/',
-        noInfo: true
-    }));
-
-    app.use(webpackHotMiddleware(compiler));
+    return compose([
+        webpackDevMiddleware(compiler, {
+            publicPath: '/',
+            noInfo: true
+        }),
+        webpackHotMiddleware(compiler)
+    ]);
 };
