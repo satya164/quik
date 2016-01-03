@@ -5,14 +5,11 @@ const compose = require('koa-compose');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
-const loadWebpackConfig = require('./load-webpack-config');
+const config = require('./webpack-config');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
-    const config = loadWebpackConfig({
-        root: WORKINGDIR
-    });
     const loaders = config.module.loaders.slice();
 
     for (let i = 0, l = loaders.length; i < l; i++) {
@@ -39,6 +36,7 @@ module.exports = function(options) {
 
     const compiler = webpack(Object.assign({}, config, {
         entry,
+        context: WORKINGDIR,
         output: {
             path: WORKINGDIR,
             publicPath: '/',

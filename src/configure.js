@@ -3,16 +3,12 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const loadWebpackConfig = require('./load-webpack-config');
+const config = require('./webpack-config');
 const existsFileAsync = require('./exists-file-async');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
     const OUTPUTFILE = options.output || '[name].bundle.js';
-
-    const config = loadWebpackConfig({
-        root: WORKINGDIR
-    });
 
     return Promise.all(
         options.entry.map(
@@ -28,6 +24,7 @@ module.exports = function(options) {
 
         return webpack(Object.assign({}, config, {
             entry,
+            context: WORKINGDIR,
             devtool: 'source-map',
             plugins: options.production ? [
                 ...config.plugins,
