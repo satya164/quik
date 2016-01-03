@@ -67,7 +67,7 @@ You only need to specify the entry points, not all scripts. Most of the time it'
 
 ## Generating JavaScript Bundle
 
-The bundler provides an abstraction on top of webpack with sensible defaults for a React project. If you need additional customization, use `webpack` directly for bundling.
+The bundler provides an abstraction on top of webpack with sensible defaults for a React project. If you need additional customisation, use `webpack` directly for bundling.
 
 To generate a bundle wth `quik` for use in your web application, run the following in a Terminal,
 
@@ -146,7 +146,7 @@ quik.html({
 });
 ```
 
-The middleware is at the heart of `quik` and is responsible for handling requests, transpiling scripts on the fly and setting up HMR. You can use the middleware directly in any `koa` server,
+The middleware is at the heart of `quik` and is responsible for transpiling scripts on the fly as well as setting up HMR. You can use the middleware directly in any `koa` server,
 
 ```js
 const quik = require('quik/middleware');
@@ -157,9 +157,33 @@ app.use(quik({
 }));
 ```
 
+This is useful if you want to add functionality on top of what `quik` already provides. For example, if you want to add support for your favourite CSS preprocessor, just write a middleware (or use an existing one) for it and use along with the `quik` middleware. For example, to use [`koa-sass`](https://github.com/kasperlewau/koa-sass) with `quik`,
+
+```js
+const quik = require('quik/middleware');
+const serve = require('koa-static');
+const sass = require('koa-sass');
+const koa = require('koa');
+
+const app = koa();
+
+app.use(quik({
+    root: process.cwd()
+}));
+
+app.use(sass({
+    src: process.cwd() + '/src/styles/',
+    dest: process.cwd() + '/dist/styles/'
+}));
+
+app.use(serve(process.cwd()))
+
+app.listen(9000);
+```
+
 ## How it works
 
-`quik` is just an abstraction on top of `webpack`. It includes a base `webpack` config and generates appropriate config files when needed. For example, when the `quik` server receives a request for a JavaScript file, it generates a `webpack` config on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script.
+The `quik` middleware is just an abstraction on top of `webpack`. It includes a base `webpack` config and generates appropriate config files when needed. For example, when the `quik` server receives a request for a JavaScript file, it generates a `webpack` config on the fly, the file is then transpiled with `webpack`, and the server responds with the generated bundle instead of the original script.
 
 ## Motivation
 
@@ -174,11 +198,13 @@ One good thing about `quik` is that it is highly opinionated, which means we don
 
 Inline styles are recommended for styling. When combined with a library like `radium`, they provide much more flexibility than CSS. This also means that we don't have to configure yet another build step for your preferred CSS pre-processor.
 
-The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, for example a different base config for `webpack`, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly. If you think something should be included by default, send a pull request or file a bug report.
+The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly. If you think something should be included by default, send a pull request or file a bug report.
+
+Even though `quik` itself doesn't provide additional customization, it's just a `koa` middleware at the core. That means it's composable with other koa middlewares and you can add additional functionality easily.
 
 ## Plans for improvements
 
-Below are some ideas on how to improve `quik`. It would be awesome to recieve pull requests for these.
+Below are some ideas on how to improve `quik`. It would be awesome to receive pull requests for these.
 
 * Write some tests
 * Automatically parse HTML files to enable hot reloading without having to specify files with `--watch`
