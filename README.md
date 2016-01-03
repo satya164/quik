@@ -47,7 +47,9 @@ You can also `import` the following packages by default without any `npm install
 * [`react`](https://facebook.github.io/react/)
 * [`react-dom`](https://facebook.github.io/react/docs/top-level-api.html#reactdom)
 * [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
+* [`react-router`](https://github.com/rackt/react-router)
 * [`redux`](http://redux.js.org/)
+* [`redux-simple-router`](https://github.com/rackt/redux-simple-router)
 
 In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
 
