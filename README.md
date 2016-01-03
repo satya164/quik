@@ -86,10 +86,10 @@ Sourcemap files are automatically generated when generating bundles.
 Sometimes you might want compile and inject bundles into an HTML file for easier sharing through dropbox, email etc. To do so, run the following in a Terminal,
 
 ```sh
-quik --bundle index.html --output output.html --production
+quik --html index.html --output output.html --production
 ```
 
-`quik` will parse your HTML for any local scripts, then it will build them and inject into the bundle. Just open the generated HTML file in any browser to preview.
+`quik` will parse your HTML for any local scripts, then it will build them and inject into the HTML file. Just open the generated HTML file in any browser to preview.
 
 ## Sample project
 
