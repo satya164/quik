@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const loadWebpackConfig = require('./load-webpack-config');
+const existsFileAsync = require('./exists-file-async');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
@@ -13,19 +14,11 @@ module.exports = function(options) {
         root: WORKINGDIR
     });
 
-    return Promise.all(options.entry.map(f => {
-        const file = path.join(WORKINGDIR, f);
-
-        return new Promise((resolve, reject) => {
-            fs.exists(file, (exists) => {
-                if (exists) {
-                    resolve(file);
-                } else {
-                    reject(new Error('File not found: ' + file));
-                }
-            });
-        });
-    }))
+    return Promise.all(
+        options.entry.map(
+            f => existsFileAsync(fs, path.join(WORKINGDIR, f))
+        )
+    )
     .then(files => {
         const entry = {};
 
