@@ -6,7 +6,11 @@ module.exports = function(fs, file) {
             if (exists) {
                 resolve(file);
             } else {
-                reject(new Error('File not found: ' + file));
+                const error = new Error(`File doesn't exist: '${file}'`);
+
+                error.code = 'ENOENT';
+
+                reject(error);
             }
         });
     });
