@@ -176,7 +176,9 @@ app.use(sass({
     dest: process.cwd() + '/dist/styles/'
 }));
 
-app.use(serve(process.cwd()))
+app.use(serve(process.cwd(), {
+    defer: true
+}));
 
 app.listen(9000);
 ```

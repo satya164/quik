@@ -9,8 +9,8 @@ module.exports = function(options) {
     const app = koa();
 
     app.use(logger());
-    app.use(serve(options.root));
     app.use(quik(options));
+    app.use(serve(options.root, { defer: true }));
 
     app.listen(options.port);
 
