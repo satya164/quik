@@ -1,7 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const expand = require('glob-expand');
 const compose = require('koa-compose');
 const webpack = require('webpack');
@@ -36,13 +34,7 @@ module.exports = function(options) {
     const entry = {};
 
     for (let e of expanded) {
-        const file = path.join(WORKINGDIR, e);
-
-        if (fs.existsSync(file)) {
-            entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
-        } else {
-            throw new Error('File not found: ' + file);
-        }
+        entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
     }
 
     const compiler = webpack(Object.assign({}, config, {
