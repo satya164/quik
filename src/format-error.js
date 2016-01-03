@@ -2,6 +2,7 @@
 
 module.exports = function(error) {
     return `
+        /* show error response on build fail */
         document.body.onload = function() {
             document.body.style.background = 'rgb(255, 221, 221)';
             document.body.style.color = 'rgb(0, 0, 0)';
