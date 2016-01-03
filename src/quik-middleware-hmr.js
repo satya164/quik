@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const expand = require('glob-expand');
 const compose = require('koa-compose');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
@@ -9,8 +10,10 @@ const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 const loadWebpackConfig = require('./load-webpack-config');
 
 module.exports = function(options) {
+    const WORKINGDIR = options.root;
+
     const config = loadWebpackConfig({
-        root: options.root
+        root: WORKINGDIR
     });
     const loaders = config.module.loaders.slice();
 
@@ -29,10 +32,11 @@ module.exports = function(options) {
         }
     }
 
+    const expanded = expand({ cwd: WORKINGDIR }, options.entry);
     const entry = {};
 
-    for (let e of options.entries) {
-        const file = path.join(options.root, e);
+    for (let e of expanded) {
+        const file = path.join(WORKINGDIR, e);
 
         if (fs.existsSync(file)) {
             entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
@@ -44,7 +48,7 @@ module.exports = function(options) {
     const compiler = webpack(Object.assign({}, config, {
         entry,
         output: {
-            path: options.root,
+            path: WORKINGDIR,
             publicPath: '/',
             filename: '[name]'
         },

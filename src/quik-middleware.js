@@ -14,7 +14,7 @@ module.exports = function(options) {
     if (options.watch && options.watch.length) {
         middlewares.push(hmr({
             root: options.root,
-            entries: options.watch
+            entry: options.watch
         }));
     }
 
