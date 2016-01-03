@@ -21,17 +21,24 @@ test('should start server', t => {
     .catch(t.end);
 });
 
-test('should respond with script', t => {
+test('should respond with transpiled script', t => {
     server({
         root: path.join(__dirname, '../template'),
         port: 8000
     })
     .then(s => {
         http.get('http://localhost:8000/index.js', res => {
-            s.close();
+            let data = '';
+
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                s.close();
+                t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
+                t.end();
+            });
+
             t.equal(res.statusCode, 200);
             t.equal(res.headers['content-type'], 'application/javascript; charset=utf-8');
-            t.end();
         });
     })
     .catch(t.end);
