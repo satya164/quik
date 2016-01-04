@@ -31,6 +31,8 @@ test('should respond with transpiled script', t => {
             s.close();
             t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
             t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+            t.ok(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should be processed by webpack');
+            t.ok(data.indexOf('//# sourceMappingURL=data:application/json;base64') > -1, 'should have sourcemap');
             t.end();
         });
 
