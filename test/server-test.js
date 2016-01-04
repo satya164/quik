@@ -34,6 +34,7 @@ test('should respond with transpiled script', t => {
             res.on('end', () => {
                 s.close();
                 t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
+                t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
                 t.end();
             });
 
