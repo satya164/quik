@@ -25,7 +25,7 @@ module.exports = function(options) {
         return webpack(Object.assign({}, config, {
             entry,
             context: WORKINGDIR,
-            devtool: 'source-map',
+            devtool: options.devtool || 'inline-source-map',
             plugins: options.production ? [
                 ...config.plugins,
                 new webpack.optimize.UglifyJsPlugin(),

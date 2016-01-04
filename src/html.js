@@ -20,9 +20,11 @@ module.exports = function(options) {
                     return;
                 }
 
-                console.log(status.toString({
-                    colors: true
-                }));
+                if (!options.quiet) {
+                    console.log(status.toString({
+                        colors: true
+                    }));
+                }
 
                 const result = status.toJson();
 

@@ -3,7 +3,9 @@
 const configure = require('./configure');
 
 module.exports = function(options) {
-    return configure(options).then(compiler => {
+    return configure(Object.assign({}, options, {
+        devtool: 'source-map'
+    })).then(compiler => {
         return new Promise((resolve, reject) => {
             compiler.run((err, status) => {
                 if (err) {
@@ -11,9 +13,11 @@ module.exports = function(options) {
                     return;
                 }
 
-                console.log(status.toString({
-                    colors: true
-                }));
+                if (!options.quiet) {
+                    console.log(status.toString({
+                        colors: true
+                    }));
+                }
 
                 const result = status.toJson();
 
