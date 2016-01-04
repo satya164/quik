@@ -12,5 +12,5 @@ module.exports = function(options) {
     app.use(quik(options));
     app.use(serve(options.root, { defer: true }));
 
-    return Promise.resolve(app.listen(options.port));
+    return app;
 };

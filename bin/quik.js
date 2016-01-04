@@ -118,15 +118,10 @@ if (argv.init) {
         root: process.cwd(),
         port: argv.port,
         watch: argv.watch
-    })
-    .then(() => {
-        const url = `http://localhost:${argv.port}`;
+    }).listen(argv.port);
 
-        console.log(`Quik is serving files at ${chalk.blue(url)}`);
-        opn(url);
-    })
-    .catch(err => {
-        console.error(err);
-        process.exit(1);
-    });
+    const url = `http://localhost:${argv.port}`;
+
+    console.log(`Quik is serving files at ${chalk.blue(url)}`);
+    opn(url);
 }

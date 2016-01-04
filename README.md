@@ -123,9 +123,8 @@ To start the `quik` server,
 ```js
 quik.server({
     root: process.cwd(),
-    port: 8008,
     watch: [ 'file1.js', 'file2.js' ]
-});
+}).listen(8080);
 ```
 
 To generate a bundle,
