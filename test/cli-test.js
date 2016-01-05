@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('blue-tape');
+const test = require('ava');
 const path = require('path');
 const child_process = require('child_process');
 const fs = require('fs');
@@ -10,7 +10,7 @@ const mkdirp = require('mkdirp');
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const PROJECT_NAME = 'AwesomeProject';
 
-test('setup', () => del(TESTDIR, { force: true }).then(() =>
+test.before('setup', () => del(TESTDIR, { force: true }).then(() =>
     new Promise((resolve, reject) => {
         mkdirp(TESTDIR, err => {
             if (err) {
@@ -22,18 +22,20 @@ test('setup', () => del(TESTDIR, { force: true }).then(() =>
     })
 ));
 
-test('should print usage', t => {
+test.after('teardown', () => del(TESTDIR, { force: true }));
+
+test.cb('should print usage', t => {
     child_process.execFile(path.join(__dirname, '../bin/quik.js'), [ '--help' ], {}, (err, stdout) => {
         if (err) {
             t.end(err);
         } else {
-            t.equal(stdout.indexOf('Usage: bin/quik.js [...options]'), 0);
+            t.same(stdout.indexOf('Usage: ../bin/quik.js [...options]'), 0);
             t.end();
         }
     });
 });
 
-test('should initialize project with template', t => {
+test.cb('should initialize project with template', t => {
     child_process.execFile(path.join(__dirname, '../bin/quik.js'), [ '--init', PROJECT_NAME ], {
         cwd: TESTDIR
     }, err => {
@@ -53,5 +55,3 @@ test('should initialize project with template', t => {
         }
     });
 });
-
-test('teardown', () => del(TESTDIR, { force: true }));

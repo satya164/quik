@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('blue-tape');
+const test = require('ava');
 const path = require('path');
 const fs = require('fs');
 const del = require('del');
@@ -11,7 +11,7 @@ const readFileAsync = require('../src/read-file-async');
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');
 
-test('setup', () => del(TESTDIR, { force: true }).then(() =>
+test.before('setup', () => del(TESTDIR, { force: true }).then(() =>
     new Promise((resolve, reject) => {
         mkdirp(TESTDIR, err => {
             if (err) {
@@ -22,6 +22,8 @@ test('setup', () => del(TESTDIR, { force: true }).then(() =>
         });
     })
 ));
+
+test.after('teardown', () => del(TESTDIR, { force: true }));
 
 test('should bundle for development', t =>
     bundle({
@@ -63,5 +65,3 @@ test('should bundle for production', t =>
         t.ok(data.indexOf('"webpack:///../~/react/lib/ReactMount.js","webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
     })
 );
-
-test('teardown', () => del(TESTDIR, { force: true }));

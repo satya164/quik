@@ -1,29 +1,29 @@
 'use strict';
 
-const test = require('blue-tape');
+const test = require('ava');
 const http = require('http');
 const path = require('path');
 const server = require('../src/server');
 
-test('should start server', t => {
+test.cb('should start server', t => {
     const s = server({
         root: path.join(__dirname, '../template')
-    }).listen(8000);
+    }).listen(3000);
 
-    http.get('http://localhost:8000/', res => {
+    http.get('http://localhost:3000/', res => {
         s.close();
-        t.equal(res.statusCode, 200);
-        t.equal(res.headers['content-type'], 'text/html; charset=utf-8');
+        t.same(res.statusCode, 200);
+        t.same(res.headers['content-type'], 'text/html; charset=utf-8');
         t.end();
     });
 });
 
-test('should respond with transpiled script', t => {
+test.cb('should respond with transpiled script', t => {
     const s = server({
         root: path.join(__dirname, '../template')
-    }).listen(8000);
+    }).listen(3001);
 
-    http.get('http://localhost:8000/index.js', res => {
+    http.get('http://localhost:3001/index.js', res => {
         let data = '';
 
         res.on('data', chunk => data += chunk);
@@ -36,17 +36,17 @@ test('should respond with transpiled script', t => {
             t.end();
         });
 
-        t.equal(res.statusCode, 200);
-        t.equal(res.headers['content-type'], 'application/javascript; charset=utf-8');
+        t.same(res.statusCode, 200);
+        t.same(res.headers['content-type'], 'application/javascript; charset=utf-8');
     });
 });
 
-test('should respond with formatted error', t => {
+test.cb('should respond with formatted error', t => {
     const s = server({
         root: path.join(__dirname, '../template')
-    }).listen(8000);
+    }).listen(3002);
 
-    http.get('http://localhost:8000/none.js', res => {
+    http.get('http://localhost:3002/none.js', res => {
         let data = '';
 
         res.on('data', chunk => data += chunk);
