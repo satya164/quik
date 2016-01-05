@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "./node_modules/ava/cli.js test/**/*.js"
+    "test": "./node_modules/ava/cli.js test/**/*.js",
+    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs node ./node_modules/eslint/bin/eslint.js --quiet"
   },
   "bin": {
     "quik": "bin/quik.js"
@@ -50,6 +51,7 @@
   "devDependencies": {
     "ava": "^0.9.1",
     "del": "^2.2.0",
+    "eslint": "^1.10.3",
     "mkdirp": "^0.5.1"
   }
 }
