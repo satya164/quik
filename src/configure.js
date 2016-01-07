@@ -28,6 +28,11 @@ module.exports = function(options) {
             devtool: options.devtool || 'inline-source-map',
             plugins: options.production ? [
                 ...config.plugins,
+                new webpack.DefinePlugin({
+                    'process.env': {
+                        NODE_ENV: options.production ? '"production"' : '"developement"'
+                    }
+                }),
                 new webpack.optimize.UglifyJsPlugin(),
                 new webpack.optimize.OccurenceOrderPlugin()
             ] : config.plugins,

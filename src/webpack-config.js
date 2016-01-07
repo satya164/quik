@@ -8,7 +8,6 @@ const CURRENTDIR = path.join(__dirname, '..');
 module.exports = {
     devtool: 'inline-source-map',
     plugins: [
-        new webpack.EnvironmentPlugin('NODE_ENV'),
         new webpack.NoErrorsPlugin()
     ],
     module: {
