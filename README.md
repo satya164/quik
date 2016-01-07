@@ -137,7 +137,6 @@ Even though `quik` itself doesn't provide additional customization, it's just a 
 
 Below are some ideas on how to improve `quik`. It would be awesome to receive pull requests for these.
 
-* Write some tests for Hot Module Replacement
 * Automatically parse HTML files to enable hot reloading without having to specify files with `--watch`
 * Cache bundles instead of re-building on every request
 * Better error handling
