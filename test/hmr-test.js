@@ -9,7 +9,7 @@ const server = require('../src/server');
 test.cb('should rebuild on changes', t => {
     const BUILDING = 'building';
     const BUILT = 'built';
-    const HEARBEAT = '💓';
+    const HEARTBEAT = '💓';
 
     const s = server({
         root: path.join(__dirname, '../template'),
@@ -51,14 +51,14 @@ test.cb('should rebuild on changes', t => {
         const data = message.data;
 
         if (i === 6) {
-            t.same(data, HEARBEAT, 'should recieve heartbeat');
+            t.same(data, HEARTBEAT, 'should recieve heartbeat');
 
             hmr.close();
             s.close();
             t.end();
         }
 
-        if (data === HEARBEAT) {
+        if (data === HEARTBEAT) {
             return;
         }
 
