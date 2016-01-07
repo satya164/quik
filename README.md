@@ -219,7 +219,9 @@ Below are some ideas on how to improve `quik`. It would be awesome to receive pu
 
 ## Similar tools
 
-Of course, `quik` is not the only tool trying to solve this problem. There are few other tools which are also doing a good job at it.
+Of course, `quik` is not the only tool trying to solve this problem. There are few other tools which are also doing a great job at it.
 
+* [react-heatpack](https://github.com/insin/react-heatpack) - a very minimal prototyping server for React with Hot Module Replacement
+* [nwb](https://github.com/insin/nwb) - similar, but has lot more options
+* [rwb](https://github.com/petehunt/rwb) - pretty similar to `quik`, has Hot Module Replacement and can also build bundles for production
 * [run-js](https://github.com/remixz/run-js) - works on top of [`browserify`](http://browserify.org/), zero-setup, has live-reload functionality
-* [prot](https://github.com/mattdesl/prot) - works on top of [`budo`](https://github.com/mattdesl/budo), not actively maintained
