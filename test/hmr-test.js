@@ -7,6 +7,10 @@ const EventSource = require('eventsource');
 const server = require('../src/server');
 
 test.cb('should rebuild on changes', t => {
+    const BUILDING = 'building';
+    const BUILT = 'built';
+    const HEARBEAT = '💓';
+
     const s = server({
         root: path.join(__dirname, '../template'),
         watch: [ './index.js' ]
@@ -28,7 +32,7 @@ test.cb('should rebuild on changes', t => {
         });
     }
 
-    t.plan(8);
+    t.plan(14);
 
     const hmr = new EventSource('http://localhost:3005/__webpack_hmr');
 
@@ -41,22 +45,20 @@ test.cb('should rebuild on changes', t => {
     };
 
     let i = 0;
-    let action = 'building';
+    let action = BUILDING;
 
     hmr.onmessage = message => {
         const data = message.data;
 
         if (i === 6) {
-            t.same(data, '💓', 'should recieve heartbeat');
+            t.same(data, HEARBEAT, 'should recieve heartbeat');
 
             hmr.close();
             s.close();
             t.end();
-
-            return;
         }
 
-        if (data === '💓') {
+        if (data === HEARBEAT) {
             return;
         }
 
@@ -65,12 +67,17 @@ test.cb('should rebuild on changes', t => {
 
             t.same(parsed.action, action);
 
+            if (parsed.action === BUILT) {
+                t.same(parsed.errors, []);
+                t.same(parsed.warnings, []);
+            }
+
             switch (parsed.action) {
-            case 'building':
-                action = 'built';
+            case BUILDING:
+                action = BUILT;
                 break;
-            case 'built':
-                action = 'building';
+            case BUILT:
+                action = BUILDING;
                 break;
             }
 
