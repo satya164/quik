@@ -24,6 +24,9 @@ module.exports = function(options) {
                     ]
                 })
             });
+        } else if (loader.loaders && (loader.loaders.indexOf('babel-loader') > -1 || loader.loaders.indexOf('babel') > -1)) {
+            // TODO: use babel-preset-react-hmre
+            loader.loaders.unshift('react-hot');
         }
     }
 
