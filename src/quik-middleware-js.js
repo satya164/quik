@@ -11,7 +11,7 @@ const CONTENT_TYPE = 'application/javascript';
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
-    const test = file => /(\.js)$/.test(file);
+    const test = file => /(\.(jsx?|cjsx|coffee))$/.test(file);
 
     return function *(next) {
         if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path)) {

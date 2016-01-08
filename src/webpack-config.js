@@ -13,7 +13,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
@@ -23,6 +23,14 @@ module.exports = {
                         require.resolve('babel-preset-stage-1')
                     ]
                 }
+            },
+            {
+                test: /\.cjsx$/,
+                loaders: [ 'babel-loader', 'coffee-loader', 'cjsx-loader' ]
+            },
+            {
+                test: /\.coffee$/,
+                loaders: [ 'babel-loader', 'coffee-loader' ]
             },
             {
                 test: /\.json$/,
@@ -43,6 +51,7 @@ module.exports = {
         ]
     },
     resolve: {
+        extensions: [ '', '.webpack.js', '.web.js', '.js', '.coffee', '.cjsx' ],
         fallback: [
             path.join(CURRENTDIR, 'node_modules')
         ]
