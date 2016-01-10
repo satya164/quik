@@ -1,8 +1,14 @@
 import path from 'path';
 import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 import babelrc from './babelrc';
 
 const CURRENTDIR = path.join(__dirname, '..');
+const BABEL_LOADER = 'babel-loader?' + JSON.stringify(babelrc);
+const CSS_LOADER = 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]';
+const SASS_LOADER = 'sass-loader?sourceMap';
+const LESS_LOADER = 'less-loader?sourceMap';
+const STYLE_LOADERS = [ 'style-loader', CSS_LOADER, 'postcss-loader' ];
 
 export const extensions = [ '', '.web.js', '.js' ];
 
@@ -11,6 +17,10 @@ export default (options) => ({
     entry: options.entry,
     output: options.output,
     devtool: options.devtool,
+
+    postcss() {
+        return [ autoprefixer ];
+    },
 
     plugins: [
         new webpack.NoErrorsPlugin(),
@@ -38,13 +48,28 @@ export default (options) => ({
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader?' + JSON.stringify(babelrc),
+                loader: BABEL_LOADER,
             },
-            { test: /\.json$/, loader: 'json' },
-            { test: /\.css$/, loaders: [ 'style', 'css' ] },
-            { test: /\.sass$/, loaders: [ 'style', 'css', 'sass?indentedSyntax' ] },
-            { test: /\.scss$/, loaders: [ 'style', 'css', 'sass' ] },
-            { test: /\.(gif|jpg|png)$/, loader: 'url?limit=25000' },
+            {
+                test: /\.json$/,
+                loader: 'json',
+            },
+            {
+                test: /\.css$/,
+                loaders: STYLE_LOADERS,
+            },
+            {
+                test: /\.less$/,
+                loaders: [ ...STYLE_LOADERS, LESS_LOADER ],
+            },
+            {
+                test: /\.scss$/,
+                loaders: [ ...STYLE_LOADERS, SASS_LOADER ],
+            },
+            {
+                test: /\.(gif|jpg|png|webp|svg)$/,
+                loader: 'url?limit=25000',
+            },
         ]
     },
 
