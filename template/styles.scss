@@ -1,0 +1,12 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font: 1rem sans-serif;
+    color: #443b5d;
+}
