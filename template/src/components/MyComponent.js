@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import CSS from './styles.scss';
+import CSS from '../styles.scss';
 
 const styles = {
     container: {
