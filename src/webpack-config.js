@@ -69,7 +69,10 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [ '', '.webpack.js', '.web.js', '.js', '.coffee', '.cjsx' ],
+        extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx', '.coffee', '.cjsx' ],
+        root: [
+            path.resolve('./src')
+        ],
         fallback: [
             path.join(CURRENTDIR, 'node_modules')
         ]
