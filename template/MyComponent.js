@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
 
-import CSS from './styles.scss';
-
 const styles = {
     container: {
-        maxWidth: 900,
-        margin: '0 auto'
+        margin: 16,
+        fontFamily: 'sans-serif',
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#443b5d'
     }
 };
 
 class MyComponent extends Component {
     render() {
-        return (
-            <div style={styles.container}>
-                <h1>Hello world!</h1>
-            </div>
-        );
+        return <div style={styles.container}>Hello world!</div>;
     }
 }
 
