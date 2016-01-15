@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('babel-core/register');
+
 const yargs = require('yargs');
 const path = require('path');
 const fs = require('fs');
