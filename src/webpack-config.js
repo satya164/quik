@@ -68,6 +68,11 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'npm-install-loader',
                 test: /\.js$/,
+                query: {
+                    cli: {
+                        save: true
+                    },
+                },
             },
         ]
     },
