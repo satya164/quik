@@ -2,8 +2,16 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const babelrc = require('./babelrc');
 
 const CURRENTDIR = path.join(__dirname, '..');
+
+const BABEL_LOADER = 'babel-loader?' + JSON.stringify(babelrc);
+const STYLE_LOADERS = [
+    'style-loader',
+    'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
+    'autoprefixer-loader?browsers=last 2 version'
+];
 
 module.exports = {
     devtool: 'inline-source-map',
@@ -15,22 +23,11 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: [
-                        require.resolve('babel-preset-es2015'),
-                        require.resolve('babel-preset-react'),
-                        require.resolve('babel-preset-stage-1')
-                    ]
-                }
+                loader: BABEL_LOADER
             },
             {
-                test: /\.cjsx$/,
-                loaders: [ 'babel-loader', 'coffee-loader', 'cjsx-loader' ]
-            },
-            {
-                test: /\.coffee$/,
-                loaders: [ 'babel-loader', 'coffee-loader' ]
+                test: /\.(cjsx|coffee)$/,
+                loaders: [ BABEL_LOADER, 'coffee-loader', 'cjsx-loader' ]
             },
             {
                 test: /\.json$/,
@@ -38,43 +35,35 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loaders: [
-                    'style',
-                    'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
-                    'autoprefixer?browsers=last 2 version'
-                ]
+                loaders: STYLE_LOADERS
             },
             {
                 test: /\.less$/,
                 loaders: [
-                    'style',
-                    'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
-                    'autoprefixer?browsers=last 2 version',
-                    'less?outputStyle=expanded&sourceMap'
+                    ...STYLE_LOADERS,
+                    'less-loader?outputStyle=expanded&sourceMap'
                 ]
             },
             {
                 test: /\.scss$/,
                 loaders: [
-                    'style',
-                    'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
-                    'autoprefixer?browsers=last 2 version',
-                    'sass?outputStyle=expanded&sourceMap'
+                    ...STYLE_LOADERS,
+                    'sass-loader?outputStyle=expanded&sourceMap'
                 ]
-            }
+            },
         ],
         postLoaders: [
             {
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'npm-install-loader',
-                test: /\.jsx?$/,
                 query: {
                     cli: {
                         save: true
                     },
                 },
             },
-        ]
+        ],
     },
     resolveLoader: {
         root: [
@@ -86,5 +75,5 @@ module.exports = {
         fallback: [
             path.join(CURRENTDIR, 'node_modules')
         ]
-    }
+    },
 };

@@ -6,27 +6,30 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 const config = require('./webpack-config');
+const babelrc = require('./babelrc');
 
 module.exports = function(options) {
     const WORKINGDIR = options.root;
 
+    const BABEL_LOADER = 'babel-loader?' + JSON.stringify(Object.assign({}, babelrc, {
+        presets: [
+            ...babelrc.presets,
+            require.resolve('babel-preset-react-hmre')
+        ]
+    }));
+
     const loaders = config.module.loaders.slice();
 
-    for (let i = 0, l = loaders.length; i < l; i++) {
-        const loader = loaders[i];
-
-        if (loader.loader === 'babel-loader' || loader.loader === 'babel') {
-            loaders[i] = Object.assign({}, loader, {
-                query: Object.assign({}, loader.query, {
-                    presets: [
-                        ...loader.query.presets,
-                        require.resolve('babel-preset-react-hmre')
-                    ]
-                })
-            });
-        } else if (loader.loaders && (loader.loaders.indexOf('babel-loader') > -1 || loader.loaders.indexOf('babel') > -1)) {
-            // TODO: use babel-preset-react-hmre
-            loader.loaders.unshift('react-hot');
+    for (let loader of loaders) {
+        if (loader.loader && loader.loader.indexOf('babel') > -1) {
+            loader.loader = BABEL_LOADER;
+        } else if (loader.loaders) {
+            for (let i = 0, l = loader.loaders.length; i < l; i++) {
+                if (loader.loaders[i].indexOf('babel') > -1) {
+                    loader.loaders[i] = BABEL_LOADER;
+                    break;
+                }
+            }
         }
     }
 
@@ -45,7 +48,7 @@ module.exports = function(options) {
             publicPath: '/',
             filename: '[name]'
         },
-        plugins: [].concat(config.plugins, [ new webpack.HotModuleReplacementPlugin() ]),
+        plugins: [ ...config.plugins, new webpack.HotModuleReplacementPlugin() ],
         module: { loaders }
     }));
 
