@@ -46,7 +46,7 @@
     "ncp": "^2.0.0",
     "node-sass": "^3.4.2",
     "npm-install-loader": "^1.1.0",
-    "opn": "^3.0.3",
+    "opn": "^4.0.0",
     "radium": "^0.16.1",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
