@@ -60,7 +60,7 @@
     "yargs": "^3.31.0"
   },
   "devDependencies": {
-    "ava": "^0.10.0",
+    "ava": "^0.11.0",
     "del": "^2.2.0",
     "eslint": "^1.10.3",
     "eventsource": "^0.1.6",
