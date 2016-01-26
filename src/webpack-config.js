@@ -21,7 +21,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: BABEL_LOADER
             },
@@ -54,7 +54,7 @@ module.exports = {
         ],
         postLoaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'npm-install-loader',
                 query: {
@@ -71,7 +71,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx', '.coffee', '.cjsx' ],
+        extensions: [ '', '.webpack.js', '.web.js', '.js', '.coffee', '.cjsx' ],
         fallback: [
             path.join(CURRENTDIR, 'node_modules')
         ]
