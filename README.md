@@ -18,6 +18,7 @@ Quik runs a simple server that compiles JavaScript files with Babel on the fly, 
 * Generates single standalone HTML file for sharing
 * React, Redux, React Router and Radium are already included
 * Quick prototyping with an optional starter template
+* Supports CoffeeScript as well as Sass and LESS
 
 ## Installation
 
@@ -35,7 +36,7 @@ Open the Terminal in any directory and run the following,
 quik
 ```
 
-It'll start a simple server which will serve the files in the current directory.
+It'll start a simple server which will serve the files in the current directory. It'll open the `index.html` file in the browser by default.
 
 If you want to use a different port. For example, to run the server in the port `8008`, run,
 
@@ -52,8 +53,8 @@ You can also `import` the following packages by default without any `npm install
 * [`react-dom`](https://facebook.github.io/react/docs/top-level-api.html#reactdom)
 * [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
 * [`react-router`](https://github.com/rackt/react-router)
+* [`react-router-redux`](https://github.com/rackt/react-router-redux)
 * [`redux`](http://redux.js.org/)
-* [`redux-simple-router`](https://github.com/rackt/redux-simple-router)
 
 In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
 
@@ -127,7 +128,7 @@ The following posts inspired me to work on `quik`,
 
 One good thing about `quik` is that it is highly opinionated, which means we don't worry about becoming generic and can focus on making it better at what it does. It doesn't allow additional `babel` transforms, or loaders for `webpack` as of now.
 
-Inline styles are recommended for styling. When combined with a library like `radium`, they provide much more flexibility than CSS. This also means that we don't have to configure yet another build step for your preferred CSS pre-processor.
+Inline styles are recommended for styling. When combined with a library like `radium`, they provide much more flexibility than CSS.
 
 The goal of `quik` is to improve the tooling around React and Babel projects. While it'll be easy enough to support additional customization, it defeats the whole purpose of being zero-setup. If you need additional configuration, it will be better to go with `webpack` directly. If you think something should be included by default, send a pull request or file a bug report.
 
