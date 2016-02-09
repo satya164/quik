@@ -18,7 +18,7 @@
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer-loader": "^3.2.0",
+    "autoprefixer": "^6.3.1",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.2",
     "babel-polyfill": "^6.5.0",
@@ -46,6 +46,7 @@
     "ncp": "^2.0.0",
     "node-sass": "^3.4.2",
     "opn": "^4.0.0",
+    "postcss-loader": "^0.8.0",
     "radium": "^0.16.5",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
