@@ -52,18 +52,6 @@ module.exports = {
                 ]
             },
         ],
-        postLoaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'npm-install-loader',
-                query: {
-                    cli: {
-                        save: true
-                    },
-                },
-            },
-        ],
     },
     resolveLoader: {
         root: [

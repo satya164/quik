@@ -45,7 +45,6 @@
     "memory-fs": "^0.3.0",
     "ncp": "^2.0.0",
     "node-sass": "^3.4.2",
-    "npm-install-loader": "^1.1.1",
     "opn": "^4.0.0",
     "radium": "^0.16.5",
     "react": "^0.14.7",
