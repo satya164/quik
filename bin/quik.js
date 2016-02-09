@@ -3,6 +3,7 @@
 'use strict';
 
 require('babel-core/register');
+require('babel-polyfill');
 
 const yargs = require('yargs');
 const path = require('path');
