@@ -63,7 +63,7 @@
     "ava": "^0.11.0",
     "del": "^2.2.0",
     "eslint": "^1.10.3",
-    "eventsource": "^0.1.6",
+    "eventsource": "^0.2.0",
     "mkdirp": "^0.5.1"
   }
 }
