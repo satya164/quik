@@ -25,15 +25,20 @@ const argv = yargs
             default: 3030,
             description: 'Port to listen on'
         },
+        run: {
+            alias: 'r',
+            type: 'string',
+            description: 'Script to run in browser'
+        },
         watch: {
             alias: 'w',
             type: 'array',
-            description: 'Files to watch for changes'
+            description: 'Scripts to watch for changes'
         },
         bundle: {
             alias: 'b',
             type: 'array',
-            description: 'Files to bundle'
+            description: 'Scripts to bundle'
         },
         html: {
             type: 'string',
@@ -50,6 +55,7 @@ const argv = yargs
             description: 'Optimize bundle for production'
         }
     })
+    .example('$0 --run index.js', 'Run the script \'index.js\' in a browser and watch for changes')
     .example('$0 --port 8008 --watch index.js', 'Start the server in the port \'8008\' and watch \'index.js\' for changes')
     .example('$0 --bundle entry.js --output bundle.js --production', 'Generate a bundle named \'bundle.js\' from \'entry.js\' for production')
     .example('$0 --html index.html --output bundle.html', 'Generate a sharable HTML file named \'bundle.html\' from \'index.html\'')
@@ -120,6 +126,7 @@ if (argv.init) {
     quik.server({
         root: process.cwd(),
         port: argv.port,
+        run: argv.run,
         watch: argv.watch
     }).listen(argv.port);
 
