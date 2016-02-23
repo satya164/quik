@@ -2,15 +2,11 @@
 
 module.exports = function(fs, file) {
     return new Promise((resolve, reject) => {
-        fs.exists(file, (exists) => {
-            if (exists) {
-                resolve(file);
-            } else {
-                const error = new Error(`File doesn't exist: '${file}'`);
-
-                error.code = 'ENOENT';
-
+        fs.access(file, fs.R_OK, error => {
+            if (error) {
                 reject(error);
+            } else {
+                resolve(file);
             }
         });
     });
