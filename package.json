@@ -19,13 +19,10 @@
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer": "^6.3.3",
-    "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
     "babel-plugin-transform-react-constant-elements": "^6.5.0",
     "babel-plugin-transform-react-inline-elements": "^6.5.0",
     "babel-plugin-transform-runtime": "^6.5.2",
-    "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-es2015-native-modules": "^6.5.0",
     "babel-preset-react": "^6.5.0",
