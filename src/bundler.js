@@ -1,8 +1,8 @@
-import configure from './configure-bundler';
+import bundler from './configure-bundler';
 import runCompilerAsync from './run-compiler-async';
 
 export default async function(options) {
-    const compiler = await configure({ ...options, devtool: 'source-map' });
+    const compiler = await bundler({ ...options, devtool: 'source-map' });
     const status = await runCompilerAsync(compiler);
 
     if (!options.quiet) {

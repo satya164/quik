@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 import MemoryFS from 'memory-fs';
 import readFileAsync from './read-file-async';
 import writeFileAsync from './write-file-async';
-import configure from './configure-bundler';
+import bundler from './configure-bundler';
 import runCompilerAsync from './run-compiler-async';
 
 export default async function(options) {
@@ -41,7 +41,7 @@ export default async function(options) {
                 return;
             }
 
-            const compiler = await configure({
+            const compiler = await bundler({
                 root: options.root,
                 entry: [ './' + path.relative(options.root, path.join(path.dirname(path.join(options.root, options.entry)), src)) ],
                 output: 'output.js',

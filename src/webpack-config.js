@@ -18,7 +18,7 @@ export default {
         ]
     },
     resolve: {
-        extensions: [ '', '.web.js', '.js', '.coffee', '.cjsx' ],
+        extensions: [ '', '.web.js', '.js' ],
         modules: [
             path.join(CURRENTDIR, 'node_modules')
         ]
