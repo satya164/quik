@@ -57,6 +57,7 @@
   "devDependencies": {
     "ava": "^0.12.0",
     "babel-cli": "^6.5.1",
+    "babel-eslint": "^5.0.0",
     "del": "^2.2.0",
     "eslint": "^2.2.0",
     "eventsource": "^0.2.0",
