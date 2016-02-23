@@ -60,6 +60,8 @@ module.exports = function(options) {
                         $(el).text(content);
                     });
                 }
+
+                return null;
             })
             .get()
         )
