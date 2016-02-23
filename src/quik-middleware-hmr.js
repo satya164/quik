@@ -10,12 +10,13 @@ import babelrc from './babelrc';
 export default function(options) {
     const WORKINGDIR = options.root;
 
-    const BABEL_LOADER = 'babel-loader?' + JSON.stringify(Object.assign({}, babelrc, {
+    const BABEL_LOADER = 'babel-loader?' + JSON.stringify({
+        ...babelrc,
         presets: [
             ...babelrc.presets,
             require.resolve('babel-preset-react-hmre')
         ]
-    }));
+    });
 
     const loaders = config.module.loaders.slice();
 
@@ -39,11 +40,13 @@ export default function(options) {
         entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
     }
 
-    const compiler = configure(Object.assign({}, config, {
-        module: Object.assign({}, config.modules, {
+    const compiler = configure({
+        ...config,
+        module: {
+            ...config.modules,
             loaders,
-        })
-    }), {
+        }
+    }, {
         entry,
         plugins: [ new webpack.HotModuleReplacementPlugin() ],
         context: WORKINGDIR,

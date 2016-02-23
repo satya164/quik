@@ -1,6 +1,7 @@
 import path from 'path';
 import MemoryFS from 'memory-fs';
 import readFileAsync from './read-file-async';
+import runCompilerAsync from './run-compiler-async';
 import formatError from './format-error';
 import configure from './configure-bundler';
 
@@ -22,28 +23,19 @@ export default function(options) {
                 output: OUTPUTFILE,
                 production: false
             })
-            .then(compiler => {
-                return new Promise((resolve, reject) => {
-                    const memoryFs = new MemoryFS();
+            .then(async compiler => {
+                const memoryFs = new MemoryFS();
 
-                    compiler.outputFileSystem = memoryFs;
+                compiler.outputFileSystem = memoryFs;
 
-                    compiler.run((err, status) => {
-                        if (err) {
-                            reject(err);
-                            return;
-                        }
+                const status = await runCompilerAsync(compiler);
+                const result = status.toJson();
 
-                        const result = status.toJson();
+                if (result.errors.length) {
+                    throw result.errors;
+                }
 
-                        if (result.errors.length) {
-                            reject(result.errors);
-                            return;
-                        }
-
-                        resolve(readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE)));
-                    });
-                });
+                return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
             })
             .catch(formatError);
         }

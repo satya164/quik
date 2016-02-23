@@ -1,13 +1,15 @@
 import path from 'path';
 import webpack from 'webpack';
 
-export default (config, options) => webpack(Object.assign({}, config, {
+export default (config, options) => webpack({
+    ...config,
+
     context: options.context,
     entry: options.entry,
     output: options.output,
     devtool: options.devtool || config.devtool,
-    plugins: [
-        ...config.plugins,
+
+    plugins: config.plugins.concat(
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: options.production ? '"production"' : '"developement"'
@@ -17,22 +19,24 @@ export default (config, options) => webpack(Object.assign({}, config, {
             minimize: !!options.production,
             debug: !options.production
         }),
-    ]
+    )
     .concat(options.production ? [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin(),
     ] : [])
     .concat(options.plugins || []),
-    resolveLoader: Object.assign({}, config.resolve, {
-        modules: [
-            config.resolve.modules,
+
+    resolveLoader: {
+        ...config.resolveLoader,
+        modules: config.resolveLoader.modules.concat(
             path.resolve(options.context, 'node_modules'),
-        ],
-    }),
-    resolve: Object.assign({}, config.resolve, {
-        modules: [
-            config.resolve.modules,
+        ),
+    },
+
+    resolve: {
+        ...config.resolve,
+        modules: config.resolve.modules.concat(
             path.resolve(options.context, 'node_modules'),
-        ],
-    })
-}));
+        ),
+    }
+});

@@ -1,31 +1,21 @@
 import configure from './configure-bundler';
+import runCompilerAsync from './run-compiler-async';
 
-export default function(options) {
-    return configure(Object.assign({}, options, {
-        devtool: 'source-map'
-    })).then(compiler => {
-        return new Promise((resolve, reject) => {
-            compiler.run((err, status) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
+export default async function(options) {
+    const compiler = await configure({ ...options, devtool: 'source-map' });
+    const status = await runCompilerAsync(compiler);
 
-                if (!options.quiet) {
-                    console.log(status.toString({
-                        colors: true
-                    }));
-                }
+    if (!options.quiet) {
+        console.log(status.toString({
+            colors: true
+        }));
+    }
 
-                const result = status.toJson();
+    const result = status.toJson();
 
-                if (result.errors.length) {
-                    reject(result.errors);
-                    return;
-                }
+    if (result.errors.length) {
+        throw result.errors;
+    }
 
-                resolve(result);
-            });
-        });
-    });
+    return result;
 }
