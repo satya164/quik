@@ -18,7 +18,6 @@ Quik runs a simple server that compiles JavaScript files with Babel on the fly, 
 * Generates single standalone HTML file for sharing
 * React, Redux, React Router and Radium are already included
 * Quick prototyping with an optional starter template
-* Supports CoffeeScript as well as Sass and LESS
 
 ## Installation
 
