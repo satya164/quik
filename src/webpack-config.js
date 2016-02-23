@@ -1,12 +1,10 @@
-'use strict';
-
-const webpack = require('webpack');
-const path = require('path');
-const loaders = require('./webpack-loaders');
+import webpack from 'webpack';
+import path from 'path';
+import loaders from './webpack-loaders';
 
 const CURRENTDIR = path.join(__dirname, '..');
 
-module.exports = {
+export default {
     devtool: 'inline-source-map',
     plugins: [
         new webpack.NoErrorsPlugin(),

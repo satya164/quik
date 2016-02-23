@@ -1,8 +1,6 @@
-'use strict';
-
 const CONTENT_TYPE = 'text/html';
 
-module.exports = function(options) {
+export default function(options) {
     return function *(next) {
         if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && /^\/(index\.html)?$/.test(this.path)) {
             this.type = CONTENT_TYPE;
@@ -26,4 +24,4 @@ module.exports = function(options) {
 
         yield next;
     };
-};
+}

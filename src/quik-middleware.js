@@ -1,12 +1,10 @@
-'use strict';
+import fs from 'fs';
+import compose from 'koa-compose';
+import hmr from './quik-middleware-hmr';
+import js from './quik-middleware-js';
+import run from './quik-middleware-run';
 
-const fs = require('fs');
-const compose = require('koa-compose');
-const hmr = require('./quik-middleware-hmr');
-const js = require('./quik-middleware-js');
-const run = require('./quik-middleware-run');
-
-module.exports = function(options) {
+export default function(options) {
     const middlewares = [];
 
     middlewares.push(js({
@@ -50,4 +48,4 @@ module.exports = function(options) {
     }
 
     return compose(middlewares);
-};
+}

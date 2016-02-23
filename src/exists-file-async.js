@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(fs, file) {
+export default function(fs, file) {
     return new Promise((resolve, reject) => {
         fs.access(file, fs.R_OK, error => {
             if (error) {
@@ -10,4 +8,4 @@ module.exports = function(fs, file) {
             }
         });
     });
-};
+}

@@ -1,14 +1,12 @@
-'use strict';
-
-const path = require('path');
-const MemoryFS = require('memory-fs');
-const readFileAsync = require('./read-file-async');
-const formatError = require('./format-error');
-const configure = require('./configure-bundler');
+import path from 'path';
+import MemoryFS from 'memory-fs';
+import readFileAsync from './read-file-async';
+import formatError from './format-error';
+import configure from './configure-bundler';
 
 const CONTENT_TYPE = 'application/javascript';
 
-module.exports = function(options) {
+export default function(options) {
     const WORKINGDIR = options.root;
 
     const test = file => /(\.(js|cjsx|coffee))$/.test(file);
@@ -52,4 +50,4 @@ module.exports = function(options) {
 
         yield next;
     };
-};
+}

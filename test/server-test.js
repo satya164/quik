@@ -3,7 +3,7 @@
 const test = require('ava');
 const http = require('http');
 const path = require('path');
-const server = require('../src/server');
+const server = require('../dist/server').default;
 
 test.cb('should start server', t => {
     const s = server({
@@ -26,7 +26,7 @@ test.cb('should respond with transpiled script', t => {
     http.get('http://localhost:3001/index.js', res => {
         let data = '';
 
-        res.on('data', chunk => data += chunk);
+        res.on('data', chunk => (data += chunk));
         res.on('end', () => {
             s.close();
             t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
@@ -49,7 +49,7 @@ test.cb('should respond with formatted error', t => {
     http.get('http://localhost:3002/none.js', res => {
         let data = '';
 
-        res.on('data', chunk => data += chunk);
+        res.on('data', chunk => (data += chunk));
         res.on('end', () => {
             s.close();
             t.ok(data.indexOf('/* show error response on build fail */') > -1, 'should contain error');

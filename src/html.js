@@ -1,13 +1,11 @@
-'use strict';
+import path from 'path';
+import fs from 'fs';
+import cheerio from 'cheerio';
+import MemoryFS from 'memory-fs';
+import readFileAsync from './read-file-async';
+import configure from './configure-bundler';
 
-const path = require('path');
-const fs = require('fs');
-const cheerio = require('cheerio');
-const MemoryFS = require('memory-fs');
-const readFileAsync = require('./read-file-async');
-const configure = require('./configure-bundler');
-
-module.exports = function(options) {
+export default function(options) {
     const compile = compiler => {
         const memoryFs = new MemoryFS();
 
@@ -79,4 +77,4 @@ module.exports = function(options) {
             });
         });
     });
-};
+}

@@ -1,11 +1,9 @@
-'use strict';
+import koa from 'koa';
+import serve from 'koa-static';
+import logger from 'koa-logger';
+import quik from './quik-middleware';
 
-const koa = require('koa');
-const serve = require('koa-static');
-const logger = require('koa-logger');
-const quik = require('./quik-middleware');
-
-module.exports = function(options) {
+export default function(options) {
     const app = koa();
 
     app.use(logger());
@@ -13,4 +11,4 @@ module.exports = function(options) {
     app.use(serve(options.root, { defer: true }));
 
     return app;
-};
+}

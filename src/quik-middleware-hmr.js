@@ -1,15 +1,13 @@
-'use strict';
+import expand from 'glob-expand';
+import compose from 'koa-compose';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'koa-webpack-dev-middleware';
+import webpackHotMiddleware from 'koa-webpack-hot-middleware';
+import config from './webpack-config';
+import configure from './configure-webpack';
+import babelrc from './babelrc';
 
-const expand = require('glob-expand');
-const compose = require('koa-compose');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('koa-webpack-dev-middleware');
-const webpackHotMiddleware = require('koa-webpack-hot-middleware');
-const config = require('./webpack-config');
-const configure = require('./configure-webpack');
-const babelrc = require('./babelrc');
-
-module.exports = function(options) {
+export default function(options) {
     const WORKINGDIR = options.root;
 
     const BABEL_LOADER = 'babel-loader?' + JSON.stringify(Object.assign({}, babelrc, {
@@ -21,7 +19,7 @@ module.exports = function(options) {
 
     const loaders = config.module.loaders.slice();
 
-    for (let loader of loaders) {
+    for (const loader of loaders) {
         if (loader.loader && loader.loader.indexOf('babel') > -1) {
             loader.loader = BABEL_LOADER;
         } else if (loader.loaders) {
@@ -37,7 +35,7 @@ module.exports = function(options) {
     const expanded = expand({ cwd: WORKINGDIR }, options.entry);
     const entry = {};
 
-    for (let e of expanded) {
+    for (const e of expanded) {
         entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
     }
 
@@ -63,4 +61,4 @@ module.exports = function(options) {
         }),
         webpackHotMiddleware(compiler)
     ]);
-};
+}

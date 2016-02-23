@@ -1,8 +1,6 @@
-'use strict';
+import configure from './configure-bundler';
 
-const configure = require('./configure-bundler');
-
-module.exports = function(options) {
+export default function(options) {
     return configure(Object.assign({}, options, {
         devtool: 'source-map'
     })).then(compiler => {
@@ -30,4 +28,4 @@ module.exports = function(options) {
             });
         });
     });
-};
+}

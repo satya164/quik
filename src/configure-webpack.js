@@ -1,9 +1,7 @@
-'use strict';
+import path from 'path';
+import webpack from 'webpack';
 
-const path = require('path');
-const webpack = require('webpack');
-
-module.exports = (config, options) => webpack(Object.assign({}, config, {
+export default (config, options) => webpack(Object.assign({}, config, {
     context: options.context,
     entry: options.entry,
     output: options.output,

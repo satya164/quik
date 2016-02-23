@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
     presets: [
         require.resolve('babel-preset-es2015-native-modules'),
         require.resolve('babel-preset-react'),

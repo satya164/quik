@@ -2,11 +2,13 @@
   "name": "quik",
   "version": "0.2.3",
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node index",
-    "test": "./node_modules/ava/cli.js test/**/*.js",
-    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs node ./node_modules/eslint/bin/eslint.js --quiet"
+    "build": "rm -rf dist/ && node_modules/babel-cli/bin/babel.js -sd dist/ src/",
+    "test": "node_modules/ava/cli.js test/**/*.js",
+    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs node node_modules/eslint/bin/eslint.js --quiet",
+    "prepublish": "npm run build"
   },
   "bin": {
     "quik": "bin/quik.js"
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "ava": "^0.12.0",
+    "babel-cli": "^6.5.1",
     "del": "^2.2.0",
     "eslint": "^2.2.0",
     "eventsource": "^0.2.0",

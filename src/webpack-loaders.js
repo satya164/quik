@@ -1,8 +1,6 @@
-'use strict';
+import babelrc from './babelrc';
 
-const babelrc = require('./babelrc');
-
-module.exports = [
+export default [
     {
         test: /\.js$/,
         exclude: /node_modules/,

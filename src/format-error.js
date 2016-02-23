@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(error) {
+export default function(error) {
     return `
         /* show error response on build fail */
         document.body.onload = function() {
@@ -19,4 +17,4 @@ module.exports = function(error) {
             }';
         }
     `;
-};
+}

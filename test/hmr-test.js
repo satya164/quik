@@ -4,7 +4,7 @@ const test = require('ava');
 const path = require('path');
 const fs = require('fs');
 const EventSource = require('eventsource');
-const server = require('../src/server');
+const server = require('../dist/server').default;
 
 test.cb('should rebuild on changes', t => {
     const BUILDING = 'building';

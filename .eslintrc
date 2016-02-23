@@ -1,7 +1,12 @@
 {
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
   },
 
   "rules": {
@@ -87,7 +92,7 @@
     "wrap-iife": 1,
     "yoda": [1, "never"],
 
-    "strict": [2, "global"],
+    "strict": 0,
 
     "init-declarations": 0,
     "no-catch-shadow": 2,

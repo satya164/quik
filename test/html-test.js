@@ -5,8 +5,8 @@ const path = require('path');
 const fs = require('fs');
 const del = require('del');
 const mkdirp = require('mkdirp');
-const html = require('../src/html');
-const readFileAsync = require('../src/read-file-async');
+const html = require('../dist/html').default;
+const readFileAsync = require('../dist/read-file-async').default;
 
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');

@@ -1,12 +1,10 @@
-'use strict';
+import fs from 'fs';
+import path from 'path';
+import config from './webpack-config';
+import configure from './configure-webpack';
+import existsFileAsync from './exists-file-async';
 
-const fs = require('fs');
-const path = require('path');
-const config = require('./webpack-config');
-const configure = require('./configure-webpack');
-const existsFileAsync = require('./exists-file-async');
-
-module.exports = function(options) {
+export default function(options) {
     const WORKINGDIR = options.root;
     const OUTPUTFILE = options.output || '[name].bundle.js';
 
@@ -18,7 +16,7 @@ module.exports = function(options) {
     .then(files => {
         const entry = {};
 
-        for (let f of files) {
+        for (const f of files) {
             entry[path.basename(f, '.js')] = f;
         }
 
@@ -34,4 +32,4 @@ module.exports = function(options) {
             entry,
         });
     });
-};
+}
