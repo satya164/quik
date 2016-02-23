@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('koa-webpack-dev-middleware');
 const webpackHotMiddleware = require('koa-webpack-hot-middleware');
 const config = require('./webpack-config');
+const configure = require('./configure-webpack');
 const babelrc = require('./babelrc');
 
 module.exports = function(options) {
@@ -40,17 +41,20 @@ module.exports = function(options) {
         entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
     }
 
-    const compiler = webpack(Object.assign({}, config, {
+    const compiler = configure(Object.assign({}, config, {
+        module: Object.assign({}, config.modules, {
+            loaders,
+        })
+    }), {
         entry,
+        plugins: [ new webpack.HotModuleReplacementPlugin() ],
         context: WORKINGDIR,
         output: {
             path: WORKINGDIR,
             publicPath: '/',
             filename: '[name]'
         },
-        plugins: [ ...config.plugins, new webpack.HotModuleReplacementPlugin() ],
-        module: { loaders }
-    }));
+    });
 
     return compose([
         webpackDevMiddleware(compiler, {

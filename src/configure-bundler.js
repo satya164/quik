@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
 const config = require('./webpack-config');
+const configure = require('./configure-webpack');
 const existsFileAsync = require('./exists-file-async');
 
 module.exports = function(options) {
@@ -22,25 +22,16 @@ module.exports = function(options) {
             entry[path.basename(f, '.js')] = f;
         }
 
-        return webpack(Object.assign({}, config, {
-            entry,
+        return configure(config, {
             context: WORKINGDIR,
-            devtool: options.devtool || 'inline-source-map',
-            plugins: options.production ? [
-                ...config.plugins,
-                new webpack.DefinePlugin({
-                    'process.env': {
-                        NODE_ENV: options.production ? '"production"' : '"developement"'
-                    }
-                }),
-                new webpack.optimize.UglifyJsPlugin(),
-                new webpack.optimize.OccurenceOrderPlugin()
-            ] : config.plugins,
+            devtool: options.devtool,
+            production: options.production,
             output: {
                 path: WORKINGDIR,
                 filename: OUTPUTFILE,
                 sourceMapFilename: OUTPUTFILE + '.map'
-            }
-        }));
+            },
+            entry,
+        });
     });
 };

@@ -4,7 +4,7 @@ const path = require('path');
 const MemoryFS = require('memory-fs');
 const readFileAsync = require('./read-file-async');
 const formatError = require('./format-error');
-const configure = require('./configure');
+const configure = require('./configure-bundler');
 
 const CONTENT_TYPE = 'application/javascript';
 

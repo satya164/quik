@@ -38,7 +38,7 @@ test('should build html for development', t =>
         t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
         t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
         t.ok(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;base64') > -1, 'should have sourcemap');
+        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -55,7 +55,7 @@ test('should build html for production', t =>
         t.ok(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
         t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
         t.ok(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
-        t.ok(data.indexOf('!function(e){function t(r){if(n[r])return n[r].exports') > -1, 'should be minified');
-        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;base64') > -1, 'should have sourcemap');
+        t.ok(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
+        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );

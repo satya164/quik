@@ -45,7 +45,7 @@ test('should bundle for development', t =>
     })
 );
 
-test('should bundle for production', t =>
+test.only('should bundle for production', t =>
     bundle({
         root: WORKINGDIR,
         entry: [ 'index.js' ],
@@ -57,7 +57,7 @@ test('should bundle for production', t =>
     .then(data => {
         t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
         t.ok(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
-        t.ok(data.indexOf('!function(e){function t(r){if(n[r])return n[r].exports') > -1, 'should be minified');
+        t.ok(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
         t.ok(data.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1, 'should have sourcemap');
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map')))

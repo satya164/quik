@@ -5,7 +5,7 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const MemoryFS = require('memory-fs');
 const readFileAsync = require('./read-file-async');
-const configure = require('./configure');
+const configure = require('./configure-bundler');
 
 module.exports = function(options) {
     const compile = compiler => {

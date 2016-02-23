@@ -1,6 +1,6 @@
 'use strict';
 
-const configure = require('./configure');
+const configure = require('./configure-bundler');
 
 module.exports = function(options) {
     return configure(Object.assign({}, options, {
