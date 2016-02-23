@@ -44,7 +44,7 @@ const quik = require('quik/middleware');
 
 app.use(quik({
     root: process.cwd(),
-    watch: [ 'file1.js', 'file2.js' ]
+    run: 'script.js'
 }));
 ```
 

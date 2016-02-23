@@ -36,7 +36,13 @@ Open the Terminal in any directory and run the following,
 quik
 ```
 
-It'll start a simple server which will serve the files in the current directory. It'll open the `index.html` file in the browser by default.
+It'll start a simple server which will serve the files in the current directory. By default, it'll automatically watch the file `index.js` if present.
+
+If no `index.html` file is present, it'll generate and serve an HTML file with it's script tag pointing to `index.js` file. Alternatively, you can specify the name of the script to include,
+
+```sh
+quik --run script.js
+```
 
 If you want to use a different port. For example, to run the server in the port `8008`, run,
 
@@ -56,13 +62,17 @@ You can also `import` the following packages by default without any `npm install
 * [`react-router-redux`](https://github.com/rackt/react-router-redux)
 * [`redux`](http://redux.js.org/)
 
-In addition to the above modules, `quik` also includes [`npm-install-loader`](https://github.com/ericclemmons/npm-install-loader) which will automatically install missing NPM dependencies during the webpack build. The newly installed module will only be available during the next build/reload.
-
 Note that the versions of libraries included by default might be updated to a newer version with breaking changes. It's okay while prototyping. But if you wan to bundle for production, then it's recommended to add a `package.json` for your project and specify your dependencies there.
 
 ## Enabling Hot Module Replacement
 
-To enable Hot Module Replacement for React Components, you need to specify the filenames you want to watch,
+Hot Module Replacement for React Components is automatically enabled if you have a script named `index.js` in the directory, or if you specified a script to run with the `--run` option, for example,
+
+```sh
+quik --run root.js
+```
+
+Alternatively, you can specify the filenames you want to watch for HMR,
 
 ```sh
 quik --watch file1.js file2.js
