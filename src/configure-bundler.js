@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import config from './webpack-config';
+import webpack from 'webpack';
 import configure from './configure-webpack';
 import existsFileAsync from './exists-file-async';
 
@@ -20,7 +20,7 @@ export default async function(options) {
         entry[path.basename(f, '.js')] = f;
     }
 
-    return configure(config, {
+    return webpack(configure({
         context: WORKINGDIR,
         devtool: options.devtool,
         production: options.production,
@@ -30,5 +30,5 @@ export default async function(options) {
             sourceMapFilename: OUTPUTFILE + '.map'
         },
         entry,
-    });
+    }));
 }

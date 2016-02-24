@@ -3,12 +3,31 @@ import compose from 'koa-compose';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'koa-webpack-dev-middleware';
 import webpackHotMiddleware from 'koa-webpack-hot-middleware';
-import config from './webpack-config';
 import configure from './configure-webpack';
 import babelrc from './babelrc';
 
 export default function(options) {
     const WORKINGDIR = options.root;
+
+    const expanded = expand({ cwd: WORKINGDIR }, options.entry);
+    const entry = {};
+
+    for (const e of expanded) {
+        entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
+    }
+
+    const config = configure({
+        context: WORKINGDIR,
+        devtool: options.devtool,
+        production: false,
+        plugins: [ new webpack.HotModuleReplacementPlugin() ],
+        output: {
+            path: WORKINGDIR,
+            publicPath: '/',
+            filename: '[name]'
+        },
+        entry
+    });
 
     const BABEL_LOADER = 'babel-loader?' + JSON.stringify({
         ...babelrc,
@@ -18,7 +37,7 @@ export default function(options) {
         ]
     });
 
-    const loaders = config.module.loaders.slice();
+    const loaders = config.module.loaders;
 
     for (const loader of loaders) {
         if (loader.loader && loader.loader.indexOf('babel') > -1) {
@@ -33,29 +52,7 @@ export default function(options) {
         }
     }
 
-    const expanded = expand({ cwd: WORKINGDIR }, options.entry);
-    const entry = {};
-
-    for (const e of expanded) {
-        entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
-    }
-
-    const compiler = configure({
-        ...config,
-        module: {
-            ...config.modules,
-            loaders,
-        }
-    }, {
-        entry,
-        plugins: [ new webpack.HotModuleReplacementPlugin() ],
-        context: WORKINGDIR,
-        output: {
-            path: WORKINGDIR,
-            publicPath: '/',
-            filename: '[name]'
-        },
-    });
+    const compiler = webpack(config);
 
     return compose([
         webpackDevMiddleware(compiler, {

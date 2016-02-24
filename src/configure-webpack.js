@@ -1,15 +1,19 @@
 import path from 'path';
 import webpack from 'webpack';
+import babelrc from './babelrc';
 
-export default (config, options) => webpack({
-    ...config,
+const CURRENTDIR = path.join(__dirname, '..');
 
+export const extensions = [ '', '.web.js', '.js' ];
+
+export default (options) => ({
     context: options.context,
     entry: options.entry,
     output: options.output,
-    devtool: options.devtool || config.devtool,
+    devtool: options.devtool || 'inline-source-map',
 
-    plugins: config.plugins.concat(
+    plugins: [
+        new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: options.production ? '"production"' : '"developement"'
@@ -19,24 +23,39 @@ export default (config, options) => webpack({
             minimize: !!options.production,
             debug: !options.production
         }),
-    )
+    ]
     .concat(options.production ? [
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin(),
     ] : [])
     .concat(options.plugins || []),
 
+    module: {
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader?' + JSON.stringify(babelrc),
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+            },
+        ]
+    },
+
     resolveLoader: {
-        ...config.resolveLoader,
-        modules: config.resolveLoader.modules.concat(
+        modules: [
+            path.join(CURRENTDIR, 'node_modules'),
             path.resolve(options.context, 'node_modules'),
-        ),
+        ],
     },
 
     resolve: {
-        ...config.resolve,
-        modules: config.resolve.modules.concat(
+        extensions,
+        modules: [
+            path.join(CURRENTDIR, 'node_modules'),
             path.resolve(options.context, 'node_modules'),
-        ),
+        ],
     }
 });
