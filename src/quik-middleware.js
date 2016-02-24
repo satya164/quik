@@ -13,8 +13,10 @@ export default function(options) {
 
     let script, watch;
 
-    if (options.run || options.watch) {
+    if (options.run) {
         script = options.run;
+        watch = [ script ];
+    } else if (options.watch) {
         watch = options.watch;
     } else {
         const index = 'index.js';
