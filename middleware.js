@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./src/quik-middleware');
+module.exports = require('./dist/quik-middleware');
