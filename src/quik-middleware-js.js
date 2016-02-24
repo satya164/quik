@@ -14,7 +14,7 @@ export default function(options) {
     const test = file => extensions.some(ext => ext && file.endsWith(ext));
 
     return function *(next) {
-        if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path)) {
+        if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
             const OUTPUTFILE = 'output.js';
 
             this.type = CONTENT_TYPE;
