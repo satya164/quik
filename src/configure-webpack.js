@@ -26,7 +26,9 @@ export default (options) => ({
     ]
     .concat(options.production ? [
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false },
+        }),
     ] : [])
     .concat(options.plugins || []),
 
