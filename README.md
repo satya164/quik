@@ -8,7 +8,7 @@ A quick way to prototype and build apps with React and Babel with zero-setup.
 
 Setting up the tooling required to work on a modern day web app is hard, and makes quick prototyping much more difficult than it should be. Quik is a quick way to prototype a React application without any kind of setup. It can also generate a production-ready JavaScript bundle to use in your app. No setup required.
 
-Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES2015 files in a script tag directly,
+Quik runs a simple server that compiles JavaScript files with Babel on the fly, so you can include ES201x files in a script tag directly,
 
 ```html
 <script src="index.js"></script>
@@ -57,7 +57,7 @@ If you want to use a different port. For example, to run the server in the port 
 quik --port 8008
 ```
 
-You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES2015 on the fly. You can use JSX and Flow syntax as well as use ES2015 modules to import other scripts. It just works.
+You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES5 on the fly. You can use JSX and Flow syntax as well as use ES2015 modules to import other scripts. It just works.
 
 You can also `import` the following packages by default without any `npm install`,
 
@@ -76,7 +76,7 @@ Note that the versions of libraries included by default might be updated to a ne
 Hot Module Replacement for React Components is automatically enabled if you have a script named `index.js` in the directory, or if you specified a script to run with the `--run` option, for example,
 
 ```sh
-quik --run root.js
+quik --run app.js
 ```
 
 Alternatively, you can specify the filenames you want to watch for HMR,
@@ -84,6 +84,8 @@ Alternatively, you can specify the filenames you want to watch for HMR,
 ```sh
 quik --watch file1.js file2.js
 ```
+
+When using the `--run` option, the `index.html` file is always generated on the fly and served. If you want to use your own `index.html` file, just use `--watch`.
 
 You only need to specify the entry points, not all scripts. Most of the time it'll be just one script. Note that Hot Module Replacement won't work for any components in the entry points.
 
