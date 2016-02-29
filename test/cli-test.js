@@ -46,6 +46,7 @@ test.cb('should initialize project with template', t => {
                 if (error) {
                     t.end(error);
                 } else {
+                    t.ok(res.indexOf('package.json') > -1, 'package.json');
                     t.ok(res.indexOf('index.html') > -1, 'index.html');
                     t.ok(res.indexOf('index.js') > -1, 'index.js');
                     t.ok(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
