@@ -1,6 +1,6 @@
 {
   "name": "quik",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
   "main": "dist/index.js",
   "scripts": {
