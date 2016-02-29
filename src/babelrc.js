@@ -1,17 +1,17 @@
 export default {
     presets: [
-        'es2015-native-modules',
-        'react',
-        'babel-preset-stage-1',
+        require.resolve('babel-preset-es2015-native-modules'),
+        require.resolve('babel-preset-react'),
+        require.resolve('babel-preset-stage-1'),
     ],
     plugins: [
-        'transform-runtime',
+        require.resolve('babel-plugin-transform-runtime'),
     ],
     env: {
         production: {
             plugins: [
-                'transform-react-constant-elements',
-                'transform-react-inline-elements',
+                require.resolve('babel-plugin-transform-react-constant-elements'),
+                require.resolve('babel-plugin-transform-react-inline-elements'),
             ]
         }
     }
