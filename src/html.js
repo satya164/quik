@@ -37,7 +37,7 @@ export default async function(options) {
         $('script').map(async (i, el) => {
             const src = $(el).attr('src');
 
-            if (/^((https?:)?\/\/)/.test(src)) {
+            if (/^((https?:)?\/\/)/.test(src) || /(\?|\?.+&)transpile=false/.test(src)) {
                 return;
             }
 
