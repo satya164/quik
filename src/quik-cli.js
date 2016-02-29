@@ -35,7 +35,7 @@ const argv = yargs
         },
         html: {
             type: 'string',
-            description: 'Name of the output sharable HTML file'
+            description: 'Name of the input file for sharable HTML bundle'
         },
         output: {
             alias: 'o',
@@ -101,10 +101,10 @@ if (argv.init) {
         console.error(err);
         process.exit(1);
     });
-} else if (argv.html) {
+} else if (typeof argv.html === 'string') {
     html({
         root: process.cwd(),
-        entry: './' + argv.html,
+        entry: argv.html ? './' + argv.html : null,
         output: argv.output,
         production: argv.production
     })

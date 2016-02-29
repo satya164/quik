@@ -6,6 +6,7 @@ import readFileAsync from './read-file-async';
 import writeFileAsync from './write-file-async';
 import bundler from './configure-bundler';
 import runCompilerAsync from './run-compiler-async';
+import formatHTML from './format-html';
 
 export default async function(options) {
     const compile = async compiler => {
@@ -30,7 +31,14 @@ export default async function(options) {
         return await readFileAsync(memoryFs, path.join(options.root, 'output.js'));
     };
 
-    const result = await readFileAsync(fs, path.join(options.root, options.entry));
+    let result;
+
+    if (options.entry) {
+        result = await readFileAsync(fs, path.join(options.root, options.entry));
+    } else {
+        result = formatHTML('index.js');
+    }
+
     const $ = cheerio.load(result);
 
     await Promise.all(
@@ -41,9 +49,10 @@ export default async function(options) {
                 return;
             }
 
+            const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
             const compiler = await bundler({
                 root: options.root,
-                entry: [ './' + path.relative(options.root, path.join(path.dirname(path.join(options.root, options.entry)), src)) ],
+                entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
                 output: 'output.js',
                 production: options.production
             });
@@ -55,7 +64,7 @@ export default async function(options) {
         .get()
     );
 
-    const file = path.join(options.root, options.output || path.basename(options.entry, '.html') + '.quik.html');
+    const file = path.join(options.root, options.output || (options.entry ? path.basename(options.entry, '.html') : 'index') + '.quik.html');
 
     return await writeFileAsync(fs, file, $.html(), 'utf-8');
 }

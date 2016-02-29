@@ -25,6 +25,22 @@ test.before('setup', () => del(TESTDIR, { force: true }).then(() =>
 
 test.after('teardown', () => del(TESTDIR, { force: true }));
 
+test('should build html without an entry file', t =>
+    html({
+        root: WORKINGDIR,
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.html')),
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.html')))
+    .then(data => {
+        t.ok(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
+        t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.ok(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+    })
+);
+
 test('should build html for development', t =>
     html({
         root: WORKINGDIR,
