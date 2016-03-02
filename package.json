@@ -4,9 +4,9 @@
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist/ && node_modules/babel-cli/bin/babel.js -sd dist/ src/",
-    "test": "node_modules/ava/cli.js test/**/*.js",
-    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs node node_modules/eslint/bin/eslint.js --quiet",
+    "build": "rm -rf dist/ && babel -sd dist/ src/",
+    "test": "ava test/**/*.js",
+    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
     "prepublish": "npm run build"
   },
   "bin": {
