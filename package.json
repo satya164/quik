@@ -4,7 +4,7 @@
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist/ && babel -sd dist/ src/",
+    "build": "del dist/ && babel -sd dist/ src/",
     "test": "ava test/**/*.js",
     "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
     "prepublish": "npm run build"
@@ -58,6 +58,7 @@
     "babel-cli": "^6.6.0",
     "babel-eslint": "^5.0.0",
     "del": "^2.2.0",
+    "del-cli": "^0.2.0",
     "eslint": "^2.2.0",
     "eventsource": "^0.2.1",
     "mkdirp": "^0.5.1"
