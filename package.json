@@ -59,7 +59,7 @@
     "babel-eslint": "^5.0.0",
     "del": "^2.2.0",
     "del-cli": "^0.2.0",
-    "eslint": "^2.2.0",
+    "eslint": "^2.4.0",
     "eventsource": "^0.2.1",
     "mkdirp": "^0.5.1"
   }
