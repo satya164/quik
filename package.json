@@ -50,6 +50,7 @@
     "koa-static": "^2.0.0",
     "koa-webpack-dev-middleware": "^1.2.0",
     "koa-webpack-hot-middleware": "^1.0.3",
+    "lodash": "^4.6.1",
     "memory-fs": "^0.3.0",
     "ncp": "^2.0.0",
     "opn": "^4.0.1",
