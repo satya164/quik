@@ -75,6 +75,6 @@
     "mkdirp": "^0.5.1"
   },
   "ava": {
-      "babel": "inherit"
+    "babel": "inherit"
   }
 }
