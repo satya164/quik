@@ -117,7 +117,7 @@ Sometimes you might want compile and inject bundles into an HTML file for easier
 quik --html --output output.html --production
 ```
 
-You can also specify an HTML file, which `quik` will parse for any local scripts. Then it will build them and inject into the HTML file. Just open the generated HTML file in any browser to preview.
+You can also specify an HTML file, which `quik` will parse for any local scripts. Then it will build them and inject into the HTML file. It'll also inline stylesheets as is, without any pre-processing. Just open the generated HTML file in any browser to preview.
 
 ```sh
 quik --html index.html --output output.html
