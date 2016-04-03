@@ -11,6 +11,7 @@ import formatHTML from './format-html';
 export default async function(options) {
     const isRemote = uri => /^((https?:)?\/\/)/.test(uri);
     const ignoreTranspile = uri => /(\?|\?.+&)transpile=false/.test(uri);
+    const ignoreInline = uri => /(\?|\?.+&)inline=false/.test(uri);
 
     const compile = async compiler => {
         const memoryFs = new MemoryFS();
@@ -48,7 +49,7 @@ export default async function(options) {
         $('script').map(async (i, el) => {
             const src = $(el).attr('src');
 
-            if (isRemote(src)) {
+            if (isRemote(src) || ignoreInline(src)) {
                 return;
             }
 
@@ -77,7 +78,7 @@ export default async function(options) {
         $('link[rel=stylesheet]').map(async (i, el) => {
             const src = $(el).attr('href');
 
-            if (isRemote(src)) {
+            if (isRemote(src) || ignoreInline(src)) {
                 return;
             }
 
