@@ -41,11 +41,11 @@ test('should bundle for development', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js.map')))
     .then(data => {
-        t.ok(data.indexOf('"webpack:///./index.js","webpack:///../~/react/react.js"') > -1, 'should have sourcemap');
+        t.ok(data.indexOf('"webpack:///../~/react/lib/ReactMount.js","webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
     })
 );
 
-test.only('should bundle for production', t =>
+test('should bundle for production', t =>
     bundle({
         root: WORKINGDIR,
         entry: [ 'index.js' ],
