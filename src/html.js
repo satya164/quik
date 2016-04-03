@@ -9,6 +9,9 @@ import runCompilerAsync from './run-compiler-async';
 import formatHTML from './format-html';
 
 export default async function(options) {
+    const isRemote = uri => /^((https?:)?\/\/)/.test(uri);
+    const ignoreTranspile = uri => /(\?|\?.+&)transpile=false/.test(uri);
+
     const compile = async compiler => {
         const memoryFs = new MemoryFS();
 
@@ -45,7 +48,7 @@ export default async function(options) {
         $('script').map(async (i, el) => {
             const src = $(el).attr('src');
 
-            if (/^((https?:)?\/\/)/.test(src) || /(\?|\?.+&)transpile=false/.test(src)) {
+            if (isRemote(src) || ignoreTranspile(src)) {
                 return;
             }
 
@@ -60,6 +63,24 @@ export default async function(options) {
 
             $(el).attr('src', null);
             $(el).text(content);
+        })
+        .get()
+    );
+
+    await Promise.all(
+        $('link[rel=stylesheet]').map(async (i, el) => {
+            const src = $(el).attr('href');
+
+            if (isRemote(src)) {
+                return;
+            }
+
+            const content = await readFileAsync(fs, path.join(options.root, src));
+            const $style = $('<style type="text/css">');
+
+            $style.text(`\n${content}`);
+
+            $(el).replaceWith($style);
         })
         .get()
     );
