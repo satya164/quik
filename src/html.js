@@ -48,18 +48,24 @@ export default async function(options) {
         $('script').map(async (i, el) => {
             const src = $(el).attr('src');
 
-            if (isRemote(src) || ignoreTranspile(src)) {
+            if (isRemote(src)) {
                 return;
             }
 
-            const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
-            const compiler = await bundler({
-                root: options.root,
-                entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
-                output: 'output.js',
-                production: options.production
-            });
-            const content = await compile(compiler);
+            let content;
+
+            if (ignoreTranspile(src)) {
+                content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
+            } else {
+                const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
+                const compiler = await bundler({
+                    root: options.root,
+                    entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
+                    output: 'output.js',
+                    production: options.production
+                });
+                content = await compile(compiler);
+            }
 
             $(el).attr('src', null);
             $(el).text(content);
@@ -75,10 +81,10 @@ export default async function(options) {
                 return;
             }
 
-            const content = await readFileAsync(fs, path.join(options.root, src));
+            const content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
             const $style = $('<style type="text/css">');
 
-            $style.text(`\n${content}`);
+            $style.text(content);
 
             $(el).replaceWith($style);
         })
