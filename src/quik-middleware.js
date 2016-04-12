@@ -8,6 +8,7 @@ export default function(options) {
     const middlewares = [];
 
     middlewares.push(js({
+        devtool: 'inline-source-map',
         root: options.root
     }));
 
@@ -44,6 +45,7 @@ export default function(options) {
 
     if (watch && watch.length) {
         middlewares.push(hmr({
+            devtool: 'inline-source-map',
             root: options.root,
             entry: watch
         }));

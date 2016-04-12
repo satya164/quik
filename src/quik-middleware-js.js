@@ -19,10 +19,11 @@ export default function(options) {
 
             this.type = CONTENT_TYPE;
             this.body = yield bundler({
+                devtool: options.devtool,
                 root: options.root,
                 entry: [ path.join('.', this.path) ],
                 output: OUTPUTFILE,
-                production: false
+                production: false,
             })
             .then(async compiler => {
                 const memoryFs = new MemoryFS();

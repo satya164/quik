@@ -22,6 +22,7 @@ quik.bundle({
     root: process.cwd(),
     entry: [ 'index.js' ],
     output: '[name].bundle.min.js',
+    sourcemap: true,
     production: true
 });
 ```
@@ -33,6 +34,7 @@ quik.html({
     root: process.cwd(),
     entry: 'index.html',
     output: 'index.quik.html',
+    sourcemap: true,
     production: true
 });
 ```

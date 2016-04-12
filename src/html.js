@@ -60,6 +60,7 @@ export default async function(options) {
             } else {
                 const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
                 const compiler = await bundler({
+                    devtool: options.sourcemap ? 'inline-source-map' : null,
                     root: options.root,
                     entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
                     output: 'output.js',

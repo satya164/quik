@@ -46,6 +46,11 @@ const argv = yargs
             type: 'boolean',
             default: false,
             description: 'Optimize bundle for production'
+        },
+        sourcemap: {
+            type: 'boolean',
+            default: true,
+            description: 'Generate sourcemaps for bundle'
         }
     })
     .example('$0 --run index.js', 'Run the script \'index.js\' in a browser and watch for changes')
@@ -83,7 +88,8 @@ if (argv.init) {
         root: process.cwd(),
         entry: argv.bundle.map(it => './' + it),
         output: argv.output,
-        production: argv.production
+        production: argv.production,
+        sourcemap: argv.sourcemap,
     })
     .then(result => {
         const assets = result.assetsByChunkName;
@@ -106,7 +112,8 @@ if (argv.init) {
         root: process.cwd(),
         entry: argv.html ? './' + argv.html : null,
         output: argv.output,
-        production: argv.production
+        production: argv.production,
+        sourcemap: argv.sourcemap,
     })
     .then(file => {
         console.log(`Sharable HTML generated at ${chalk.green(file)}`);

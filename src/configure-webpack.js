@@ -10,7 +10,7 @@ export default (options) => ({
     context: options.context,
     entry: options.entry,
     output: options.output,
-    devtool: options.devtool || 'inline-source-map',
+    devtool: options.devtool,
 
     plugins: [
         new webpack.NoErrorsPlugin(),
