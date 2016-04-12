@@ -40,7 +40,7 @@ export default async function(options) {
     if (options.entry) {
         result = await readFileAsync(fs, path.join(options.root, options.entry));
     } else {
-        result = formatHTML('index.js');
+        result = formatHTML(options.js || 'index.js');
     }
 
     const $ = cheerio.load(result);

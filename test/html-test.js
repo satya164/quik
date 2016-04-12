@@ -42,6 +42,23 @@ test('should build html without an entry file', t =>
     })
 );
 
+test('should build html without an entry file when JavaScript file is specified', t =>
+    html({
+        root: WORKINGDIR,
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.1.html')),
+        js: 'MyComponent.js',
+        sourcemaps: true,
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.1.html')))
+    .then(data => {
+        t.truthy(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
+        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.truthy(data.indexOf('_reactDom2.default.render(_react2.default.createElement(_MyComponent2.default, null), document.getElementById(\'root\'))') === -1, 'should be the correct file');
+    })
+);
+
 test('should build html for development', t =>
     html({
         root: WORKINGDIR,

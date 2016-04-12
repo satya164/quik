@@ -37,6 +37,10 @@ const argv = yargs
             type: 'string',
             description: 'Name of the input file for sharable HTML bundle'
         },
+        js: {
+            type: 'string',
+            description: 'Name of the JavaScript file to include in the HTML bundle when no HTML is specified'
+        },
         output: {
             alias: 'o',
             type: 'string',
@@ -110,7 +114,8 @@ if (argv.init) {
 } else if (typeof argv.html === 'string') {
     html({
         root: process.cwd(),
-        entry: argv.html ? './' + argv.html : null,
+        js: argv.js,
+        entry: argv.html,
         output: argv.output,
         production: argv.production,
         sourcemaps: argv.sourcemaps,
