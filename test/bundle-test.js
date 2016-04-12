@@ -30,7 +30,7 @@ test('should bundle for development', t =>
         root: WORKINGDIR,
         entry: [ 'index.js' ],
         output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.js')),
-        sourcemap: true,
+        sourcemaps: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js')))
@@ -52,7 +52,7 @@ test('should bundle for production', t =>
         entry: [ 'index.js' ],
         output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.min.js')),
         production: true,
-        sourcemap: true,
+        sourcemaps: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js')))

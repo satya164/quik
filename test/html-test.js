@@ -29,7 +29,7 @@ test('should build html without an entry file', t =>
     html({
         root: WORKINGDIR,
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.html')),
-        sourcemap: true,
+        sourcemaps: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.html')))
@@ -47,7 +47,7 @@ test('should build html for development', t =>
         root: WORKINGDIR,
         entry: 'index.html',
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.html')),
-        sourcemap: true,
+        sourcemaps: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.html')))
@@ -65,7 +65,7 @@ test('should build html for production', t =>
         root: WORKINGDIR,
         entry: 'index.html',
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.min.html')),
-        sourcemap: true,
+        sourcemaps: true,
         production: true,
         quiet: true
     })
