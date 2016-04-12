@@ -37,7 +37,7 @@ test.cb('should rebuild on changes', t => {
     const hmr = new EventSource('http://localhost:3005/__webpack_hmr');
 
     hmr.onopen = message => {
-        t.same(message.type, 'open', 'should open connection');
+        t.deepEqual(message.type, 'open', 'should open connection');
 
         setTimeout(() => change('Hello world!', 'Hello world :D'), 1000);
         setTimeout(() => change('Hello world', 'Hola world'), 5000);
@@ -51,7 +51,7 @@ test.cb('should rebuild on changes', t => {
         const data = message.data;
 
         if (i === 6) {
-            t.same(data, HEARTBEAT, 'should recieve heartbeat');
+            t.deepEqual(data, HEARTBEAT, 'should recieve heartbeat');
 
             hmr.close();
             s.close();
@@ -65,11 +65,11 @@ test.cb('should rebuild on changes', t => {
         try {
             const parsed = JSON.parse(data);
 
-            t.same(parsed.action, action);
+            t.deepEqual(parsed.action, action);
 
             if (parsed.action === BUILT) {
-                t.same(parsed.errors, []);
-                t.same(parsed.warnings, []);
+                t.deepEqual(parsed.errors, []);
+                t.deepEqual(parsed.warnings, []);
             }
 
             switch (parsed.action) {

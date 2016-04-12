@@ -29,15 +29,16 @@ test('should build html without an entry file', t =>
     html({
         root: WORKINGDIR,
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.html')),
+        sourcemap: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.html')))
     .then(data => {
-        t.ok(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
-        t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.ok(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.truthy(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
+        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -46,15 +47,16 @@ test('should build html for development', t =>
         root: WORKINGDIR,
         entry: 'index.html',
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.html')),
+        sourcemap: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.html')))
     .then(data => {
-        t.ok(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
-        t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.ok(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.ok(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.truthy(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
+        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -63,15 +65,16 @@ test('should build html for production', t =>
         root: WORKINGDIR,
         entry: 'index.html',
         output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.min.html')),
+        sourcemap: true,
         production: true,
         quiet: true
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.min.html')))
     .then(data => {
-        t.ok(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
-        t.ok(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.ok(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
-        t.ok(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
-        t.ok(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.truthy(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
+        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.truthy(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
+        t.truthy(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
+        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );

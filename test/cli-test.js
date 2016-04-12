@@ -29,7 +29,7 @@ test.cb('should print usage', t => {
         if (err) {
             t.end(err);
         } else {
-            t.same(stdout.indexOf('Usage: ../bin/quik.js [...options]'), 0);
+            t.deepEqual(stdout.indexOf('Usage: ../bin/quik.js [...options]'), 0);
             t.end();
         }
     });
@@ -46,10 +46,10 @@ test.cb('should initialize project with template', t => {
                 if (error) {
                     t.end(error);
                 } else {
-                    t.ok(res.indexOf('package.json') > -1, 'package.json');
-                    t.ok(res.indexOf('index.html') > -1, 'index.html');
-                    t.ok(res.indexOf('index.js') > -1, 'index.js');
-                    t.ok(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
+                    t.truthy(res.indexOf('package.json') > -1, 'package.json');
+                    t.truthy(res.indexOf('index.html') > -1, 'index.html');
+                    t.truthy(res.indexOf('index.js') > -1, 'index.js');
+                    t.truthy(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
                     t.end();
                 }
             });
