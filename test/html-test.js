@@ -60,6 +60,19 @@ test('should build html for development', t =>
     })
 );
 
+test('should not add sourcemap for development', t =>
+    html({
+        root: WORKINGDIR,
+        entry: 'index.html',
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.0.html')),
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.html')))
+    .then(data => {
+        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
+    })
+);
+
 test('should build html for production', t =>
     html({
         root: WORKINGDIR,
@@ -76,5 +89,19 @@ test('should build html for production', t =>
         t.truthy(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
         t.truthy(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
         t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+    })
+);
+
+test('should not add sourcemap for production', t =>
+    html({
+        root: WORKINGDIR,
+        entry: 'index.html',
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.0.min.html')),
+        production: true,
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.min.html')))
+    .then(data => {
+        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
     })
 );

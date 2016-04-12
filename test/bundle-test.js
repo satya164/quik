@@ -46,6 +46,20 @@ test('should bundle for development', t =>
     })
 );
 
+test('should not generate sourcemaps for development', t =>
+    bundle({
+        root: WORKINGDIR,
+        entry: [ 'index.js' ],
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.0.js')),
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.js.map')))
+    .then(() => t.fail('sourcemap shouldn\'t exist'))
+    .catch(e => {
+        t.deepEqual(e.code, 'ENOENT', 'sourcemap shouldn\'t exist');
+    })
+);
+
 test('should bundle for production', t =>
     bundle({
         root: WORKINGDIR,
@@ -65,5 +79,20 @@ test('should bundle for production', t =>
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map')))
     .then(data => {
         t.truthy(data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
+    })
+);
+
+test('should not generate sourcemaps for production', t =>
+    bundle({
+        root: WORKINGDIR,
+        entry: [ 'index.js' ],
+        output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.0.min.js')),
+        production: true,
+        quiet: true
+    })
+    .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.min.js.map')))
+    .then(() => t.fail('sourcemap shouldn\'t exist'))
+    .catch(e => {
+        t.deepEqual(e.code, 'ENOENT', 'sourcemap shouldn\'t exist');
     })
 );
