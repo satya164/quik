@@ -1,7 +1,24 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
 node_js:
-  - "stable"
-  - "5.0"
-  - "4.0"
-before_install: npm install -g npm@latest
-before_script: npm run build
+  - 'stable'
+  - '5'
+  - '4'
+before_install:
+  - npm i -g npm@latest
+before_script:
+  - npm prune
+  - npm run build
+after_success:
+  - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
+  - python travis_after_all.py
+  - 'export $(cat .to_export_back) &> /dev/null'
+  - npm run semantic-release
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"

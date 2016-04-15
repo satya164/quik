@@ -1,6 +1,5 @@
 {
   "name": "quik",
-  "version": "0.4.8",
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
   "keywords": [
     "react",
@@ -17,14 +16,15 @@
     "build": "del dist/ && babel -sd dist/ src/",
     "test": "ava test/**/*.js",
     "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "bin": {
     "quik": "bin/quik.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:satya164/quik.git"
+    "url": "https://github.com/satya164/quik.git"
   },
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
   "license": "MIT",
@@ -72,7 +72,8 @@
     "del-cli": "^0.2.0",
     "eslint": "^2.7.0",
     "eventsource": "^0.2.1",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "semantic-release": "^4.3.5"
   },
   "ava": {
     "babel": "inherit"
