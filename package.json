@@ -68,6 +68,7 @@
     "ava": "^0.14.0",
     "babel-cli": "^6.7.5",
     "babel-eslint": "^6.0.2",
+    "cz-conventional-changelog": "^1.1.5",
     "del": "^2.2.0",
     "del-cli": "^0.2.0",
     "eslint": "^2.7.0",
@@ -77,5 +78,10 @@
   },
   "ava": {
     "babel": "inherit"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
