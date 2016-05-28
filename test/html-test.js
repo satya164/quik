@@ -1,12 +1,12 @@
 'use strict';
 
-const test = require('ava');
-const path = require('path');
-const fs = require('fs');
-const del = require('del');
-const mkdirp = require('mkdirp');
-const html = require('../dist/html').default;
-const readFileAsync = require('../dist/read-file-async').default;
+import test from 'ava';
+import path from 'path';
+import fs from 'fs';
+import del from 'del';
+import mkdirp from 'mkdirp';
+import html from '../dist/html';
+import readFileAsync from '../dist/read-file-async';
 
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');
@@ -34,11 +34,11 @@ test('should build html without an entry file', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.html')))
     .then(data => {
-        t.truthy(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.true(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.true(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -52,10 +52,10 @@ test('should build html without an entry file when JavaScript file is specified'
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.1.html')))
     .then(data => {
-        t.truthy(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.truthy(data.indexOf('_reactDom2.default.render(_react2.default.createElement(_MyComponent2.default, null), document.getElementById(\'root\'))') === -1, 'should be the correct file');
+        t.true(data.indexOf('<title>Quik Playground</title>') > -1, 'should have correct title');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.true(data.indexOf('_reactDom2.default.render(_react2.default.createElement(_MyComponent2.default, null), document.getElementById(\'root\'))') === -1, 'should be the correct file');
     })
 );
 
@@ -69,11 +69,11 @@ test('should build html for development', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.html')))
     .then(data => {
-        t.truthy(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.true(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.true(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -86,7 +86,7 @@ test('should not add sourcemap for development', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.html')))
     .then(data => {
-        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
+        t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
     })
 );
 
@@ -101,11 +101,11 @@ test('should build html for production', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.min.html')))
     .then(data => {
-        t.truthy(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
-        t.truthy(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
-        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+        t.true(data.indexOf('<!DOCTYPE html>') > -1, 'should have doctype');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
+        t.true(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
+        t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
     })
 );
 
@@ -119,6 +119,6 @@ test('should not add sourcemap for production', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.min.html')))
     .then(data => {
-        t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
+        t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') === -1, 'shouldn\'t have sourcemap');
     })
 );

@@ -1,10 +1,10 @@
 'use strict';
 
-const test = require('ava');
-const path = require('path');
-const fs = require('fs');
-const EventSource = require('eventsource');
-const server = require('../dist/server').default;
+import test from 'ava';
+import path from 'path';
+import fs from 'fs';
+import EventSource from 'eventsource';
+import server from '../dist/server';
 
 test.cb('should rebuild on changes', t => {
     const BUILDING = 'building';
@@ -48,6 +48,7 @@ test.cb('should rebuild on changes', t => {
     let action = BUILDING;
 
     hmr.onmessage = message => {
+        /* eslint-disable ava/no-statement-after-end */
         const data = message.data;
 
         if (i === 6) {

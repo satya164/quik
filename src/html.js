@@ -50,7 +50,7 @@ export default async function(options) {
             const src = $(el).attr('src');
 
             if (isRemote(src) || ignoreInline(src)) {
-                return;
+                return null;
             }
 
             let content;
@@ -71,6 +71,8 @@ export default async function(options) {
 
             $(el).attr('src', null);
             $(el).text(content);
+
+            return src;
         })
         .get()
     );
@@ -80,7 +82,7 @@ export default async function(options) {
             const src = $(el).attr('href');
 
             if (isRemote(src) || ignoreInline(src)) {
-                return;
+                return null;
             }
 
             const content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
@@ -89,6 +91,8 @@ export default async function(options) {
             $style.text(content);
 
             $(el).replaceWith($style);
+
+            return src;
         })
         .get()
     );

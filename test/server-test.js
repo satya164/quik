@@ -1,9 +1,9 @@
 'use strict';
 
-const test = require('ava');
-const http = require('http');
-const path = require('path');
-const server = require('../dist/server').default;
+import test from 'ava';
+import http from 'http';
+import path from 'path';
+import server from '../dist/server';
 
 test.cb('should start server', t => {
     const s = server({
@@ -29,10 +29,10 @@ test.cb('should respond with transpiled script', t => {
         res.on('data', chunk => (data += chunk));
         res.on('end', () => {
             s.close();
-            t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-            t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-            t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should be processed by webpack');
-            t.truthy(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
+            t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+            t.true(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+            t.true(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should be processed by webpack');
+            t.true(data.indexOf('//# sourceMappingURL=data:application/json;charset=utf-8;base64') > -1, 'should have sourcemap');
             t.end();
         });
 
@@ -52,7 +52,7 @@ test.cb('should respond with formatted error', t => {
         res.on('data', chunk => (data += chunk));
         res.on('end', () => {
             s.close();
-            t.truthy(data.indexOf('/* show error response on build fail */') > -1, 'should contain error');
+            t.true(data.indexOf('/* show error response on build fail */') > -1, 'should contain error');
             t.end();
         });
     });

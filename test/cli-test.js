@@ -1,11 +1,11 @@
 'use strict';
 
-const test = require('ava');
-const path = require('path');
-const child_process = require('child_process');
-const fs = require('fs');
-const del = require('del');
-const mkdirp = require('mkdirp');
+import test from 'ava';
+import path from 'path';
+import child_process from 'child_process';
+import fs from 'fs';
+import del from 'del';
+import mkdirp from 'mkdirp';
 
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const PROJECT_NAME = 'AwesomeProject';
@@ -46,10 +46,10 @@ test.cb('should initialize project with template', t => {
                 if (error) {
                     t.end(error);
                 } else {
-                    t.truthy(res.indexOf('package.json') > -1, 'package.json');
-                    t.truthy(res.indexOf('index.html') > -1, 'index.html');
-                    t.truthy(res.indexOf('index.js') > -1, 'index.js');
-                    t.truthy(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
+                    t.true(res.indexOf('package.json') > -1, 'package.json');
+                    t.true(res.indexOf('index.html') > -1, 'index.html');
+                    t.true(res.indexOf('index.js') > -1, 'index.js');
+                    t.true(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
                     t.end();
                 }
             });

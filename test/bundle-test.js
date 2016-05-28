@@ -1,12 +1,12 @@
 'use strict';
 
-const test = require('ava');
-const path = require('path');
-const fs = require('fs');
-const del = require('del');
-const mkdirp = require('mkdirp');
-const bundle = require('../dist/bundler').default;
-const readFileAsync = require('../dist/read-file-async').default;
+import test from 'ava';
+import path from 'path';
+import fs from 'fs';
+import del from 'del';
+import mkdirp from 'mkdirp';
+import bundle from '../dist/bundler';
+import readFileAsync from '../dist/read-file-async';
 
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');
@@ -35,14 +35,14 @@ test('should bundle for development', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js')))
     .then(data => {
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
-        t.truthy(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
-        t.truthy(data.indexOf('//# sourceMappingURL=index.bundle.js.map') > -1, 'should have sourcemap');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('function _interopRequireDefault') > -1, 'should be transpiled');
+        t.true(data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1, 'should not be minified');
+        t.true(data.indexOf('//# sourceMappingURL=index.bundle.js.map') > -1, 'should have sourcemap');
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js.map')))
     .then(data => {
-        t.truthy(data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
+        t.true(data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
     })
 );
 
@@ -71,14 +71,14 @@ test('should bundle for production', t =>
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js')))
     .then(data => {
-        t.truthy(data.indexOf('import React from') === -1, 'should be transpiled');
-        t.truthy(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
-        t.truthy(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
-        t.truthy(data.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1, 'should have sourcemap');
+        t.true(data.indexOf('import React from') === -1, 'should be transpiled');
+        t.true(data.indexOf('Minified exception occurred;') > -1, 'should be minified');
+        t.true(data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1, 'should be minified');
+        t.true(data.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1, 'should have sourcemap');
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map')))
     .then(data => {
-        t.truthy(data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
+        t.true(data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1, 'should have sourcemap');
     })
 );
 
