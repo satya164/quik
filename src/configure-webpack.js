@@ -39,10 +39,11 @@ export default (options) => ({
                 exclude: /node_modules/,
                 loader: 'babel-loader?' + JSON.stringify(babelrc),
             },
-            {
-                test: /\.json$/,
-                loader: 'json-loader',
-            },
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.css$/, loaders: [ 'style', 'css' ] },
+            { test: /\.sass$/, loaders: [ 'style', 'css', 'sass?indentedSyntax' ] },
+            { test: /\.scss$/, loaders: [ 'style', 'css', 'sass' ] },
+            { test: /\.(gif|jpg|png)$/, loader: 'url?limit=25000' },
         ]
     },
 
