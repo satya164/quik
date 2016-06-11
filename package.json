@@ -68,6 +68,7 @@
     "ava": "^0.15.2",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.0.4",
+    "css-loader": "^0.23.1",
     "cz-conventional-changelog": "^1.1.6",
     "del": "^2.2.0",
     "del-cli": "^0.2.0",
@@ -76,8 +77,13 @@
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-import": "^1.8.1",
     "eventsource": "^0.2.1",
+    "file-loader": "^0.8.5",
     "mkdirp": "^0.5.1",
-    "semantic-release": "^4.3.5"
+    "node-sass": "^3.7.0",
+    "sass-loader": "^3.2.0",
+    "semantic-release": "^4.3.5",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7"
   },
   "ava": {
     "babel": "inherit"
