@@ -28,6 +28,7 @@ export default (options) => ({
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: false },
+            sourceMap: !!options.devtool,
         }),
     ] : [])
     .concat(options.plugins || []),
