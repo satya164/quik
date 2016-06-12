@@ -19,6 +19,7 @@ after_success:
   - python travis_after_all.py
   - 'export $(cat .to_export_back) &> /dev/null'
   - npm run semantic-release
+  - npm run coverage
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

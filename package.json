@@ -14,7 +14,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "del dist/ && babel -sd dist/ src/",
-    "test": "ava test/**/*.js",
+    "test": "nyc ava test/**/*.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
     "prepublish": "npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -78,6 +79,7 @@
     "ava": "^0.15.2",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.0.4",
+    "coveralls": "^2.11.9",
     "cz-conventional-changelog": "^1.1.6",
     "del": "^2.2.0",
     "del-cli": "^0.2.0",
@@ -87,6 +89,7 @@
     "eslint-plugin-import": "^1.8.1",
     "eventsource": "^0.2.1",
     "mkdirp": "^0.5.1",
+    "nyc": "^6.4.4",
     "semantic-release": "^4.3.5"
   },
   "ava": {
