@@ -14,7 +14,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "del dist/ && babel -sd dist/ src/",
-    "test": "nyc ava test/**/*.js",
+    "test": "nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
     "prepublish": "npm run build",
@@ -93,7 +93,10 @@
     "semantic-release": "^4.3.5"
   },
   "ava": {
-    "babel": "inherit"
+    "babel": "inherit",
+    "files": [
+      "**/*.test.js"
+    ]
   },
   "config": {
     "commitizen": {
