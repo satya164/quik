@@ -10,7 +10,7 @@ const SASS_LOADER = 'sass-loader?sourceMap';
 const LESS_LOADER = 'less-loader?sourceMap';
 const STYLE_LOADERS = [ 'style-loader', CSS_LOADER, 'postcss-loader' ];
 
-export const extensions = [ '', '.web.js', '.js' ];
+export const extensions = [ '', '.web.js', '.js', '.jsx' ];
 
 export default (options) => ({
     context: options.context,
@@ -46,7 +46,7 @@ export default (options) => ({
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: BABEL_LOADER,
             },
