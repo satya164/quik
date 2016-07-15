@@ -62,7 +62,7 @@
     "node-sass": "^3.8.0",
     "opn": "^4.0.2",
     "postcss-loader": "^0.9.1",
-    "radium": "^0.17.1",
+    "radium": "^0.18.0",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-redux": "^4.4.5",
