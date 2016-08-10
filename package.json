@@ -76,7 +76,7 @@
     "yargs": "^4.7.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "^0.16.0",
     "babel-cli": "^6.10.1",
     "babel-eslint": "^6.1.0",
     "coveralls": "^2.11.9",
