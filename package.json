@@ -58,7 +58,7 @@
     "lodash": "^4.15.0",
     "memory-fs": "^0.3.0",
     "ncp": "^2.0.0",
-    "node-sass": "^3.9.3",
+    "node-sass": "^3.10.0",
     "opn": "^4.0.2",
     "postcss-loader": "^0.13.0",
     "radium": "^0.18.1",
