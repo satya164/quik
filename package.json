@@ -88,7 +88,7 @@
     "eslint-plugin-import": "^1.14.0",
     "eventsource": "^0.2.1",
     "mkdirp": "^0.5.1",
-    "nyc": "^8.1.0",
+    "nyc": "^8.3.2",
     "semantic-release": "^4.3.5"
   },
   "ava": {
