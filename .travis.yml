@@ -5,6 +5,8 @@ cache:
     - $HOME/.npm
     - $HOME/.yarn-cache
     - node_modules
+notifications:
+  email: false
 node_js:
   - 'stable'
   - '5'
@@ -18,9 +20,8 @@ before_script:
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
-  - 'export $(cat .to_export_back) &> /dev/null'
+  - export $(cat .to_export_back) &> /dev/null
   - npm run semantic-release
-  - npm run coverage
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - /^v\d+\.\d+\.\d+$/
