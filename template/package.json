@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "quik"
+    "start": "quik",
+    "build": "quik --bundle index.js --output dist/index.bundle.js --production"
   }
 }
