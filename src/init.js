@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import ncp from 'ncp';
 import exists from 'command-exists';
+import chalk from 'chalk';
 
 export default async function(options) {
   if (typeof options.name !== 'string') {
@@ -15,7 +16,7 @@ export default async function(options) {
     throw new Error(`A folder named '${options.name}' already exits!`);
   }
 
-  console.log('Copying template files');
+  console.log('📃  Copying template files');
 
   await new Promise((resolve, reject) => {
     ncp.ncp(path.join(__dirname, '../template/'), dir, err => {
@@ -31,7 +32,7 @@ export default async function(options) {
         }
 
         try {
-          console.log('Installing `react` and `react-dom`');
+          console.log(`🍭  Installing ${chalk.bold('react')} and ${chalk.bold('react-dom')}`);
 
           if (status) {
             execSync('yarn add react react-dom', { cwd: dir });
@@ -39,7 +40,7 @@ export default async function(options) {
             execSync('npm install -S react react-dom', { cwd: dir });
           }
 
-          console.log('Adding `quik` as a `devDependency`');
+          console.log(`💎  Adding ${chalk.bold('quik')} as a devDependency`);
 
           if (status) {
             execSync('yarn add --dev quik', { cwd: dir });
@@ -47,7 +48,6 @@ export default async function(options) {
             execSync('npm install -D quik', { cwd: dir });
           }
 
-          console.log('All done! Run `npm start` to start the project.');
           resolve();
         } catch (e) {
           reject(e);
