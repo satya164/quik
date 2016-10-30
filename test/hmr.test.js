@@ -7,6 +7,7 @@ import EventSource from 'eventsource';
 import server from '../dist/server';
 
 test.cb('should rebuild on changes', t => {
+    const SYNC = 'sync';
     const BUILDING = 'building';
     const BUILT = 'built';
     const HEARTBEAT = '💓';
@@ -32,7 +33,7 @@ test.cb('should rebuild on changes', t => {
         });
     }
 
-    t.plan(14);
+    t.plan(15);
 
     const hmr = new EventSource('http://localhost:3005/__webpack_hmr');
 
@@ -45,13 +46,13 @@ test.cb('should rebuild on changes', t => {
     };
 
     let i = 0;
-    let action = BUILDING;
+    let action = SYNC;
 
     hmr.onmessage = message => {
         /* eslint-disable ava/no-statement-after-end */
         const data = message.data;
 
-        if (i === 6) {
+        if (i === 7) {
             t.deepEqual(data, HEARTBEAT, 'should recieve heartbeat');
 
             hmr.close();
@@ -74,6 +75,9 @@ test.cb('should rebuild on changes', t => {
             }
 
             switch (parsed.action) {
+            case SYNC:
+                action = BUILDING;
+                break;
             case BUILDING:
                 action = BUILT;
                 break;

@@ -37,7 +37,7 @@ export default function(options) {
         ]
     });
 
-    const loaders = config.module.loaders;
+    const loaders = config.module.rules;
 
     for (const loader of loaders) {
         if (loader.loader && loader.loader.indexOf('babel') > -1) {

@@ -22,7 +22,7 @@ export default async function(options) {
 
     return webpack(configure({
         context: WORKINGDIR,
-        devtool: options.devtool,
+        devtool: options.devtool ? options.devtool : false,
         production: options.production,
         output: {
             path: WORKINGDIR,

@@ -4,14 +4,12 @@ import readFileAsync from './read-file-async';
 import runCompilerAsync from './run-compiler-async';
 import formatError from './format-error';
 import bundler from './configure-bundler';
-import { extensions } from './configure-webpack';
-
 const CONTENT_TYPE = 'application/javascript';
 
 export default function(options) {
     const WORKINGDIR = options.root;
 
-    const test = file => extensions.some(ext => ext && file.endsWith(ext));
+    const test = file => file.endsWith('.js');
 
     return function *(next) {
         if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
