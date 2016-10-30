@@ -7,7 +7,7 @@ export default async function(options) {
 
   if (!options.quiet) {
     console.log(status.toString({
-      colors: true
+      colors: true,
     }));
   }
 

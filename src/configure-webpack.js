@@ -18,7 +18,7 @@ const STYLE_LOADERS = [
         return [ autoprefixer ];
       },
     },
-  }
+  },
 ];
 
 export default (options) => ({
@@ -31,12 +31,12 @@ export default (options) => ({
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: options.production ? '"production"' : '"developement"'
-      }
+        NODE_ENV: options.production ? '"production"' : '"developement"',
+      },
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: !!options.production,
-      debug: !options.production
+      debug: !options.production,
     }),
   ]
     .concat(options.production ? [
@@ -90,5 +90,5 @@ export default (options) => ({
       path.join(CURRENTDIR, 'node_modules'),
       path.resolve(options.context, 'node_modules'),
     ],
-  }
+  },
 });

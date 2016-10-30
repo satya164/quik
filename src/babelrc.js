@@ -12,7 +12,7 @@ export default {
       plugins: [
         require.resolve('babel-plugin-transform-react-constant-elements'),
         require.resolve('babel-plugin-transform-react-inline-elements'),
-      ]
-    }
-  }
+      ],
+    },
+  },
 };

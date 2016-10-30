@@ -2,5 +2,9 @@
   "name": "quik-project",
   "version": "0.0.1",
   "description": "Sample project generated with Quik",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "quik"
+  }
 }

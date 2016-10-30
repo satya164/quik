@@ -62,17 +62,7 @@ quik --port 8008
 
 You can include any ES2015 file in a script tag in an HTML file and the script will be transpiled to ES5 on the fly. You can use JSX and Flow syntax as well as use ES2015 modules to import other scripts. It just works.
 
-You can also `import` the following packages by default without any `npm install`,
-
-* [`radium`](http://stack.formidable.com/radium/)
-* [`react`](https://facebook.github.io/react/)
-* [`react-dom`](https://facebook.github.io/react/docs/top-level-api.html#reactdom)
-* [`react-redux`](http://rackt.org/redux/docs/basics/UsageWithReact.html)
-* [`react-router`](https://github.com/rackt/react-router)
-* [`react-router-redux`](https://github.com/rackt/react-router-redux)
-* [`redux`](http://redux.js.org/)
-
-Note that the versions of libraries included by default might be updated to a newer version with breaking changes. It's okay while prototyping. But if you wan to bundle for production, then it's recommended to add a `package.json` for your project and specify your dependencies there.
+NOTE: You'll need to install any dependencies you use in the project manually.
 
 ## Enabling Hot Module Replacement
 
@@ -134,8 +124,6 @@ To get started with a sample project, run the following in a Terminal,
 quik --init AwesomeProject
 cd AwesomeProject && quik
 ```
-
-This is just for your convenience and is completely optional.
 
 Refer the [API documentation](API.md) for more to know how to customize and extend the server.
 

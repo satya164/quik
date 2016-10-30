@@ -14,7 +14,6 @@ before_install:
 install:
   - yarn
 before_script:
-  - npm prune
   - npm run build
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'

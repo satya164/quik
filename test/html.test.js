@@ -30,7 +30,7 @@ test('should build html without an entry file', t =>
       root: WORKINGDIR,
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.html')),
       sourcemaps: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.html')))
     .then(data => {
@@ -48,7 +48,7 @@ test('should build html without an entry file when JavaScript file is specified'
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.magic.1.html')),
       js: 'MyComponent.js',
       sourcemaps: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.magic.1.html')))
     .then(data => {
@@ -65,7 +65,7 @@ test('should build html for development', t =>
       entry: 'index.html',
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.html')),
       sourcemaps: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.html')))
     .then(data => {
@@ -82,7 +82,7 @@ test('should not add sourcemap for development', t =>
       root: WORKINGDIR,
       entry: 'index.html',
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.0.html')),
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.html')))
     .then(data => {
@@ -97,7 +97,7 @@ test('should build html for production', t =>
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.min.html')),
       sourcemaps: true,
       production: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.min.html')))
     .then(data => {
@@ -115,7 +115,7 @@ test('should not add sourcemap for production', t =>
       entry: 'index.html',
       output: path.relative(WORKINGDIR, path.join(TESTDIR, 'output.0.min.html')),
       production: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'output.0.min.html')))
     .then(data => {

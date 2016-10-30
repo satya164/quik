@@ -37,7 +37,7 @@ test.cb('should print usage', t => {
 
 test.cb('should initialize project with template', t => {
   child_process.execFile(path.join(__dirname, '../bin/quik.js'), [ '--init', PROJECT_NAME ], {
-    cwd: TESTDIR
+    cwd: TESTDIR,
   }, err => {
     if (err) {
       t.end(err);

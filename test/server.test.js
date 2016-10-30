@@ -7,7 +7,7 @@ import server from '../dist/server';
 
 test.cb('should start server', t => {
   const s = server({
-    root: path.join(__dirname, '../template')
+    root: path.join(__dirname, '../template'),
   }).listen(3000);
 
   http.get('http://localhost:3000/', res => {
@@ -20,7 +20,7 @@ test.cb('should start server', t => {
 
 test.cb('should respond with transpiled script', t => {
   const s = server({
-    root: path.join(__dirname, '../template')
+    root: path.join(__dirname, '../template'),
   }).listen(3001);
 
   http.get('http://localhost:3001/index.js', res => {
@@ -43,7 +43,7 @@ test.cb('should respond with transpiled script', t => {
 
 test.cb('should respond with formatted error', t => {
   const s = server({
-    root: path.join(__dirname, '../template')
+    root: path.join(__dirname, '../template'),
   }).listen(3002);
 
   http.get('http://localhost:3002/none.js', res => {

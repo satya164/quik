@@ -14,7 +14,7 @@ test.cb('should rebuild on changes', t => {
 
   const s = server({
     root: path.join(__dirname, '../template'),
-    watch: [ './index.js' ]
+    watch: [ './index.js' ],
   }).listen(3005);
 
   const componentFile = path.join(__dirname, '../template', 'MyComponent.js');

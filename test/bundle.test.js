@@ -31,7 +31,7 @@ test('should bundle for development', t =>
       entry: [ 'index.js' ],
       output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.js')),
       sourcemaps: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js')))
     .then(data => {
@@ -51,7 +51,7 @@ test('should not generate sourcemaps for development', t =>
       root: WORKINGDIR,
       entry: [ 'index.js' ],
       output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.0.js')),
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.js.map')))
     .then(() => t.fail('sourcemap shouldn\'t exist'))
@@ -67,7 +67,7 @@ test('should bundle for production', t =>
       output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.min.js')),
       production: true,
       sourcemaps: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js')))
     .then(data => {
@@ -88,7 +88,7 @@ test('should not generate sourcemaps for production', t =>
       entry: [ 'index.js' ],
       output: path.relative(WORKINGDIR, path.join(TESTDIR, '[name].bundle.0.min.js')),
       production: true,
-      quiet: true
+      quiet: true,
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.min.js.map')))
     .then(() => t.fail('sourcemap shouldn\'t exist'))

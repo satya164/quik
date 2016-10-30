@@ -27,7 +27,7 @@ export default async function(options) {
     output: {
       path: WORKINGDIR,
       filename: OUTPUTFILE,
-      sourceMapFilename: OUTPUTFILE + '.map'
+      sourceMapFilename: OUTPUTFILE + '.map',
     },
     entry,
   }));

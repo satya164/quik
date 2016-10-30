@@ -9,7 +9,7 @@ export default function(options) {
 
   middlewares.push(js({
     devtool: 'inline-source-map',
-    root: options.root
+    root: options.root,
   }));
 
   let script, watch;
@@ -39,7 +39,7 @@ export default function(options) {
   if (script) {
     middlewares.push(run({
       root: options.root,
-      script
+      script,
     }));
   }
 
@@ -47,7 +47,7 @@ export default function(options) {
     middlewares.push(hmr({
       devtool: 'inline-source-map',
       root: options.root,
-      entry: watch
+      entry: watch,
     }));
   }
 

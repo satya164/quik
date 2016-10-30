@@ -24,17 +24,17 @@ export default function(options) {
     output: {
       path: WORKINGDIR,
       publicPath: '/',
-      filename: '[name]'
+      filename: '[name]',
     },
-    entry
+    entry,
   });
 
   const BABEL_LOADER = 'babel-loader?' + JSON.stringify({
     ...babelrc,
     presets: [
       ...babelrc.presets,
-      require.resolve('babel-preset-react-hmre')
-    ]
+      require.resolve('babel-preset-react-hmre'),
+    ],
   });
 
   const loaders = config.module.rules;
@@ -57,8 +57,8 @@ export default function(options) {
   return compose([
     webpackDevMiddleware(compiler, {
       publicPath: '/',
-      noInfo: true
+      noInfo: true,
     }),
-    webpackHotMiddleware(compiler)
+    webpackHotMiddleware(compiler),
   ]);
 }

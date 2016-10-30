@@ -18,7 +18,7 @@
   ],
 
   "rules": {
-    "comma-dangle": 0,
+    "comma-dangle": [1, "always-multiline"],
     "max-depth": 0,
     "max-len": 0,
     "max-params": 0,
