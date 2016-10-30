@@ -8,6 +8,10 @@ export default async function(options) {
   const WORKINGDIR = options.root;
   const OUTPUTFILE = options.output || '[name].bundle.js';
 
+  if (!options.entry.length) {
+    throw new Error('No entry file specified!');
+  }
+
   const files = await Promise.all(
         options.entry.map(
             f => existsFileAsync(fs, path.join(WORKINGDIR, f))
