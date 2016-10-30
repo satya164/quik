@@ -9,95 +9,95 @@ import runCompilerAsync from './run-compiler-async';
 import formatHTML from './format-html';
 
 export default async function(options) {
-    const isRemote = uri => /^((https?:)?\/\/)/.test(uri);
-    const ignoreTranspile = uri => /(\?|\?.+&)transpile=false/.test(uri);
-    const ignoreInline = uri => /(\?|\?.+&)inline=false/.test(uri);
+  const isRemote = uri => /^((https?:)?\/\/)/.test(uri);
+  const ignoreTranspile = uri => /(\?|\?.+&)transpile=false/.test(uri);
+  const ignoreInline = uri => /(\?|\?.+&)inline=false/.test(uri);
 
-    const compile = async compiler => {
-        const memoryFs = new MemoryFS();
+  const compile = async compiler => {
+    const memoryFs = new MemoryFS();
 
-        compiler.outputFileSystem = memoryFs;
+    compiler.outputFileSystem = memoryFs;
 
-        const status = await runCompilerAsync(compiler);
+    const status = await runCompilerAsync(compiler);
 
-        if (!options.quiet) {
-            console.log(status.toString({
-                colors: true
-            }));
-        }
-
-        const result = status.toJson();
-
-        if (result.errors.length) {
-            throw result.errors;
-        }
-
-        return await readFileAsync(memoryFs, path.join(options.root, 'output.js'));
-    };
-
-    let result;
-
-    if (options.entry) {
-        result = await readFileAsync(fs, path.join(options.root, options.entry));
-    } else {
-        result = formatHTML(options.js || 'index.js');
+    if (!options.quiet) {
+      console.log(status.toString({
+        colors: true
+      }));
     }
 
-    const $ = cheerio.load(result);
+    const result = status.toJson();
 
-    await Promise.all(
+    if (result.errors.length) {
+      throw result.errors;
+    }
+
+    return await readFileAsync(memoryFs, path.join(options.root, 'output.js'));
+  };
+
+  let result;
+
+  if (options.entry) {
+    result = await readFileAsync(fs, path.join(options.root, options.entry));
+  } else {
+    result = formatHTML(options.js || 'index.js');
+  }
+
+  const $ = cheerio.load(result);
+
+  await Promise.all(
         $('script').map(async (i, el) => {
-            const src = $(el).attr('src');
+          const src = $(el).attr('src');
 
-            if (isRemote(src) || ignoreInline(src)) {
-                return null;
-            }
+          if (isRemote(src) || ignoreInline(src)) {
+            return null;
+          }
 
-            let content;
+          let content;
 
-            if (ignoreTranspile(src)) {
-                content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
-            } else {
-                const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
-                const compiler = await bundler({
-                    devtool: options.sourcemaps ? 'inline-source-map' : null,
-                    root: options.root,
-                    entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
-                    output: 'output.js',
-                    production: options.production
-                });
-                content = await compile(compiler);
-            }
+          if (ignoreTranspile(src)) {
+            content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
+          } else {
+            const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
+            const compiler = await bundler({
+              devtool: options.sourcemaps ? 'inline-source-map' : null,
+              root: options.root,
+              entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
+              output: 'output.js',
+              production: options.production
+            });
+            content = await compile(compiler);
+          }
 
-            $(el).attr('src', null);
-            $(el).text(content);
+          $(el).attr('src', null);
+          $(el).text(content);
 
-            return src;
+          return src;
         })
         .get()
     );
 
-    await Promise.all(
+  await Promise.all(
         $('link[rel=stylesheet]').map(async (i, el) => {
-            const src = $(el).attr('href');
+          const src = $(el).attr('href');
 
-            if (isRemote(src) || ignoreInline(src)) {
-                return null;
-            }
+          if (isRemote(src) || ignoreInline(src)) {
+            return null;
+          }
 
-            const content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
-            const $style = $('<style type="text/css">');
+          const content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
+          const $style = $('<style type="text/css">');
 
-            $style.text(content);
+          $style.text(content);
 
-            $(el).replaceWith($style);
+          $(el).replaceWith($style);
 
-            return src;
+          return src;
         })
         .get()
     );
 
-    const file = path.join(options.root, options.output || (options.entry ? path.basename(options.entry, '.html') : 'index') + '.quik.html');
+  const file = path.join(options.root, options.output || (options.entry ? path.basename(options.entry, '.html') : 'index') + '.quik.html');
 
-    return await writeFileAsync(fs, file, $.html(), 'utf-8');
+  return await writeFileAsync(fs, file, $.html(), 'utf-8');
 }

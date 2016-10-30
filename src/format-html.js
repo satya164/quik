@@ -1,5 +1,5 @@
 export default function(script) {
-    return `
+  return `
         <!DOCTYPE html>
             <head>
                 <meta charset="utf-8">

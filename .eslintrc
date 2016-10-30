@@ -158,7 +158,7 @@
     "func-style": 0,
     "id-length": 0,
     "id-match": 0,
-    "indent": [1, 4],
+    "indent": [1, 2],
     "jsx-quotes": [1, "prefer-single"],
     "key-spacing": [1, { "beforeColon": false, "afterColon": true }],
     "keyword-spacing": 1,

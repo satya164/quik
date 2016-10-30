@@ -4,11 +4,11 @@ import logger from 'koa-logger';
 import quik from './quik-middleware';
 
 export default function(options) {
-    const app = koa();
+  const app = koa();
 
-    app.use(logger());
-    app.use(quik(options));
-    app.use(serve(options.root, { defer: true }));
+  app.use(logger());
+  app.use(quik(options));
+  app.use(serve(options.root, { defer: true }));
 
-    return app;
+  return app;
 }

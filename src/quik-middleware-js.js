@@ -7,39 +7,39 @@ import bundler from './configure-bundler';
 const CONTENT_TYPE = 'application/javascript';
 
 export default function(options) {
-    const WORKINGDIR = options.root;
+  const WORKINGDIR = options.root;
 
-    const test = file => file.endsWith('.js');
+  const test = file => file.endsWith('.js');
 
-    return function *(next) {
-        if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
-            const OUTPUTFILE = 'output.js';
+  return function *(next) {
+    if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
+      const OUTPUTFILE = 'output.js';
 
-            this.type = CONTENT_TYPE;
-            this.body = yield bundler({
-                devtool: options.devtool,
-                root: options.root,
-                entry: [ path.join('.', this.path) ],
-                output: OUTPUTFILE,
-                production: false,
-            })
+      this.type = CONTENT_TYPE;
+      this.body = yield bundler({
+        devtool: options.devtool,
+        root: options.root,
+        entry: [ path.join('.', this.path) ],
+        output: OUTPUTFILE,
+        production: false,
+      })
             .then(async compiler => {
-                const memoryFs = new MemoryFS();
+              const memoryFs = new MemoryFS();
 
-                compiler.outputFileSystem = memoryFs;
+              compiler.outputFileSystem = memoryFs;
 
-                const status = await runCompilerAsync(compiler);
-                const result = status.toJson();
+              const status = await runCompilerAsync(compiler);
+              const result = status.toJson();
 
-                if (result.errors.length) {
-                    throw result.errors;
-                }
+              if (result.errors.length) {
+                throw result.errors;
+              }
 
-                return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
+              return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
             })
             .catch(formatError);
-        }
+    }
 
-        yield next;
-    };
+    yield next;
+  };
 }

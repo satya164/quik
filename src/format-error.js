@@ -1,5 +1,5 @@
 export default function(error) {
-    return `
+  return `
         /* show error response on build fail */
         document.body.onload = function() {
             document.body.style.background = 'rgb(255, 221, 221)';
