@@ -35,7 +35,7 @@ export default async function(options) {
     },
     plugins: options.common ? [
       new webpack.optimize.CommonsChunkPlugin({
-        name: options.common,
+        name: 'common',
         filename: options.common,
       }),
     ] : null,
