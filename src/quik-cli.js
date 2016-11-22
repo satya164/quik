@@ -54,6 +54,11 @@ const argv = yargs
         default: true,
         description: 'Generate sourcemaps for bundle',
       },
+      browser: {
+        type: 'string',
+        default: '',
+        description: 'Name of using browser',
+      },
     })
     .example('$0 --run index.js', 'Run the script \'index.js\' in a browser and watch for changes')
     .example('$0 --port 8008 --watch index.js', 'Start the server in the port \'8008\' and watch \'index.js\' for changes')
@@ -131,5 +136,10 @@ if (argv.init) {
   const url = `http://localhost:${argv.port}`;
 
   console.log(`Quik is serving files at ${chalk.blue(url)}`);
-  opn(url);
+
+  if (argv.browser) {
+    opn(url, {app: argv.browser});
+  } else {
+    opn(url);
+  }
 }
