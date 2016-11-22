@@ -115,6 +115,13 @@ You can also specify an HTML file, which `quik` will parse for any local scripts
 ```sh
 quik --html index.html --output output.html
 ```
+## Specify using browser
+
+You can specify using browser.
+
+```sh
+quik --browser chrome
+```
 
 ## Sample project
 
