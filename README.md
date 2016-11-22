@@ -115,12 +115,14 @@ You can also specify an HTML file, which `quik` will parse for any local scripts
 ```sh
 quik --html index.html --output output.html
 ```
-## Specify using browser
+## Specify browser to open
 
-You can specify using browser.
+You can specify which browser to open when server starts. Refer [opn](https://npmjs.com/opn)'s documentation on browser names.
+
+For example, to use firefox as the browser, you'd do,
 
 ```sh
-quik --browser chrome
+quik --browser firefox
 ```
 
 ## Sample project
