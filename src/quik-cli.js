@@ -137,9 +137,9 @@ if (argv.init) {
 
   console.log(`Quik is serving files at ${chalk.blue(url)}`);
 
-  if (argv.browser == '') {
-    opn(url);
-  } else {
+  if (argv.browser) {
     opn(url, {app: argv.browser});
+  } else {
+    opn(url);
   }
 }
