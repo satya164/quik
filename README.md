@@ -97,7 +97,7 @@ The `--production` option performs minification on the resulting bundle. You can
 You can provide multiple entry points as arguments. In that case, you can use `[name]` to get the name of the entry point while specifying an output file,
 
 ```sh
-quik --bundle file1.js file2.js --output [name].bundle.js
+quik --bundle file1.js file2.js --output [name].bundle.js --common common.bundle.js
 ```
 
 Sourcemap files are automatically generated when generating bundles.

@@ -44,6 +44,10 @@ const argv = yargs
         type: 'string',
         description: 'Name of the output file',
       },
+      common: {
+        type: 'string',
+        description: 'Name of file to contain common code in case of multiple entries',
+      },
       production: {
         type: 'boolean',
         default: false,
@@ -84,6 +88,7 @@ if (argv.init) {
   bundle({
     root: process.cwd(),
     entry: argv.bundle.map(it => './' + it),
+    common: argv.common,
     output: argv.output,
     production: argv.production,
     sourcemaps: argv.sourcemaps,

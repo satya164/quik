@@ -33,6 +33,12 @@ export default async function(options) {
       filename: OUTPUTFILE,
       sourceMapFilename: OUTPUTFILE + '.map',
     },
+    plugins: options.common ? [
+      new webpack.optimize.CommonsChunkPlugin({
+        name: options.common,
+        filename: options.common,
+      }),
+    ] : null,
     entry,
   }));
 }
