@@ -60,7 +60,7 @@
     "lodash": "^4.16.4",
     "memory-fs": "^0.4.0",
     "ncp": "^2.0.0",
-    "node-sass": "^3.10.1",
+    "node-sass": "^4.0.0",
     "opn": "^4.0.2",
     "postcss-loader": "^1.1.0",
     "react": "^15.3.2",
