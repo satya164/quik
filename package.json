@@ -86,7 +86,7 @@
     "eventsource": "^0.2.1",
     "mkdirp": "^0.5.1",
     "nyc": "^8.3.2",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^6.3.2"
   },
   "ava": {
     "babel": "inherit",
