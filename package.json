@@ -80,7 +80,7 @@
     "del": "^2.2.2",
     "del-cli": "^0.2.0",
     "eslint": "^3.9.0",
-    "eslint-plugin-ava": "^3.1.1",
+    "eslint-plugin-ava": "^4.0.1",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.1",
     "eventsource": "^0.2.1",
