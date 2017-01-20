@@ -134,4 +134,11 @@ export default (options: Options) => ({
       path.join(options.context, 'node_modules'),
     ],
   },
+
+  devServer: {
+    stats: {
+      colors: true,
+      chunks: false,
+    },
+  },
 });

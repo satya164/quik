@@ -25,21 +25,21 @@ export default function(options: *) {
         output: OUTPUTFILE,
         production: false,
       })
-            .then(async compiler => {
-              const memoryFs = new MemoryFS();
+      .then(async compiler => {
+        const memoryFs = new MemoryFS();
 
-              compiler.outputFileSystem = memoryFs;
+        compiler.outputFileSystem = memoryFs;
 
-              const status = await runCompilerAsync(compiler);
-              const result = status.toJson();
+        const status = await runCompilerAsync(compiler);
+        const result = status.toJson();
 
-              if (result.errors.length) {
-                throw result.errors;
-              }
+        if (result.errors.length) {
+          throw result.errors;
+        }
 
-              return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
-            })
-            .catch(formatError);
+        return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
+      })
+      .catch(formatError);
     }
 
     yield next;

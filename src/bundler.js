@@ -7,10 +7,8 @@ export default async function(options: *) {
   const compiler = await bundler({ ...options, devtool: options.sourcemaps ? 'source-map' : null });
   const status = await runCompilerAsync(compiler);
 
-  if (!options.quiet) {
-    console.log(status.toString({
-      colors: true,
-    }));
+  if (options.quiet !== false) {
+    console.log(status.toString('errors-only'));
   }
 
   const result = status.toJson();
