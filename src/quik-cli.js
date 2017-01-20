@@ -82,7 +82,7 @@ if (argv.init) {
   })
     .then(() => {
       console.log(
-        `⭐  All done!\n\n` +
+        '✨  All done!\n\n' +
         ` - Run ${chalk.bold(chalk.yellow('npm start'))} to start the server\n` +
         ` - Run ${chalk.bold(chalk.yellow('npm run build'))} to build production ready bundle\n`
       );
@@ -110,7 +110,7 @@ if (argv.init) {
         bundles.push(path.resolve(process.cwd(), Array.isArray(entry) ? entry[0] : entry));
       }
 
-      console.log(`⭐  Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.bold(chalk.green(b))).join(', ')}`);
+      console.log(`✨  Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles.map(b => chalk.bold(chalk.green(path.relative(process.cwd(), b)))).join(', ')}`);
     })
     .catch(err => {
       console.error(err);
@@ -126,7 +126,7 @@ if (argv.init) {
     sourcemaps: argv.sourcemaps,
   })
     .then(file => {
-      console.log(`⭐  Sharable HTML generated at ${chalk.bold(chalk.green(file))}`);
+      console.log(`✨  Sharable HTML generated at ${chalk.bold(chalk.green(path.relative(process.cwd(), file)))}`);
     })
     .catch(err => {
       console.error(err);
@@ -145,7 +145,7 @@ if (argv.init) {
   console.log(`Quik is serving files at ${chalk.blue(url)}`);
 
   if (argv.browser) {
-    opn(url, {app: argv.browser});
+    opn(url, { app: argv.browser });
   } else {
     opn(url);
   }
