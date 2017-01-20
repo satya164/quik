@@ -14,9 +14,10 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "del dist/ && babel -sd dist/ src/",
-    "test": "nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "git diff HEAD --name-only --diff-filter=ACM | grep '.js$' | xargs eslint --quiet",
+    "lint": "eslint . --quiet",
+    "test": "nyc ava",
+    "flow": "flow",
     "prepublish": "npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },

@@ -12,15 +12,15 @@ const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');
 
 test.before('setup', () => del(TESTDIR, { force: true }).then(() =>
-    new Promise((resolve, reject) => {
-      mkdirp(TESTDIR, err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    })
+  new Promise((resolve, reject) => {
+    mkdirp(TESTDIR, err => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  })
 ));
 
 test.after('teardown', () => del(TESTDIR, { force: true }));
