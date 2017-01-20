@@ -6,3 +6,4 @@ export default class MyComponent extends Component {
     return <div className={styles.container}>Hello world!</div>;
   }
 }
+

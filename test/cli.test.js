@@ -29,7 +29,7 @@ test.cb('should print usage', t => {
     if (err) {
       t.end(err);
     } else {
-      t.deepEqual(stdout.indexOf('Usage: ../bin/quik.js [...options]'), 0);
+      t.deepEqual(stdout.indexOf('Usage: bin/quik.js [...options]'), 0);
       t.end();
     }
   });

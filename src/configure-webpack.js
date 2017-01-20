@@ -1,25 +1,46 @@
 import path from 'path';
 import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
 import babelrc from './babelrc';
 
 const CURRENTDIR = path.join(__dirname, '..');
-const BABEL_LOADER = 'babel-loader?' + JSON.stringify(babelrc);
-const CSS_LOADER = 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]';
-const SASS_LOADER = 'sass-loader?sourceMap';
-const LESS_LOADER = 'less-loader?sourceMap';
-const STYLE_LOADERS = [
-  'style-loader',
-  CSS_LOADER,
-  {
-    loader: 'postcss-loader',
-    options: {
-      plugins() {
-        return [ autoprefixer ];
-      },
-    },
+
+const BABEL_LOADER = {
+  loader: 'babel-loader',
+  options: babelrc,
+};
+const URL_LOADER = {
+  loader: 'url-loader',
+  options: {
+    limit: 25000,
   },
-];
+};
+const STYLE_LOADER = {
+  loader: 'style-loader',
+};
+const CSS_LOADER = {
+  loader: 'css-loader',
+  options: {
+    modules: true,
+    importLoaders: 2,
+    localIdentName: '[local]___[hash:base64:5]',
+  },
+};
+const SASS_LOADER = {
+  loader: 'sass-loader',
+  options: {
+    sourceMap: true,
+  },
+};
+const LESS_LOADER = {
+  loader: 'less-loader',
+  options: {
+    sourceMap: true,
+  },
+};
+const POSTCSS_LOADER = {
+  loader: 'postcss-loader',
+};
+const STYLE_LOADERS = [ STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER ];
 
 export default (options) => ({
   context: options.context,
@@ -28,7 +49,7 @@ export default (options) => ({
   devtool: options.devtool,
 
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: options.production ? '"production"' : '"developement"',
@@ -37,6 +58,9 @@ export default (options) => ({
     new webpack.LoaderOptionsPlugin({
       minimize: !!options.production,
       debug: !options.production,
+      postcss: [
+        require('autoprefixer'),
+      ]
     }),
   ]
     .concat(options.production ? [
@@ -53,11 +77,7 @@ export default (options) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: BABEL_LOADER,
-      },
-      {
-        test: /\.json$/,
-        loader: 'json',
+        use: BABEL_LOADER,
       },
       {
         test: /\.css$/,
@@ -73,7 +93,7 @@ export default (options) => ({
       },
       {
         test: /\.(gif|jpg|png|webp|svg)$/,
-        loader: 'url?limit=25000',
+        use: URL_LOADER,
       },
     ],
   },
