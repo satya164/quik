@@ -1,27 +1,19 @@
 sudo: false
 language: node_js
-cache:
-  directories:
-    - $HOME/.npm
-    - $HOME/.yarn-cache
-    - node_modules
+cache: yarn
 notifications:
   email: false
 node_js:
   - 'stable'
   - '5'
-  - '4'
-before_install:
-  - npm i -g yarn@latest --cache-min 9999999
-install:
-  - yarn
 before_script:
-  - npm run build
+  - yarn run flow
+  - yarn run build
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
   - export $(cat .to_export_back) &> /dev/null
-  - npm run semantic-release
+  - yarn run semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
