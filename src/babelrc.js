@@ -1,6 +1,6 @@
 /* @flow */
 
-export default {
+const babelrc = {
   presets: [
     [ require.resolve('babel-preset-es2015'), { modules: false } ],
     require.resolve('babel-preset-react'),
@@ -18,3 +18,5 @@ export default {
     },
   },
 };
+
+export default babelrc;

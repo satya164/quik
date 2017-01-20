@@ -59,6 +59,12 @@ const LESS_LOADER = {
 };
 const POSTCSS_LOADER = {
   loader: 'postcss-loader',
+  options: {
+    ident: 'postcss-options',
+    plugins: () => [
+      require('autoprefixer'),
+    ],
+  },
 };
 const STYLE_LOADERS: Array<Loader> = [ STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER ];
 
@@ -78,9 +84,6 @@ export default (options: Options) => ({
     new webpack.LoaderOptionsPlugin({
       minimize: !!options.production,
       debug: !options.production,
-      postcss: [
-        require('autoprefixer'),
-      ],
     }),
   ]
     .concat(options.production ? [
@@ -121,14 +124,14 @@ export default (options: Options) => ({
   resolveLoader: {
     modules: [
       path.join(CURRENTDIR, 'node_modules'),
-      path.resolve(options.context, 'node_modules'),
+      path.join(options.context, 'node_modules'),
     ],
   },
 
   resolve: {
     modules: [
       path.join(CURRENTDIR, 'node_modules'),
-      path.resolve(options.context, 'node_modules'),
+      path.join(options.context, 'node_modules'),
     ],
   },
 });
