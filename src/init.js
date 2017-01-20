@@ -1,3 +1,5 @@
+/* @flow */
+
 import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -5,7 +7,7 @@ import ncp from 'ncp';
 import exists from 'command-exists';
 import chalk from 'chalk';
 
-export default async function(options) {
+export default async function(options: *) {
   if (typeof options.name !== 'string') {
     throw new Error('Please specify a name for the project!');
   }

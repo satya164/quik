@@ -1,3 +1,5 @@
+/* @flow */
+
 export default {
   presets: [
     [ require.resolve('babel-preset-es2015'), { modules: false } ],

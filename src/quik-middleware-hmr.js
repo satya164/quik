@@ -1,3 +1,5 @@
+/* @flow */
+
 import expand from 'glob-expand';
 import compose from 'koa-compose';
 import webpack from 'webpack';
@@ -6,7 +8,7 @@ import webpackHotMiddleware from 'koa-webpack-hot-middleware';
 import configure from './configure-webpack';
 import babelrc from './babelrc';
 
-export default function(options) {
+export default function(options: *) {
   const WORKINGDIR = options.root;
 
   const expanded = expand({ cwd: WORKINGDIR }, options.entry);

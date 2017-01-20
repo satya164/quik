@@ -1,10 +1,12 @@
+/* @flow */
+
 import fs from 'fs';
 import compose from 'koa-compose';
 import hmr from './quik-middleware-hmr';
 import js from './quik-middleware-js';
 import run from './quik-middleware-run';
 
-export default function(options) {
+export default function(options: *) {
   const middlewares = [];
 
   middlewares.push(js({

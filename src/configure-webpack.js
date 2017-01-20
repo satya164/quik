@@ -1,6 +1,26 @@
+/* @flow */
+
 import path from 'path';
 import webpack from 'webpack';
 import babelrc from './babelrc';
+
+type Options = {
+  context: string;
+  plugins?: ?Array<*>;
+  entry: { [key: string]: string };
+  output: {
+    path: string;
+    filename: string;
+    sourceMapFilename?: string;
+  };
+  devtool: boolean;
+  production: boolean;
+}
+
+type Loader = {
+  loader: string;
+  options?: Object;
+}
 
 const CURRENTDIR = path.join(__dirname, '..');
 
@@ -40,9 +60,9 @@ const LESS_LOADER = {
 const POSTCSS_LOADER = {
   loader: 'postcss-loader',
 };
-const STYLE_LOADERS = [ STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER ];
+const STYLE_LOADERS: Array<Loader> = [ STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER ];
 
-export default (options) => ({
+export default (options: Options) => ({
   context: options.context,
   entry: options.entry,
   output: options.output,
@@ -60,7 +80,7 @@ export default (options) => ({
       debug: !options.production,
       postcss: [
         require('autoprefixer'),
-      ]
+      ],
     }),
   ]
     .concat(options.production ? [

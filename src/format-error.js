@@ -1,4 +1,6 @@
-export default function(error) {
+/* @flow */
+
+export default function(error: Error) {
   return `
         /* show error response on build fail */
         document.body.onload = function() {

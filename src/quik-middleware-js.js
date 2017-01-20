@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 import MemoryFS from 'memory-fs';
 import readFileAsync from './read-file-async';
@@ -6,12 +8,12 @@ import formatError from './format-error';
 import bundler from './configure-bundler';
 const CONTENT_TYPE = 'application/javascript';
 
-export default function(options) {
+export default function(options: *) {
   const WORKINGDIR = options.root;
 
   const test = file => file.endsWith('.js');
 
-  return function *(next) {
+  return function *(next: *): * {
     if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
       const OUTPUTFILE = 'output.js';
 

@@ -1,3 +1,5 @@
+/* @flow */
+
 import yargs from 'yargs';
 import path from 'path';
 import opn from 'opn';

@@ -1,10 +1,12 @@
+/* @flow */
+
 import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
 import configure from './configure-webpack';
 import existsFileAsync from './exists-file-async';
 
-export default async function(options) {
+export default async function(options: *) {
   const WORKINGDIR = options.root;
   const OUTPUTFILE = options.output || '[name].bundle.js';
 

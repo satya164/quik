@@ -1,4 +1,6 @@
-export default function(script) {
+/* @flow */
+
+export default function(script: string) {
   return `
         <!DOCTYPE html>
             <head>

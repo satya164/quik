@@ -1,4 +1,6 @@
-export default function(compiler) {
+/* @flow */
+
+export default function(compiler: *) {
   return new Promise((resolve, reject) => {
     compiler.run((error, status) => {
       if (error) {

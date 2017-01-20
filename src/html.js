@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 import fs from 'fs';
 import cheerio from 'cheerio';
@@ -8,7 +10,7 @@ import bundler from './configure-bundler';
 import runCompilerAsync from './run-compiler-async';
 import formatHTML from './format-html';
 
-export default async function(options) {
+export default async function(options: *) {
   const isRemote = uri => /^((https?:)?\/\/)/.test(uri);
   const ignoreTranspile = uri => /(\?|\?.+&)transpile=false/.test(uri);
   const ignoreInline = uri => /(\?|\?.+&)inline=false/.test(uri);
