@@ -87,12 +87,13 @@ export default (options: Options) => ({
     }),
   ]
     .concat(options.production ? [
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: { warnings: false },
         sourceMap: !!options.devtool,
       }),
-    ] : [])
+    ] : [
+      new webpack.NamedModulesPlugin(),
+    ])
     .concat(options.plugins || []),
 
   module: {
