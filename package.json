@@ -32,7 +32,7 @@
   "license": "MIT",
   "dependencies": {
     "autoprefixer": "^6.7.2",
-    "babel-core": "^6.22.1",
+    "babel-core": "^6.23.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-react-constant-elements": "^6.22.0",
     "babel-plugin-transform-react-inline-elements": "^6.22.0",
