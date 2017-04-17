@@ -85,7 +85,7 @@
     "eslint-plugin-babel": "^4.0.1",
     "eslint-plugin-import": "^2.2.0",
     "eventsource": "^0.2.1",
-    "flow-bin": "^0.38.0",
+    "flow-bin": "^0.44.2",
     "mkdirp": "^0.5.1",
     "nyc": "^10.1.2",
     "semantic-release": "^6.3.2"
