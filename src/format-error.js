@@ -10,13 +10,11 @@ export default function(error: Error) {
             document.body.style.whiteSpace = 'pre';
             document.body.style.fontFamily = 'monospace';
 
-            document.body.textContent = '${
-                error
-                    .toString()
-                    .replace(/\\/g, '\\\\')
-                    .replace(/'/g, "\\'")
-                    .replace(/\n/g, '\\n')
-            }';
+            document.body.textContent = '${error
+                                           .toString()
+                                           .replace(/\\/g, '\\\\')
+                                           .replace(/'/g, "\\'")
+                                           .replace(/\n/g, '\\n')}';
         }
     `;
 }

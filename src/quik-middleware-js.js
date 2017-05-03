@@ -13,33 +13,41 @@ export default function(options: *) {
 
   const test = file => file.endsWith('.js');
 
-  return function *(next: *): * {
-    if (this.method === 'GET' && this.accepts(CONTENT_TYPE) && test(this.path) && this.query.transpile !== 'false') {
+  return function*(next: *): * {
+    if (
+      this.method === 'GET' &&
+      this.accepts(CONTENT_TYPE) &&
+      test(this.path) &&
+      this.query.transpile !== 'false'
+    ) {
       const OUTPUTFILE = 'output.js';
 
       this.type = CONTENT_TYPE;
       this.body = yield bundler({
         devtool: options.devtool,
         root: options.root,
-        entry: [ path.join('.', this.path) ],
+        entry: [path.join('.', this.path)],
         output: OUTPUTFILE,
         production: false,
       })
-      .then(async compiler => {
-        const memoryFs = new MemoryFS();
+        .then(async compiler => {
+          const memoryFs = new MemoryFS();
 
-        compiler.outputFileSystem = memoryFs;
+          compiler.outputFileSystem = memoryFs;
 
-        const status = await runCompilerAsync(compiler);
-        const result = status.toJson();
+          const status = await runCompilerAsync(compiler);
+          const result = status.toJson();
 
-        if (result.errors.length) {
-          throw result.errors;
-        }
+          if (result.errors.length) {
+            throw result.errors;
+          }
 
-        return await readFileAsync(memoryFs, path.join(WORKINGDIR, OUTPUTFILE));
-      })
-      .catch(formatError);
+          return await readFileAsync(
+            memoryFs,
+            path.join(WORKINGDIR, OUTPUTFILE),
+          );
+        })
+        .catch(formatError);
     }
 
     yield next;

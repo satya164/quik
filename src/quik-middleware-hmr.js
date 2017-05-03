@@ -15,14 +15,14 @@ export default function(options: *) {
   const entry = {};
 
   for (const e of expanded) {
-    entry[e] = [ './' + e, 'webpack-hot-middleware/client' ];
+    entry[e] = ['./' + e, 'webpack-hot-middleware/client'];
   }
 
   const config = configure({
     context: WORKINGDIR,
     devtool: options.devtool,
     production: false,
-    plugins: [ new webpack.HotModuleReplacementPlugin() ],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
     output: {
       path: WORKINGDIR,
       publicPath: '/',
@@ -31,13 +31,12 @@ export default function(options: *) {
     entry,
   });
 
-  const BABEL_LOADER = 'babel-loader?' + JSON.stringify({
-    ...babelrc,
-    presets: [
-      ...babelrc.presets,
-      require.resolve('babel-preset-react-hmre'),
-    ],
-  });
+  const BABEL_LOADER =
+    'babel-loader?' +
+    JSON.stringify({
+      ...babelrc,
+      presets: [...babelrc.presets, require.resolve('babel-preset-react-hmre')],
+    });
 
   const loaders = config.module.rules;
 

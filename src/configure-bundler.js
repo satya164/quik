@@ -15,9 +15,7 @@ export default async function(options: *) {
   }
 
   const files = await Promise.all(
-    options.entry.map(
-      f => existsFileAsync(fs, path.join(WORKINGDIR, f))
-    )
+    options.entry.map(f => existsFileAsync(fs, path.join(WORKINGDIR, f))),
   );
 
   const entry = {};
@@ -26,21 +24,25 @@ export default async function(options: *) {
     entry[path.basename(f, '.js')] = f;
   }
 
-  return webpack(configure({
-    context: WORKINGDIR,
-    devtool: options.devtool ? options.devtool : false,
-    production: options.production,
-    output: {
-      path: WORKINGDIR,
-      filename: OUTPUTFILE,
-      sourceMapFilename: OUTPUTFILE + '.map',
-    },
-    plugins: options.common ? [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        filename: options.common,
-      }),
-    ] : null,
-    entry,
-  }));
+  return webpack(
+    configure({
+      context: WORKINGDIR,
+      devtool: options.devtool ? options.devtool : false,
+      production: options.production,
+      output: {
+        path: WORKINGDIR,
+        filename: OUTPUTFILE,
+        sourceMapFilename: OUTPUTFILE + '.map',
+      },
+      plugins: options.common
+        ? [
+            new webpack.optimize.CommonsChunkPlugin({
+              name: 'common',
+              filename: options.common,
+            }),
+          ]
+        : null,
+      entry,
+    }),
+  );
 }

@@ -14,7 +14,7 @@ test.cb('should rebuild on changes', t => {
 
   const s = server({
     root: path.join(__dirname, '../template'),
-    watch: [ './index.js' ],
+    watch: ['./index.js'],
   }).listen(3005);
 
   const componentFile = path.join(__dirname, '../template', 'MyComponent.js');
@@ -24,11 +24,16 @@ test.cb('should rebuild on changes', t => {
       if (err) {
         t.end(err);
       } else {
-        fs.writeFile(componentFile, res.toString().replace(from, to), 'utf-8', e => {
-          if (e) {
-            t.end(e);
-          }
-        });
+        fs.writeFile(
+          componentFile,
+          res.toString().replace(from, to),
+          'utf-8',
+          e => {
+            if (e) {
+              t.end(e);
+            }
+          },
+        );
       }
     });
   }
@@ -49,7 +54,7 @@ test.cb('should rebuild on changes', t => {
   let action = SYNC;
 
   hmr.onmessage = message => {
-        /* eslint-disable ava/no-statement-after-end */
+    /* eslint-disable ava/no-statement-after-end */
     const data = message.data;
 
     if (i === 7) {
@@ -75,15 +80,15 @@ test.cb('should rebuild on changes', t => {
       }
 
       switch (parsed.action) {
-      case SYNC:
-        action = BUILDING;
-        break;
-      case BUILDING:
-        action = BUILT;
-        break;
-      case BUILT:
-        action = BUILDING;
-        break;
+        case SYNC:
+          action = BUILDING;
+          break;
+        case BUILDING:
+          action = BUILT;
+          break;
+        case BUILT:
+          action = BUILDING;
+          break;
       }
 
       i++;

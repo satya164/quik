@@ -46,58 +46,73 @@ export default async function(options: *) {
   const $ = cheerio.load(result);
 
   await Promise.all(
-        $('script').map(async (i, el) => {
-          const src = $(el).attr('src');
+    $('script')
+      .map(async (i, el) => {
+        const src = $(el).attr('src');
 
-          if (isRemote(src) || ignoreInline(src)) {
-            return null;
-          }
+        if (isRemote(src) || ignoreInline(src)) {
+          return null;
+        }
 
-          let content;
+        let content;
 
-          if (ignoreTranspile(src)) {
-            content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
-          } else {
-            const parent = options.entry ? path.dirname(path.join(options.root, options.entry)) : options.root;
-            const compiler = await bundler({
-              devtool: options.sourcemaps ? 'inline-source-map' : false,
-              root: options.root,
-              entry: [ './' + path.relative(options.root, path.join(parent, src)) ],
-              output: 'output.js',
-              production: options.production,
-            });
-            content = await compile(compiler);
-          }
+        if (ignoreTranspile(src)) {
+          content = await readFileAsync(
+            fs,
+            path.join(options.root, src.split('?')[0]),
+          );
+        } else {
+          const parent = options.entry
+            ? path.dirname(path.join(options.root, options.entry))
+            : options.root;
+          const compiler = await bundler({
+            devtool: options.sourcemaps ? 'inline-source-map' : false,
+            root: options.root,
+            entry: ['./' + path.relative(options.root, path.join(parent, src))],
+            output: 'output.js',
+            production: options.production,
+          });
+          content = await compile(compiler);
+        }
 
-          $(el).attr('src', null);
-          $(el).text(content);
+        $(el).attr('src', null);
+        $(el).text(content);
 
-          return src;
-        })
-        .get()
-    );
+        return src;
+      })
+      .get(),
+  );
 
   await Promise.all(
-        $('link[rel=stylesheet]').map(async (i, el) => {
-          const src = $(el).attr('href');
+    $('link[rel=stylesheet]')
+      .map(async (i, el) => {
+        const src = $(el).attr('href');
 
-          if (isRemote(src) || ignoreInline(src)) {
-            return null;
-          }
+        if (isRemote(src) || ignoreInline(src)) {
+          return null;
+        }
 
-          const content = await readFileAsync(fs, path.join(options.root, src.split('?')[0]));
-          const $style = $('<style type="text/css">');
+        const content = await readFileAsync(
+          fs,
+          path.join(options.root, src.split('?')[0]),
+        );
+        const $style = $('<style type="text/css">');
 
-          $style.text(content);
+        $style.text(content);
 
-          $(el).replaceWith($style);
+        $(el).replaceWith($style);
 
-          return src;
-        })
-        .get()
-    );
+        return src;
+      })
+      .get(),
+  );
 
-  const file = path.join(options.root, options.output || (options.entry ? path.basename(options.entry, '.html') : 'index') + '.quik.html');
+  const file = path.join(
+    options.root,
+    options.output ||
+      (options.entry ? path.basename(options.entry, '.html') : 'index') +
+        '.quik.html',
+  );
 
   return await writeFileAsync(fs, file, $.html(), 'utf-8');
 }

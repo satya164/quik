@@ -5,22 +5,22 @@ import webpack from 'webpack';
 import babelrc from './babelrc';
 
 type Options = {
-  context: string;
-  plugins?: ?Array<*>;
-  entry: { [key: string]: string };
+  context: string,
+  plugins?: ?Array<*>,
+  entry: { [key: string]: string },
   output: {
-    path: string;
-    filename: string;
-    sourceMapFilename?: string;
-  };
-  devtool: boolean;
-  production: boolean;
-}
+    path: string,
+    filename: string,
+    sourceMapFilename?: string,
+  },
+  devtool: boolean,
+  production: boolean,
+};
 
 type Loader = {
-  loader: string;
-  options?: Object;
-}
+  loader: string,
+  options?: Object,
+};
 
 const CURRENTDIR = path.join(__dirname, '..');
 
@@ -61,12 +61,10 @@ const POSTCSS_LOADER = {
   loader: 'postcss-loader',
   options: {
     ident: 'postcss-options',
-    plugins: () => [
-      require('autoprefixer'),
-    ],
+    plugins: () => [require('autoprefixer')],
   },
 };
-const STYLE_LOADERS: Array<Loader> = [ STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER ];
+const STYLE_LOADERS: Array<Loader> = [STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER];
 
 export default (options: Options) => ({
   context: options.context,
@@ -86,14 +84,16 @@ export default (options: Options) => ({
       debug: !options.production,
     }),
   ]
-    .concat(options.production ? [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false },
-        sourceMap: !!options.devtool,
-      }),
-    ] : [
-      new webpack.NamedModulesPlugin(),
-    ])
+    .concat(
+      options.production
+        ? [
+            new webpack.optimize.UglifyJsPlugin({
+              compress: { warnings: false },
+              sourceMap: !!options.devtool,
+            }),
+          ]
+        : [new webpack.NamedModulesPlugin()],
+    )
     .concat(options.plugins || []),
 
   module: {
@@ -109,11 +109,11 @@ export default (options: Options) => ({
       },
       {
         test: /\.less$/,
-        use: [ ...STYLE_LOADERS, LESS_LOADER ],
+        use: [...STYLE_LOADERS, LESS_LOADER],
       },
       {
         test: /\.scss$/,
-        use: [ ...STYLE_LOADERS, SASS_LOADER ],
+        use: [...STYLE_LOADERS, SASS_LOADER],
       },
       {
         test: /\.(gif|jpg|png|webp|svg)$/,
