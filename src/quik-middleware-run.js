@@ -5,16 +5,16 @@ import formatHTML from './format-html';
 const CONTENT_TYPE = 'text/html';
 
 export default function(options: *) {
-  return function*(next: *): * {
+  return function(ctx: *, next: *) {
     if (
-      this.method === 'GET' &&
-      this.accepts(CONTENT_TYPE) &&
-      /^\/(index\.html)?$/.test(this.path)
+      ctx.method === 'GET' &&
+      ctx.accepts(CONTENT_TYPE) &&
+      /^\/(index\.html)?$/.test(ctx.path)
     ) {
-      this.type = CONTENT_TYPE;
-      this.body = formatHTML(options.script);
+      ctx.type = CONTENT_TYPE;
+      ctx.body = formatHTML(options.script);
     }
 
-    yield next;
+    return next();
   };
 }

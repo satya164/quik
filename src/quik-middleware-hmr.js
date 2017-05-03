@@ -1,10 +1,8 @@
 /* @flow */
 
 import expand from 'glob-expand';
-import compose from 'koa-compose';
 import webpack from 'webpack';
-import webpackDevMiddleware from 'koa-webpack-dev-middleware';
-import webpackHotMiddleware from 'koa-webpack-hot-middleware';
+import webpackMiddleware from 'koa-webpack';
 import configure from './configure-webpack';
 import babelrc from './babelrc';
 
@@ -53,13 +51,11 @@ export default function(options: *) {
     }
   }
 
-  const compiler = webpack(config);
-
-  return compose([
-    webpackDevMiddleware(compiler, {
+  return webpackMiddleware({
+    config,
+    dev: {
       publicPath: '/',
       noInfo: true,
-    }),
-    webpackHotMiddleware(compiler),
-  ]);
+    },
+  });
 }

@@ -13,43 +13,46 @@ export default function(options: *) {
 
   const test = file => file.endsWith('.js');
 
-  return function*(next: *): * {
+  return async function(ctx: *, next: *) {
     if (
-      this.method === 'GET' &&
-      this.accepts(CONTENT_TYPE) &&
-      test(this.path) &&
-      this.query.transpile !== 'false'
+      ctx.method === 'GET' &&
+      ctx.accepts(CONTENT_TYPE) &&
+      test(ctx.path) &&
+      ctx.query.transpile !== 'false'
     ) {
       const OUTPUTFILE = 'output.js';
 
-      this.type = CONTENT_TYPE;
-      this.body = yield bundler({
-        devtool: options.devtool,
-        root: options.root,
-        entry: [path.join('.', this.path)],
-        output: OUTPUTFILE,
-        production: false,
-      })
-        .then(async compiler => {
-          const memoryFs = new MemoryFS();
+      ctx.type = CONTENT_TYPE;
 
-          compiler.outputFileSystem = memoryFs;
+      try {
+        const compiler = await bundler({
+          devtool: options.devtool,
+          root: options.root,
+          entry: [path.join('.', ctx.path)],
+          output: OUTPUTFILE,
+          production: false,
+        });
 
-          const status = await runCompilerAsync(compiler);
-          const result = status.toJson();
+        const memoryFs = new MemoryFS();
 
-          if (result.errors.length) {
-            throw result.errors;
-          }
+        compiler.outputFileSystem = memoryFs;
 
-          return await readFileAsync(
-            memoryFs,
-            path.join(WORKINGDIR, OUTPUTFILE),
-          );
-        })
-        .catch(formatError);
+        const status = await runCompilerAsync(compiler);
+        const result = status.toJson();
+
+        if (result.errors.length) {
+          throw result.errors;
+        }
+
+        ctx.body = await readFileAsync(
+          memoryFs,
+          path.join(WORKINGDIR, OUTPUTFILE),
+        );
+      } catch (e) {
+        ctx.body = formatError(e);
+      }
     }
 
-    yield next;
+    await next();
   };
 }
