@@ -79,7 +79,7 @@
     "coveralls": "^2.11.15",
     "cz-conventional-changelog": "^1.2.0",
     "del": "^2.2.2",
-    "del-cli": "^0.2.1",
+    "del-cli": "^1.0.0",
     "eslint": "^3.15.0",
     "eslint-plugin-ava": "^4.0.1",
     "eslint-plugin-babel": "^4.0.1",
