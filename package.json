@@ -46,7 +46,7 @@
     "chalk": "^1.1.3",
     "cheerio": "^0.22.0",
     "command-exists": "^1.0.2",
-    "css-loader": "^0.28.1",
+    "css-loader": "0.28.2",
     "file-loader": "^0.11.1",
     "glob-expand": "^0.2.1",
     "koa": "^2.2.0",
