@@ -87,7 +87,7 @@
     "eventsource": "^1.0.1",
     "flow-bin": "^0.45.0",
     "mkdirp": "^0.5.1",
-    "nyc": "^10.1.2",
+    "nyc": "^11.0.2",
     "semantic-release": "^6.3.2"
   },
   "ava": {
