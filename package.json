@@ -47,7 +47,7 @@
     "cheerio": "^0.22.0",
     "command-exists": "^1.0.2",
     "css-loader": "^0.28.1",
-    "file-loader": "^0.11.1",
+    "file-loader": "0.11.1",
     "glob-expand": "^0.2.1",
     "koa": "^2.2.0",
     "koa-compose": "^4.0.0",
