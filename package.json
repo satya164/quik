@@ -61,7 +61,7 @@
     "memory-fs": "^0.4.1",
     "ncp": "^2.0.0",
     "node-sass": "^4.5.0",
-    "opn": "^5.0.0",
+    "opn": "5.0.0",
     "postcss-loader": "^2.0.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
