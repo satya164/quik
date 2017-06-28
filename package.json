@@ -53,7 +53,7 @@
     "koa-compose": "^4.0.0",
     "koa-logger": "^2.0.1",
     "koa-static": "^3.0.0",
-    "koa-webpack-dev-middleware": "^1.4.4",
+    "koa-webpack-dev-middleware": "^2.0.0",
     "koa-webpack-hot-middleware": "^1.0.3",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
