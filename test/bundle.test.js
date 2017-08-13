@@ -5,8 +5,8 @@ import path from 'path';
 import fs from 'fs';
 import del from 'del';
 import mkdirp from 'mkdirp';
-import bundle from '../dist/bundler';
-import readFileAsync from '../dist/read-file-async';
+import bundle from '../src/bundler';
+import readFileAsync from '../src/read-file-async';
 
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const WORKINGDIR = path.join(__dirname, '../template');

@@ -4,7 +4,7 @@ import test from 'ava';
 import path from 'path';
 import fs from 'fs';
 import EventSource from 'eventsource';
-import server from '../dist/server';
+import server from '../src/server';
 
 test.cb('should rebuild on changes', t => {
   const SYNC = 'sync';

@@ -3,7 +3,7 @@
 import test from 'ava';
 import http from 'http';
 import path from 'path';
-import server from '../dist/server';
+import server from '../src/server';
 
 test.cb('should start server', t => {
   const s = server({
