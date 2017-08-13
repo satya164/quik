@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import styles from './styles.scss';
+
+const styles = css`
+  .container {
+    margin: 16px;
+    font-family: sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #443b5d;
+  }
+`;
 
 export default class MyComponent extends Component {
   render() {

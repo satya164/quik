@@ -73,8 +73,8 @@ test('should not generate sourcemaps for development', t =>
       t.deepEqual(e.code, 'ENOENT', "sourcemap shouldn't exist");
     }));
 
-test('should bundle for production', t =>
-  bundle({
+test.only('should bundle for production', async t => {
+  await bundle({
     root: WORKINGDIR,
     entry: ['index.js'],
     output: path.relative(
@@ -84,32 +84,31 @@ test('should bundle for production', t =>
     production: true,
     sourcemaps: true,
     quiet: true,
-  })
-    .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js')))
-    .then(data => {
-      t.true(data.indexOf('import React from') === -1, 'should be transpiled');
-      t.true(
-        data.indexOf('Minified exception occurred;') > -1,
-        'should be minified'
-      );
-      t.true(
-        data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1,
-        'should be minified'
-      );
-      t.true(
-        data.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1,
-        'should have sourcemap'
-      );
-    })
-    .then(() =>
-      readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map'))
-    )
-    .then(data => {
-      t.true(
-        data.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
-        'should have sourcemap'
-      );
-    }));
+  });
+
+  const js = await readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js'));
+
+  t.true(js.indexOf('import React from') === -1, 'should be transpiled');
+  t.true(js.indexOf('Minified exception occurred;') > -1, 'should be minified');
+  t.true(
+    js.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1,
+    'should be minified'
+  );
+  t.true(
+    js.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1,
+    'should have sourcemap'
+  );
+
+  const map = await readFileAsync(
+    fs,
+    path.join(TESTDIR, 'index.bundle.min.js.map')
+  );
+
+  t.true(
+    map.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
+    'should have sourcemap'
+  );
+});
 
 test('should not generate sourcemaps for production', t =>
   bundle({

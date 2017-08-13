@@ -32,7 +32,7 @@ export default async function(options: *) {
       output: {
         path: WORKINGDIR,
         filename: OUTPUTFILE,
-        sourceMapFilename: OUTPUTFILE + '.map',
+        sourceMapFilename: '[file].map',
       },
       plugins: options.common
         ? [

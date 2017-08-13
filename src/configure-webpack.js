@@ -2,6 +2,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import babelrc from './babelrc';
 
 type Options = {
@@ -17,11 +18,6 @@ type Options = {
   production: boolean,
 };
 
-type Loader = {
-  loader: string,
-  options?: Object,
-};
-
 const CURRENTDIR = path.join(__dirname, '..');
 
 const BABEL_LOADER = {
@@ -34,25 +30,11 @@ const URL_LOADER = {
     limit: 25000,
   },
 };
-const STYLE_LOADER = {
-  loader: 'style-loader',
-};
+const RESOLVE_URL = 'resolve-url-loader';
+const STYLE_LOADER = 'style-loader';
+const CSS_LITERAL_LOADER = 'css-literal-loader';
 const CSS_LOADER = {
   loader: 'css-loader',
-  options: {
-    modules: true,
-    importLoaders: 2,
-    localIdentName: '[local]___[hash:base64:5]',
-  },
-};
-const SASS_LOADER = {
-  loader: 'sass-loader',
-  options: {
-    sourceMap: true,
-  },
-};
-const LESS_LOADER = {
-  loader: 'less-loader',
   options: {
     sourceMap: true,
   },
@@ -65,7 +47,6 @@ const POSTCSS_LOADER = {
     sourceMap: true,
   },
 };
-const STYLE_LOADERS: Array<Loader> = [STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER];
 
 export default (options: Options) => ({
   context: options.context,
@@ -92,6 +73,9 @@ export default (options: Options) => ({
               compress: { warnings: false },
               sourceMap: !!options.devtool,
             }),
+            new ExtractTextPlugin({
+              filename: 'style.css',
+            }),
           ]
         : [new webpack.NamedModulesPlugin()]
     )
@@ -102,23 +86,20 @@ export default (options: Options) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: BABEL_LOADER,
-      },
-      {
-        test: /\.css$/,
-        use: STYLE_LOADERS,
-      },
-      {
-        test: /\.less$/,
-        use: [...STYLE_LOADERS, LESS_LOADER],
-      },
-      {
-        test: /\.scss$/,
-        use: [...STYLE_LOADERS, SASS_LOADER],
+        use: [BABEL_LOADER, CSS_LITERAL_LOADER],
       },
       {
         test: /\.(gif|jpg|png|webp|svg)$/,
         use: URL_LOADER,
+      },
+      {
+        test: /\.css$/,
+        use: options.production
+          ? ExtractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: [CSS_LOADER, RESOLVE_URL, POSTCSS_LOADER],
+            })
+          : [STYLE_LOADER, CSS_LOADER, RESOLVE_URL, POSTCSS_LOADER],
       },
     ],
   },
