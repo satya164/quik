@@ -4,7 +4,7 @@ const babelrc = {
   presets: [
     [require.resolve('babel-preset-es2015'), { modules: false }],
     require.resolve('babel-preset-react'),
-    require.resolve('babel-preset-stage-1'),
+    require.resolve('babel-preset-stage-3'),
   ],
   plugins: [require.resolve('babel-plugin-transform-runtime')],
   env: {
