@@ -34,7 +34,11 @@ export default async function(options: *) {
         }
 
         try {
-          console.log(`🍭  Installing ${chalk.bold('react')} and ${chalk.bold('react-dom')}`);
+          console.log(
+            `🍭  Installing ${chalk.bold('react')} and ${chalk.bold(
+              'react-dom'
+            )}`
+          );
 
           if (status) {
             execSync('yarn add react react-dom', { cwd: dir });

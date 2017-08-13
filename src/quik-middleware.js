@@ -13,7 +13,7 @@ export default function(options: *) {
     js({
       devtool: 'inline-source-map',
       root: options.root,
-    }),
+    })
   );
 
   let script, watch;
@@ -45,7 +45,7 @@ export default function(options: *) {
       run({
         root: options.root,
         script,
-      }),
+      })
     );
   }
 
@@ -55,7 +55,7 @@ export default function(options: *) {
         devtool: 'inline-source-map',
         root: options.root,
         entry: watch,
-      }),
+      })
     );
   }
 

@@ -39,7 +39,8 @@ const argv = yargs
     },
     js: {
       type: 'string',
-      description: 'Name of the JavaScript file to include in the HTML bundle when no HTML is specified',
+      description:
+        'Name of the JavaScript file to include in the HTML bundle when no HTML is specified',
     },
     output: {
       alias: 'o',
@@ -48,7 +49,8 @@ const argv = yargs
     },
     common: {
       type: 'string',
-      description: 'Name of file to contain common code in case of multiple entries',
+      description:
+        'Name of file to contain common code in case of multiple entries',
     },
     production: {
       type: 'boolean',
@@ -68,19 +70,19 @@ const argv = yargs
   })
   .example(
     '$0 --run index.js',
-    "Run the script 'index.js' in a browser and watch for changes",
+    "Run the script 'index.js' in a browser and watch for changes"
   )
   .example(
     '$0 --port 8008 --watch index.js',
-    "Start the server in the port '8008' and watch 'index.js' for changes",
+    "Start the server in the port '8008' and watch 'index.js' for changes"
   )
   .example(
     '$0 --bundle entry.js --output bundle.js --production',
-    "Generate a bundle named 'bundle.js' from 'entry.js' for production",
+    "Generate a bundle named 'bundle.js' from 'entry.js' for production"
   )
   .example(
     '$0 --html index.html --output bundle.html',
-    "Generate a sharable HTML file named 'bundle.html' from 'index.html'",
+    "Generate a sharable HTML file named 'bundle.html' from 'index.html'"
   )
   .help('help')
   .version(pak.version)
@@ -94,8 +96,12 @@ if (argv.init) {
     .then(() => {
       console.log(
         '✨  All done!\n\n' +
-          ` - Run ${chalk.bold(chalk.yellow('npm start'))} to start the server\n` +
-          ` - Run ${chalk.bold(chalk.yellow('npm run build'))} to build production ready bundle\n`,
+          ` - Run ${chalk.bold(
+            chalk.yellow('npm start')
+          )} to start the server\n` +
+          ` - Run ${chalk.bold(
+            chalk.yellow('npm run build')
+          )} to build production ready bundle\n`
       );
     })
     .catch(err => {
@@ -119,13 +125,17 @@ if (argv.init) {
         const entry = assets[b];
 
         bundles.push(
-          path.resolve(process.cwd(), Array.isArray(entry) ? entry[0] : entry),
+          path.resolve(process.cwd(), Array.isArray(entry) ? entry[0] : entry)
         );
       }
 
-      console.log(`✨  Bundle${bundles.length > 1 ? 's' : ''} generated at ${bundles
-        .map(b => chalk.bold(chalk.green(path.relative(process.cwd(), b))))
-        .join(', ')}`);
+      console.log(
+        `✨  Bundle${bundles.length > 1
+          ? 's'
+          : ''} generated at ${bundles
+          .map(b => chalk.bold(chalk.green(path.relative(process.cwd(), b))))
+          .join(', ')}`
+      );
     })
     .catch(err => {
       console.error(err);
@@ -141,7 +151,11 @@ if (argv.init) {
     sourcemaps: argv.sourcemaps,
   })
     .then(file => {
-      console.log(`✨  Sharable HTML generated at ${chalk.bold(chalk.green(path.relative(process.cwd(), file)))}`);
+      console.log(
+        `✨  Sharable HTML generated at ${chalk.bold(
+          chalk.green(path.relative(process.cwd(), file))
+        )}`
+      );
     })
     .catch(err => {
       console.error(err);

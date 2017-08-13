@@ -46,7 +46,7 @@ export default function(options: *) {
 
         ctx.body = await readFileAsync(
           memoryFs,
-          path.join(WORKINGDIR, OUTPUTFILE),
+          path.join(WORKINGDIR, OUTPUTFILE)
         );
       } catch (e) {
         ctx.body = formatError(e);

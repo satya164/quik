@@ -21,8 +21,8 @@ test.before('setup', () =>
             resolve();
           }
         });
-      }),
-  ),
+      })
+  )
 );
 
 test.after('teardown', () => del(TESTDIR, { force: true }));
@@ -39,7 +39,7 @@ test.cb('should print usage', t => {
         t.deepEqual(stdout.indexOf('Usage: bin/quik.js [...options]'), 0);
         t.end();
       }
-    },
+    }
   );
 });
 
@@ -66,6 +66,6 @@ test.cb('should initialize project with template', t => {
           }
         });
       }
-    },
+    }
   );
 });

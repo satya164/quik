@@ -32,7 +32,7 @@ test.cb('should rebuild on changes', t => {
             if (e) {
               t.end(e);
             }
-          },
+          }
         );
       }
     });
@@ -54,7 +54,6 @@ test.cb('should rebuild on changes', t => {
   let action = SYNC;
 
   hmr.onmessage = message => {
-    /* eslint-disable ava/no-statement-after-end */
     const data = message.data;
 
     if (i === 7) {

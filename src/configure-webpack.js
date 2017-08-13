@@ -93,7 +93,7 @@ export default (options: Options) => ({
               sourceMap: !!options.devtool,
             }),
           ]
-        : [new webpack.NamedModulesPlugin()],
+        : [new webpack.NamedModulesPlugin()]
     )
     .concat(options.plugins || []),
 

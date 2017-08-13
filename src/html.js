@@ -59,7 +59,7 @@ export default async function(options: *) {
         if (ignoreTranspile(src)) {
           content = await readFileAsync(
             fs,
-            path.join(options.root, src.split('?')[0]),
+            path.join(options.root, src.split('?')[0])
           );
         } else {
           const parent = options.entry
@@ -80,7 +80,7 @@ export default async function(options: *) {
 
         return src;
       })
-      .get(),
+      .get()
   );
 
   await Promise.all(
@@ -94,7 +94,7 @@ export default async function(options: *) {
 
         const content = await readFileAsync(
           fs,
-          path.join(options.root, src.split('?')[0]),
+          path.join(options.root, src.split('?')[0])
         );
         const $style = $('<style type="text/css">');
 
@@ -104,14 +104,14 @@ export default async function(options: *) {
 
         return src;
       })
-      .get(),
+      .get()
   );
 
   const file = path.join(
     options.root,
     options.output ||
       (options.entry ? path.basename(options.entry, '.html') : 'index') +
-        '.quik.html',
+        '.quik.html'
   );
 
   return await writeFileAsync(fs, file, $.html(), 'utf-8');

@@ -22,8 +22,8 @@ test.before('setup', () =>
             resolve();
           }
         });
-      }),
-  ),
+      })
+  )
 );
 
 test.after('teardown', () => del(TESTDIR, { force: true }));
@@ -41,22 +41,22 @@ test('should bundle for development', t =>
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('function _interopRequireDefault') > -1,
-        'should be transpiled',
+        'should be transpiled'
       );
       t.true(
         data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1,
-        'should not be minified',
+        'should not be minified'
       );
       t.true(
         data.indexOf('//# sourceMappingURL=index.bundle.js.map') > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     })
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js.map')))
     .then(data => {
       t.true(
         data.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     }));
 
@@ -79,7 +79,7 @@ test('should bundle for production', t =>
     entry: ['index.js'],
     output: path.relative(
       WORKINGDIR,
-      path.join(TESTDIR, '[name].bundle.min.js'),
+      path.join(TESTDIR, '[name].bundle.min.js')
     ),
     production: true,
     sourcemaps: true,
@@ -90,24 +90,24 @@ test('should bundle for production', t =>
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('Minified exception occurred;') > -1,
-        'should be minified',
+        'should be minified'
       );
       t.true(
         data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1,
-        'should be minified',
+        'should be minified'
       );
       t.true(
         data.indexOf('//# sourceMappingURL=index.bundle.min.js.map') > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     })
     .then(() =>
-      readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map')),
+      readFileAsync(fs, path.join(TESTDIR, 'index.bundle.min.js.map'))
     )
     .then(data => {
       t.true(
         data.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     }));
 
@@ -117,13 +117,13 @@ test('should not generate sourcemaps for production', t =>
     entry: ['index.js'],
     output: path.relative(
       WORKINGDIR,
-      path.join(TESTDIR, '[name].bundle.0.min.js'),
+      path.join(TESTDIR, '[name].bundle.0.min.js')
     ),
     production: true,
     quiet: true,
   })
     .then(() =>
-      readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.min.js.map')),
+      readFileAsync(fs, path.join(TESTDIR, 'index.bundle.0.min.js.map'))
     )
     .then(() => t.fail("sourcemap shouldn't exist"))
     .catch(e => {

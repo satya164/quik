@@ -22,8 +22,8 @@ test.before('setup', () =>
             resolve();
           }
         });
-      }),
-  ),
+      })
+  )
 );
 
 test.after('teardown', () => del(TESTDIR, { force: true }));
@@ -39,22 +39,22 @@ test('should build html without an entry file', t =>
     .then(data => {
       t.true(
         data.indexOf('<title>Quik Playground</title>') > -1,
-        'should have correct title',
+        'should have correct title'
       );
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('function _interopRequireDefault') > -1,
-        'should be transpiled',
+        'should be transpiled'
       );
       t.true(
         data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1,
-        'should not be minified',
+        'should not be minified'
       );
       t.true(
         data.indexOf(
-          '//# sourceMappingURL=data:application/json;charset=utf-8;base64',
+          '//# sourceMappingURL=data:application/json;charset=utf-8;base64'
         ) > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     }));
 
@@ -63,7 +63,7 @@ test('should build html without an entry file when JavaScript file is specified'
     root: WORKINGDIR,
     output: path.relative(
       WORKINGDIR,
-      path.join(TESTDIR, 'output.magic.1.html'),
+      path.join(TESTDIR, 'output.magic.1.html')
     ),
     js: 'MyComponent.js',
     sourcemaps: true,
@@ -73,18 +73,18 @@ test('should build html without an entry file when JavaScript file is specified'
     .then(data => {
       t.true(
         data.indexOf('<title>Quik Playground</title>') > -1,
-        'should have correct title',
+        'should have correct title'
       );
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('function _interopRequireDefault') > -1,
-        'should be transpiled',
+        'should be transpiled'
       );
       t.true(
         data.indexOf(
-          "_reactDom2.default.render(_react2.default.createElement(_MyComponent2.default, null), document.getElementById('root'))",
+          "_reactDom2.default.render(_react2.default.createElement(_MyComponent2.default, null), document.getElementById('root'))"
         ) === -1,
-        'should be the correct file',
+        'should be the correct file'
       );
     }));
 
@@ -102,17 +102,17 @@ test('should build html for development', t =>
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('function _interopRequireDefault') > -1,
-        'should be transpiled',
+        'should be transpiled'
       );
       t.true(
         data.indexOf('/******/ (function(modules) { // webpackBootstrap') > -1,
-        'should not be minified',
+        'should not be minified'
       );
       t.true(
         data.indexOf(
-          '//# sourceMappingURL=data:application/json;charset=utf-8;base64',
+          '//# sourceMappingURL=data:application/json;charset=utf-8;base64'
         ) > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     }));
 
@@ -127,9 +127,9 @@ test('should not add sourcemap for development', t =>
     .then(data => {
       t.true(
         data.indexOf(
-          '//# sourceMappingURL=data:application/json;charset=utf-8;base64',
+          '//# sourceMappingURL=data:application/json;charset=utf-8;base64'
         ) === -1,
-        "shouldn't have sourcemap",
+        "shouldn't have sourcemap"
       );
     }));
 
@@ -148,17 +148,17 @@ test('should build html for production', t =>
       t.true(data.indexOf('import React from') === -1, 'should be transpiled');
       t.true(
         data.indexOf('Minified exception occurred;') > -1,
-        'should be minified',
+        'should be minified'
       );
       t.true(
         data.indexOf('!function(e){function t(r){if(n[r])return n[r].e') > -1,
-        'should be minified',
+        'should be minified'
       );
       t.true(
         data.indexOf(
-          '//# sourceMappingURL=data:application/json;charset=utf-8;base64',
+          '//# sourceMappingURL=data:application/json;charset=utf-8;base64'
         ) > -1,
-        'should have sourcemap',
+        'should have sourcemap'
       );
     }));
 
@@ -174,8 +174,8 @@ test('should not add sourcemap for production', t =>
     .then(data => {
       t.true(
         data.indexOf(
-          '//# sourceMappingURL=data:application/json;charset=utf-8;base64',
+          '//# sourceMappingURL=data:application/json;charset=utf-8;base64'
         ) === -1,
-        "shouldn't have sourcemap",
+        "shouldn't have sourcemap"
       );
     }));

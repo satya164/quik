@@ -15,7 +15,7 @@ export default async function(options: *) {
   }
 
   const files = await Promise.all(
-    options.entry.map(f => existsFileAsync(fs, path.join(WORKINGDIR, f))),
+    options.entry.map(f => existsFileAsync(fs, path.join(WORKINGDIR, f)))
   );
 
   const entry = {};
@@ -43,6 +43,6 @@ export default async function(options: *) {
           ]
         : null,
       entry,
-    }),
+    })
   );
 }
