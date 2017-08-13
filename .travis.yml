@@ -7,8 +7,8 @@ node_js:
   - 'stable'
   - '5'
 before_script:
+  - yarn run lint
   - yarn run flow
-  - yarn run build
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
