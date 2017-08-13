@@ -55,7 +55,7 @@ test('should bundle for development', t =>
     .then(() => readFileAsync(fs, path.join(TESTDIR, 'index.bundle.js.map')))
     .then(data => {
       t.true(
-        data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1,
+        data.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
         'should have sourcemap',
       );
     }));
@@ -106,7 +106,7 @@ test('should bundle for production', t =>
     )
     .then(data => {
       t.true(
-        data.indexOf('"webpack:///../~/react/lib/ReactElement.js"') > -1,
+        data.indexOf('"webpack:///../node_modules/react/lib/React.js"') > -1,
         'should have sourcemap',
       );
     }));

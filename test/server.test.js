@@ -13,7 +13,7 @@ test.cb('should start server', t => {
   http.get('http://localhost:3000/', res => {
     s.close();
     t.deepEqual(res.statusCode, 200);
-    t.deepEqual(res.headers['content-type'], 'text/html; charset=utf-8');
+    t.deepEqual(res.headers['content-type'], 'text/html; charset=UTF-8');
     t.end();
   });
 });

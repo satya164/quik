@@ -62,6 +62,7 @@ const POSTCSS_LOADER = {
   options: {
     ident: 'postcss-options',
     plugins: () => [require('autoprefixer')],
+    sourceMap: true,
   },
 };
 const STYLE_LOADERS: Array<Loader> = [STYLE_LOADER, CSS_LOADER, POSTCSS_LOADER];
