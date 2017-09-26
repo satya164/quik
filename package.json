@@ -64,7 +64,7 @@
     "opn": "^5.0.0",
     "postcss-loader": "^2.0.4",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react-dom": "^16.0.0",
     "sass-loader": "^6.0.4",
     "style-loader": "^0.17.0",
     "url-loader": "^0.5.7",
