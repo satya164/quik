@@ -1,12 +1,11 @@
-'use strict';
-
-import test from 'ava';
 import path from 'path';
 import fs from 'fs';
 import EventSource from 'eventsource';
 import server from '../src/server';
 
-test.cb('should rebuild on changes', t => {
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
+it('should rebuild on changes', done => {
   const SYNC = 'sync';
   const BUILDING = 'building';
   const BUILT = 'built';
@@ -22,7 +21,7 @@ test.cb('should rebuild on changes', t => {
   function change(from, to) {
     fs.readFile(componentFile, 'utf-8', (err, res) => {
       if (err) {
-        t.end(err);
+        done.fail(err);
       } else {
         fs.writeFile(
           componentFile,
@@ -30,7 +29,7 @@ test.cb('should rebuild on changes', t => {
           'utf-8',
           e => {
             if (e) {
-              t.end(e);
+              done.fail(e);
             }
           }
         );
@@ -38,12 +37,12 @@ test.cb('should rebuild on changes', t => {
     });
   }
 
-  t.plan(15);
+  expect.assertions(15);
 
   const hmr = new EventSource('http://localhost:3005/__webpack_hmr');
 
   hmr.onopen = message => {
-    t.deepEqual(message.type, 'open', 'should open connection');
+    expect(message.type).toEqual('open');
 
     setTimeout(() => change('Hello world!', 'Hello world :D'), 1000);
     setTimeout(() => change('Hello world', 'Hola world'), 5000);
@@ -57,11 +56,11 @@ test.cb('should rebuild on changes', t => {
     const data = message.data;
 
     if (i === 7) {
-      t.deepEqual(data, HEARTBEAT, 'should recieve heartbeat');
+      expect(data).toEqual(HEARTBEAT);
 
       hmr.close();
       s.close();
-      t.end();
+      done();
     }
 
     if (data === HEARTBEAT) {
@@ -71,11 +70,11 @@ test.cb('should rebuild on changes', t => {
     try {
       const parsed = JSON.parse(data);
 
-      t.deepEqual(parsed.action, action);
+      expect(parsed.action).toEqual(action);
 
       if (parsed.action === BUILT) {
-        t.deepEqual(parsed.errors, []);
-        t.deepEqual(parsed.warnings, []);
+        expect(parsed.errors).toEqual([]);
+        expect(parsed.warnings).toEqual([]);
       }
 
       switch (parsed.action) {
@@ -92,7 +91,7 @@ test.cb('should rebuild on changes', t => {
 
       i++;
     } catch (err) {
-      t.end(err);
+      done.fail(err);
     }
   };
 });

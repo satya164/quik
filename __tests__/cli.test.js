@@ -1,16 +1,15 @@
-'use strict';
-
-import test from 'ava';
 import path from 'path';
 import child_process from 'child_process';
 import fs from 'fs';
 import del from 'del';
 import mkdirp from 'mkdirp';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
 const TESTDIR = '/tmp/quik-test-' + Date.now();
 const PROJECT_NAME = 'AwesomeProject';
 
-test.before('setup', () =>
+beforeAll(() =>
   del(TESTDIR, { force: true }).then(
     () =>
       new Promise((resolve, reject) => {
@@ -25,25 +24,25 @@ test.before('setup', () =>
   )
 );
 
-test.after('teardown', () => del(TESTDIR, { force: true }));
+afterAll(() => del(TESTDIR, { force: true }));
 
-test.cb('should print usage', t => {
+it('should print usage', done => {
   child_process.execFile(
     path.join(__dirname, '../bin/quik.js'),
     ['--help'],
     {},
     (err, stdout) => {
       if (err) {
-        t.end(err);
+        done.fail(err);
       } else {
-        t.deepEqual(stdout.indexOf('Usage: bin/quik.js [...options]'), 0);
-        t.end();
+        expect(stdout.startsWith('Usage: bin/quik.js [...options]')).toBe(true);
+        done();
       }
     }
   );
 });
 
-test.cb('should initialize project with template', t => {
+it('should initialize project with template', done => {
   child_process.execFile(
     path.join(__dirname, '../bin/quik.js'),
     ['--init', PROJECT_NAME],
@@ -52,17 +51,17 @@ test.cb('should initialize project with template', t => {
     },
     err => {
       if (err) {
-        t.end(err);
+        done.fail(err);
       } else {
         fs.readdir(path.join(TESTDIR, PROJECT_NAME), (error, res) => {
           if (error) {
-            t.end(error);
+            done.fail(error);
           } else {
-            t.true(res.indexOf('package.json') > -1, 'package.json');
-            t.true(res.indexOf('index.html') > -1, 'index.html');
-            t.true(res.indexOf('index.js') > -1, 'index.js');
-            t.true(res.indexOf('MyComponent.js') > -1, 'MyComponent.js');
-            t.end();
+            expect(res).toContain('package.json');
+            expect(res).toContain('index.html');
+            expect(res).toContain('index.js');
+            expect(res).toContain('MyComponent.js');
+            done();
           }
         });
       }

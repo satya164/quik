@@ -14,7 +14,7 @@ type Options = {
     filename: string,
     sourceMapFilename?: string,
   },
-  devtool: boolean,
+  devtool: ?string,
   production: boolean,
 };
 
