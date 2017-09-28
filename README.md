@@ -32,7 +32,7 @@ Quik also exposes a `koa` middleware which can be easily integrated with your se
 
 ## Installation
 
-You need at least Node 5.0 to run `quik`.
+You need at least Node 7.0 to run `quik`.
 
 ```sh
 npm install --global quik
