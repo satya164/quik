@@ -1,5 +1,6 @@
 {
   "name": "quik",
+  "version": "0.0.0-development",
   "description": "A quick way to prototype apps with React and Babel with zero-setup.",
   "keywords": [
     "react",
@@ -21,7 +22,7 @@
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "prebuild": "yarn run clean",
-    "prepublish": "yarn run build",
+    "prepare": "yarn run build",
     "precommit": "yarn run lint && yarn run flow"
   },
   "bin": {

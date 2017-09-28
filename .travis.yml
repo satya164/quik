@@ -6,13 +6,13 @@ notifications:
 node_js:
   - 'stable'
   - '7'
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
 before_script:
   - yarn run lint
   - yarn run flow
 after_success:
-  - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
-  - python travis_after_all.py
-  - export $(cat .to_export_back) &> /dev/null
   - yarn run semantic-release
 branches:
   except:
