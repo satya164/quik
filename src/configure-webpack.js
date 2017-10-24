@@ -32,7 +32,6 @@ const URL_LOADER = {
 };
 const RESOLVE_URL = 'resolve-url-loader';
 const STYLE_LOADER = 'style-loader';
-const CSS_LITERAL_LOADER = 'css-literal-loader';
 const CSS_LOADER = {
   loader: 'css-loader',
   options: {
@@ -86,7 +85,7 @@ export default (options: Options) => ({
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [BABEL_LOADER, CSS_LITERAL_LOADER],
+        use: BABEL_LOADER,
       },
       {
         test: /\.(gif|jpg|png|webp|svg)$/,

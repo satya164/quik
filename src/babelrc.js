@@ -2,11 +2,18 @@
 
 const babelrc = {
   presets: [
-    [require.resolve('babel-preset-es2015'), { modules: false }],
+    [
+      require.resolve('babel-preset-env'),
+      {
+        modules: false,
+        targets: {
+          browsers: ['last 2 versions', 'safari >= 7'],
+        },
+      },
+    ],
     require.resolve('babel-preset-react'),
-    require.resolve('babel-preset-stage-3'),
+    require.resolve('babel-preset-stage-2'),
   ],
-  plugins: [require.resolve('babel-plugin-transform-runtime')],
   env: {
     production: {
       plugins: [
