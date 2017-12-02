@@ -81,7 +81,7 @@
     "eslint": "^4.9.0",
     "eslint-config-satya164": "^1.0.1",
     "eventsource": "^1.0.5",
-    "flow-bin": "^0.57.3",
+    "flow-bin": "^0.60.1",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "mkdirp": "^0.5.1",
