@@ -72,7 +72,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.2.0",
+    "babel-jest": "^23.0.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.0.0",
