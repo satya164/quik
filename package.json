@@ -35,7 +35,7 @@
   "author": "Satyajit Sahoo <satyajit.happy@gmail.com> (https://github.com/satya164/)",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer": "^7.1.6",
+    "autoprefixer": "^8.6.5",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-constant-elements": "^6.23.0",
