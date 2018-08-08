@@ -62,7 +62,7 @@
     "memory-fs": "^0.4.1",
     "ncp": "^2.0.0",
     "opn": "^5.1.0",
-    "postcss-loader": "^2.0.8",
+    "postcss-loader": "^3.0.0",
     "resolve-url-loader": "^2.1.1",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
