@@ -79,7 +79,7 @@
     "del": "^3.0.0",
     "del-cli": "^1.1.0",
     "eslint": "^4.9.0",
-    "eslint-config-satya164": "^1.0.1",
+    "eslint-config-satya164": "^2.0.0",
     "eventsource": "^1.0.5",
     "flow-bin": "^0.57.3",
     "husky": "^0.14.3",
